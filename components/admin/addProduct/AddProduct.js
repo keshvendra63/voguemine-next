@@ -136,7 +136,7 @@ setUser(user)
   
     return (
       <div ref={ref} style={{ opacity }} className={styles.imageContainer}>
-        <div className={styles.image} style={{ backgroundImage: `url(${src})` }}>
+        <div className={styles.image} style={{ backgroundImage: `url(${src})` }} onClick={()=>setMain(src)}>
           <img src={src} alt="" />
         </div>
         <button onClick={() => deleteImage(id)}>
