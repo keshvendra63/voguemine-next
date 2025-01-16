@@ -10,7 +10,7 @@ export async function PUT(request){
         await connectDb()
         await authMiddleware(token)
       // Assuming you have a model named Order and Mongoose as the ORM
-      const updatedOrder = await Abondend.findByIdAndUpdate(orderId, { orderType: orderTy }, {
+      const updatedOrder = await Abondend.findByIdAndUpdate(orderId, { orderCalled: orderTy }, {
         new: true,
       });
       if(updatedOrder){
