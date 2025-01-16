@@ -187,6 +187,7 @@ const searchItemClick=(val)=>{
     setSearchBar(false)
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('prdt',val);
+    searchParams.set('pageName',"products");
     setPrdtOpens(true)
     // Update the URL using router.push with the modified search parameters
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
