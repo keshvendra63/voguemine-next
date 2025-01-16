@@ -7,7 +7,7 @@ import Products from '../../../components/admin/products/Products';
 import Orders from '../../../components/admin/orders/Orders';
 import Home from '../../../components/admin/home/Home';
 import LoadingBar from "react-top-loading-bar"; // Import LoadingBar
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { GlobalContext } from '../../../GlobalContext';
 import Category from '../../../components/admin/category/Category';
 import Abandoned from '../../../components/admin/abandoneds/Abandoned';
@@ -50,6 +50,9 @@ const menuToggle=(menuVal)=>{
     setCategory("")
     setHam(false)
     updateURL()
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('pageName',menuVal);
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
     
 }
 const categoryClick=(menuVal)=>{
@@ -60,7 +63,7 @@ const categoryClick=(menuVal)=>{
     
 }
 const [dropD,setDropD]=useState(false)
-const [login,setLogin]=useState(true)
+const [login,setLogin]=useState(false)
 const [show,setShow]=useState(false)
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
@@ -73,6 +76,7 @@ if(user1){
 else{
     setUser("")
 }
+
 },[])
 useEffect(()=>{
     if(user===""){
@@ -194,6 +198,13 @@ const overlayClick=()=>{
     setSearchBar(false)
     setSearchValue("")
 }
+const searchParams=useSearchParams()
+const pageName=searchParams.get("pageName") || ""
+const [currentPage,setCurrentPage]=useState(pageName)
+useEffect(()=>{
+    setCurrentPage(pageName)
+},[pageName])
+
 
 
   return (
@@ -289,19 +300,20 @@ const overlayClick=()=>{
             </div>
             <div className={styles.adminRight}>
 {
-    menu==="products"?
+
+    currentPage==="products"?
     <Products/>
-    :menu==="orders"?
+    :currentPage==="orders"?
     <Orders/>
-    :menu==="category"?
+    :currentPage==="category"?
     <Category/>
-    :menu==="abandoned"?
+    :currentPage==="abandoned"?
     <Abandoned/>
-    :menu==="banners"?
+    :currentPage==="banners"?
     <Banners/>
-    :menu==="coupon"?
+    :currentPage==="coupon"?
     <Coupons/>
-    :menu==="home"?
+    :currentPage==="home"?
     <Home/>
     :
     <Home/>
