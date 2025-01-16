@@ -3,6 +3,7 @@ import styles from './coupon.module.css'
 import AddCoupon from './AddCoupon'
 import { GlobalContext } from '../../../GlobalContext'
 import { IoMdClose } from 'react-icons/io'
+import { usePathname, useRouter } from 'next/navigation'
 const Coupons = () => {
   const [couponState,setcouponState]=useState([])
   const {prdtOpens,setPrdtOpens}=useContext(GlobalContext)
@@ -21,6 +22,14 @@ catch(err){
   console.log(err)
 }
   }
+  const pathname = usePathname();
+            const router = useRouter()
+      // const queryParams = new URLSearchParams(location.search);
+        useEffect(()=>{
+          const searchParams = new URLSearchParams();
+          searchParams.set('pageName',"banners");
+          router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+            },[])
   useEffect(()=>{
     if(prdtOpens===false){
       getCoupons()

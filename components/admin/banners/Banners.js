@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
 import toast from "react-hot-toast";
+import { usePathname, useRouter } from "next/navigation";
 
 const Banners = () => {
   const [banners, setBanners] = useState([]);
@@ -12,6 +13,15 @@ const [user,setUser]=useState("")
 useEffect(()=>{
 setUser(JSON.parse(localStorage.getItem("user")))
 },[])
+
+          const pathname = usePathname();
+          const router = useRouter()
+    // const queryParams = new URLSearchParams(location.search);
+      useEffect(()=>{
+        const searchParams = new URLSearchParams();
+        searchParams.set('pageName',"banners");
+        router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+          },[])
   useEffect(() => {
     const fetchBanners = async () => {
       try {

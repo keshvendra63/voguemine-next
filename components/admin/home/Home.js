@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react'
 import styles from  './home.module.css'
 import { SlCalender } from "react-icons/sl";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { usePathname, useRouter } from 'next/navigation';
 // import {getOrders, getYearlyData,getTodayData,getYesterdayData,getWeekData,getCustomData, getLastData} from '../../features/auth/authSlice'
 
 
@@ -10,7 +11,13 @@ const Home = () => {
   const [maxData,setMaxData]=useState("Month")
   const [chartData,setChartData]=useState("Today")
   const [eventData,setEventData]=useState("Today")
-
+  const router=useRouter()
+  const pathname=usePathname()
+  useEffect(()=>{
+    const searchParams = new URLSearchParams();
+    searchParams.set('pageName',"home");
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+      },[])
 
   const maxDataChange=(e)=>{
     setMaxData(e.target.value)

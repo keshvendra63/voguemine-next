@@ -1,7 +1,7 @@
 .singlep{
     position: relative;
 }
-.singlep .main-image{
+.singlep .mainImage{
     position: fixed;
     display: flex;
     justify-content: center;
@@ -15,14 +15,14 @@
     z-index: 999999;
 
 }
-.singlep .main-image .close{
+.singlep .mainImage .close{
     position: absolute;
     color: white;
     right: 10px;
     top: 10px;
     cursor: pointer;
 }
-.singlep .main-image img{
+.singlep .mainImage img{
     width: 600px;
     aspect-ratio: 1/1;
     border-radius: 1px;
@@ -298,18 +298,18 @@
     .singlep .buttons{
         align-items: start;
     }
-    .singlep .main-image{
+    .singlep .mainImage{
         padding-top: 170px;
     }
-    .singlep .main-image img{
+    .singlep .mainImage img{
         width: 600px;
     }
 }
 @media screen and (max-width:650px){
-    .singlep .main-image{
+    .singlep .mainImage{
         padding-top:25vh;
     }
-    .singlep .main-image img{
+    .singlep .mainImage img{
         width: 380px;
     }
 }

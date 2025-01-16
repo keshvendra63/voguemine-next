@@ -44,6 +44,12 @@ const Orders = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter()
+      // const queryParams = new URLSearchParams(location.search);
+        useEffect(()=>{
+          const searchParams = new URLSearchParams();
+          searchParams.set('pageName',"orders");
+          router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+            },[])
 
   let page = parseInt(searchParams.get("page")) || 1;
   const [orderState, setorderState] = useState([])
@@ -74,6 +80,8 @@ const Orders = () => {
     if (updateParams.page !== "") {
       searchParams.set('page', updateParams.page);
     }
+    searchParams.set('pageName',"orders");
+
     setProgress(30);
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
     setTimeout(() => setProgress(100), 500);

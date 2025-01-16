@@ -3,9 +3,18 @@ import { GlobalContext } from '../../../GlobalContext'
 import styles from './category.module.css'
 import { IoMdClose } from 'react-icons/io'
 import SingleCollection from './SingleCollection'
+import { usePathname, useRouter } from 'next/navigation'
 const Category = () => {
     const { category, prdtOpens, setPrdtOpens } = useContext(GlobalContext)
     const [collections, setCollections] = useState([])
+    const pathname = usePathname();
+              const router = useRouter()
+        // const queryParams = new URLSearchParams(location.search);
+          useEffect(()=>{
+            const searchParams = new URLSearchParams();
+            searchParams.set('pageName',"category");
+            router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+              },[])
     useEffect(() => {
         if (category !== "" && prdtOpens===false) {
             const fetchCollections = async () => {

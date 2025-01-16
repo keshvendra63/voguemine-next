@@ -23,6 +23,11 @@ const Abandoned = () => {
     // const queryParams = new URLSearchParams(location.search);
     let page = parseInt(searchParams.get('page')) || 1;
     const [orderState,setOrderState]=useState([])
+      useEffect(()=>{
+        const searchParams = new URLSearchParams();
+        searchParams.set('pageName',"abandoned");
+        router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+          },[])
   useEffect(() => {
     if(prdtOpens===false){
     const getOrders = async () => {
@@ -50,6 +55,8 @@ const Abandoned = () => {
     if (updateParams.page !== "") {
       searchParams.set('page', updateParams.page);
     }
+    searchParams.set('pageName',"abandoned");
+
     setProgress(30);
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
     setTimeout(() => setProgress(100), 500);

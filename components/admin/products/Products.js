@@ -17,6 +17,9 @@ const Products = () => {
   const [user,setUser]=useState("")
   useEffect(()=>{
 setUser(JSON.parse(localStorage.getItem("user")))
+const searchParams = new URLSearchParams();
+
+  searchParams.set('pageName', "products");
   },[])
 
   const searchParams = useSearchParams();
@@ -64,6 +67,8 @@ const router=useRouter()
     if (updateParams.state !== "") {
       searchParams.set('state', updateParams.state);
     }
+  searchParams.set('pageName', "products");
+
     setProgress(30);
 
 
@@ -144,6 +149,8 @@ const modifyCloudinaryUrl = (url) => {
         searchParams.delete('prdt');
           searchParams.set('page', page);
           searchParams.set('state',state);
+  searchParams.set('pageName', "products");
+
         router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
         
     }
@@ -160,6 +167,8 @@ const closePrdt=()=>{
         searchParams.delete('prdt');
         searchParams.set('page', page);
           searchParams.set('state',state);
+  searchParams.set('pageName', "products");
+
         router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
 
 }
@@ -173,6 +182,8 @@ const openPrdt=(val)=>{
   searchParams.set('prdt',val);
   searchParams.set('page', page);
           searchParams.set('state',state);
+  searchParams.set('pageName', "products");
+
   router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
   setPrdtOpens(true)
 }
