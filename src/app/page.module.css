@@ -1,0 +1,103 @@
+.homePage{
+    position: fixed;
+    background-color: white;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+@keyframes logoAnime {
+    from{
+transform: translateY(-100%);
+opacity: 0;
+    }
+    to{
+transform: translateY(0);
+opacity: 1;
+    }
+}
+.homePage .homeLogo{
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: logoAnime 2s;
+    transition: all 1s;
+}
+
+.homePage .homeLogo button{
+    background-color: white;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    margin-top: 40px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: black;
+}
+.homePage .videos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    z-index: 1;
+}
+.homePage .videos1{
+    display: none;
+}
+.videoContainer {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .videoContainer::after{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.37);
+    content:"";
+    top: 0;
+    left: 0;
+  }
+  .videoContainer:hover::after{
+    display: none;
+  }
+ 
+
+@media screen and (max-width:950px) {
+    .homePage .videos{
+        grid-template-columns: 1fr;
+    }
+    .homePage .homeLogo img{
+        width: 80%;
+        height: 100%;
+    }
+    .videoContainer:nth-child(2){
+        display: none;
+    }
+    .homePage .videos{
+        display: none;
+        
+    }
+    .homePage .videos1{
+        display: grid;
+    }
+    .homePage .videos1 .videoContainer::after{
+        display: none;
+      }
+}  

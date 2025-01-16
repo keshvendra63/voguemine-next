@@ -133,6 +133,7 @@ setUser(user)
   
     const opacity = isDragging ? 0 : 1;
     drag(drop(ref));
+    console.log(src)
   
     return (
       <div ref={ref} style={{ opacity }} className={styles.imageContainer}>
@@ -534,6 +535,8 @@ const handleUploadSuccess = (result) => {
     setImgState((prevImages) => [...prevImages, newImage]);
   }
 };
+
+console.log(main)
 
 
 
