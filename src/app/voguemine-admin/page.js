@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,Suspense } from 'react'
 import styles from './admin.module.css'
 import { IoSearch } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -208,6 +208,7 @@ useEffect(()=>{
 
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className={styles.admin}>
         <LoadingBar
     color="#C3A37D"
@@ -324,6 +325,7 @@ useEffect(()=>{
         
         
     </div>
+    </Suspense>
   )
 }
 
