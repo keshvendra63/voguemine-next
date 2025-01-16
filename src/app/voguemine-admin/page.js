@@ -16,6 +16,7 @@ import Coupons from '../../../components/admin/coupons/Coupons';
 import { IoIosEyeOff,IoMdClose,IoMdEye } from "react-icons/io";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+export const dynamic = 'force-dynamic'; // Use dynamic rendering for this page
 
 const page = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
