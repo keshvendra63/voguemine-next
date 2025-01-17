@@ -210,7 +210,16 @@ const deleteAbandoned=()=>{
             const response = await fetch(`/api/order/create-order`,{
               method:"POST",
               headers: { "Content-Type": "application/json" },
-              body:JSON.stringify({shippingInfo:orderState?.shippingInfo,
+              body:JSON.stringify({shippingInfo:{
+                firstname:firstname,
+                lastname:lastname,
+                email:email,
+                phone:phone,
+                address:address,
+                city:city,
+                state:state,
+                pincode:pincode
+              },
               paymentInfo:
                 {
                   razorpayOrderId:"COD",
