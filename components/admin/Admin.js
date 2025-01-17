@@ -19,7 +19,7 @@ import Image from 'next/image';
 
 const Admin = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
-const [ham,setHam]=useState(true)
+const [ham,setHam]=useState(false)
 const [menu,setMenu]=useState("home")
 const [searchBar,setSearchBar]=useState(false)
 const [searchValue,setSearchValue]=useState("")
@@ -84,7 +84,6 @@ useEffect(()=>{
     }
     else if(user && user?.token!==""){
 setLogin(false)
-toast.success("Login Successfully")
     }
     else{
         console.log("no token")
@@ -107,7 +106,7 @@ try{
     const data=await response.json()
     if(response.ok){
         localStorage.setItem("user",JSON.stringify(data))
-        console.log(data)
+        toast.success("Login Successfully")
         setUser(data)
     }
     else{
@@ -187,6 +186,8 @@ const searchItemClick=(val)=>{
     setSearchBar(false)
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('prdt',val);
+    searchParams.set('pageName',"products");
+
     setPrdtOpens(true)
     // Update the URL using router.push with the modified search parameters
     router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });

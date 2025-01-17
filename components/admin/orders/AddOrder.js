@@ -6,6 +6,7 @@ import { CiMenuKebab , CiDiscount1,CiMail,CiPhone,CiEdit,CiReceipt} from "react-
 import styles from  './orders.module.css'
 import toast from "react-hot-toast";
 import { GlobalContext } from '../../../GlobalContext';
+import Link from "next/link";
 
 const AddOrder = ({getOrderId}) => {
   const {seteditOrderOpen} = useContext(GlobalContext);
@@ -508,6 +509,7 @@ useEffect(()=>{
 },[orderState])
 
 
+
   return (
     <div className={styles.singleOrder}>
       <p  className={styles.title} style={{display:'flex',margin:'10px 0'}}><IoMdArrowRoundBack style={{cursor:'pointer'}}/>Orders</p>
@@ -638,9 +640,9 @@ useEffect(()=>{
             return( 
 <div className={styles.prdt} key={index}>
           <div className={styles.left}>
-          {/* <Link to={`/addProduct/${item?.product?._id}`}> */}
-            <img src={modifyCloudinaryUrl(item?.product?.images && item?.product?.images[0]?.url)} alt="" />
-            {/* </Link> */}
+          <Link href={`/voguemine-admin?prdt=${item?.product?._id}&pageName=products`}>
+            <img src={modifyCloudinaryUrl(item?.product?.images && item?.product?.images[0]?.url)} alt="" onClick={()=>orderItemClick(item?.product?._id)} style={{cursor:'pointer'}}/>
+            </Link>
             <div className={styles.details}>
               <p>{item?.product?.title}</p>
               <p><span>color:</span>{item?.color}</p>
