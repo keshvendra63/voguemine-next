@@ -60,6 +60,9 @@ const categoryClick=(menuVal)=>{
     setHam(false)
     updateURL()
     setCategory(menuVal)
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('pageName',"category");
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
     
 }
 const [dropD,setDropD]=useState(false)
