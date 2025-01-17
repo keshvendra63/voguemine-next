@@ -6,6 +6,7 @@ import { CiMail } from "react-icons/ci";
 import styles from '../orders/orders.module.css'
 import { GlobalContext } from "../../../GlobalContext";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 
 const SingleAbandoned = ({getAbandonedId}) => {
@@ -274,7 +275,9 @@ const deleteAbandoned=()=>{
           orderState?.orderItems?.map((item,index)=>{
             return( <div className={styles.prdt}>
           <div className={styles.left}>
+          <Link href={`/voguemine-admin?prdt=${item?.product?._id}&pageName=products`}>
             <img src={modifyCloudinaryUrl(item?.product?.images[0]?.url)} alt="" />
+            </Link>
             <div className={styles.details}>
               <p>{item?.product?.title}</p>
               <p><span>color:</span>{item?.color}</p>
