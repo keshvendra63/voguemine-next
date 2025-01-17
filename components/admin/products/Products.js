@@ -325,7 +325,7 @@ const deletedProduct=async(item)=>{
           return (
               <div className={styles.product} key={index}>
                 <div className={styles.productImg}>
-                  <Link href={`/voguemine-admin?pageName=products&page=${page}&state=${state}&prdt=${item?._id}`}>
+                  <Link href={`/voguemine-admin?pageName=products&page=${page}&state=${state}&prdt=${item?._id}`} style={{display:"flex",height:"100%"}}>
                   <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url)} alt={item?.title} width={200} height={200} style={{height:"auto",width:"100%"}} onClick={(e)=>openPrdt(item?._id)}/>
                   </Link>
                   <div className={styles.prdtDelete}>
