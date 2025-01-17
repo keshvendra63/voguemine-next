@@ -29,7 +29,7 @@ const validateOrderPricesAndAmounts = async ({orderItems, totalPrice, finalAmoun
       // Optional: Validate inventory (as per your earlier logic)
       const variant = foundProduct.variants.find(
         (variant) =>
-          variant.color === orderItem.color && variant.size === orderItem.size
+          (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
       );
 
       if (!variant) {
@@ -73,7 +73,7 @@ export async function POST(request) {
         await validateOrderPricesAndAmounts({orderItems:orderData?.orderItems, totalPrice:orderData?.totalPrice, finalAmount:orderData?.finalAmount, discount:orderData?.discount, shippingCost:orderData?.shippingCost});
             
         const response = await axios.post(
-          "https://voguemine.com/api/order/create-order",
+          "http://localhost:3000/api/order/create-order",
           (orderData)
         );
     
@@ -82,7 +82,7 @@ export async function POST(request) {
         
         if (success) {
           // Step 6: Construct the redirect URL with query parameters
-          const redirectUrl = `https://voguemine.com/thankyou?orderNumber=${orderNumber}&firstname=${firstname}&amount=${amount}`;
+          const redirectUrl = `http://localhost:3000/thankyou?orderNumber=${orderNumber}&firstname=${firstname}&amount=${amount}`;
     
           // Step 7: Redirect the user to the thank you page
           return new Response(null, {

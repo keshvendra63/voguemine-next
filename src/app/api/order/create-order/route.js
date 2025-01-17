@@ -16,7 +16,7 @@ const processOrder = async (orderItems) => {
 
       // Find the variant matching the color and size
       const variant = foundProduct.variants.find(
-        (variant) => variant.color === color && variant.size === size
+        (variant) => (variant.color).toLowerCase().trim() === (color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === size.toLowerCase().trim()
       );
 
       if (variant) {
@@ -113,7 +113,7 @@ const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount
       // Optional: Validate inventory (as per your earlier logic)
       const variant = foundProduct.variants.find(
         (variant) =>
-          variant.color === orderItem.color && variant.size === orderItem.size
+          (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
       );
 
       if (!variant) {
@@ -171,7 +171,7 @@ export async function POST(req,res){
 
       // Find the variant matching the color and size
       const variant = foundProduct.variants.find(
-        (variant) => variant.color === color && variant.size === size
+        (variant) => (variant.color).toLowerCase().trim() === color.toLowerCase().trim() && (variant.size).toLowerCase().trim() === size.toLowerCase().trim()
       );
 
       if (!variant) {

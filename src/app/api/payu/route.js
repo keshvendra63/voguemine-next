@@ -30,7 +30,7 @@ const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount
       // Optional: Validate inventory (as per your earlier logic)
       const variant = foundProduct.variants.find(
         (variant) =>
-          variant.color === orderItem.color && variant.size === orderItem.size
+          (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
       );
 
       if (!variant) {

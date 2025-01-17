@@ -30,7 +30,7 @@ export async function PUT(request){
   
         // Find the variant matching the color and size
         const variant = foundProduct.variants.find(
-          (variant) => variant.color === color && variant.size === size
+          (variant) => (variant.color).toLowerCase().trim() === color.toLowerCase().trim() && (variant.size).toLowerCase().trim() === size.toLowerCase().trim()
         );
   
         if (variant) {

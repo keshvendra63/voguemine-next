@@ -32,7 +32,7 @@ const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount
       // Optional: Validate inventory (as per your earlier logic)
       const variant = foundProduct.variants.find(
         (variant) =>
-          variant.color === orderItem.color && variant.size === orderItem.size
+          (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
       );
 
       if (!variant) {
@@ -85,7 +85,7 @@ export async function POST(request) {
       merchantTransactionId,
       merchantUserId: userId,
       amount: amount * 100, // Convert to smallest currency unit
-      redirectUrl: `https://voguemine.com/api/phonepe/status?merchantTransactionId=${merchantTransactionId}&orderData=${JSON.stringify({parsedBody})}`,
+      redirectUrl: `http://localhost:3000/api/phonepe/status?merchantTransactionId=${merchantTransactionId}&orderData=${JSON.stringify({parsedBody})}`,
       redirectMode: "POST",
       mobileNumber: number,
       paymentInstrument: {
