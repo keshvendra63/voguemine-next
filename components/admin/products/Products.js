@@ -156,11 +156,6 @@ const modifyCloudinaryUrl = (url) => {
           searchParams.set('page', page);
           searchParams.set('state',state);
   searchParams.set('pageName', "products");
-
-  if(prdt!==""){
-    searchParams.set('prdt', prdt);
-  }
-
         router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
         
     }
