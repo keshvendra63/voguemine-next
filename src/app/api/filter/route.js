@@ -49,7 +49,7 @@ export async function GET(request) {
     // Convert sets to arrays
     const sizes = Array.from(uniqueSizes);
     // const colors = Array.from(uniqueColors);
-    const brands = Array.from(uniqueBrands);
+    const brands = Array.from(uniqueBrands).sort();
 
     // Response with products and filter arrays
     return Response.json(
