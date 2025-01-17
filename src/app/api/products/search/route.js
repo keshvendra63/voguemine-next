@@ -110,7 +110,7 @@ export async function GET(request) {
         success: true,
         products: filteredProducts,
         filters: {
-          brands: initialBrands,
+          brands: initialBrands.sort(),
           colors: initialColors,
           sizes: initialSizes,
         },
