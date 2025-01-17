@@ -10,6 +10,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { GlobalContext } from '../../../GlobalContext';
 import { CiTrash } from "react-icons/ci";
 import { IoDuplicateOutline } from "react-icons/io5";
+import Link from 'next/link';
 
 const Products = () => {
   const [progress, setProgress] = useState(0); // Progress state for LoadingBar
@@ -24,6 +25,7 @@ const searchParams = new URLSearchParams();
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const prdt=searchParams.get("prdt") || ""
 
   let page = parseInt(searchParams.get("page")) || 1;
   let state = searchParams.get("state") || '';
@@ -67,8 +69,12 @@ const router=useRouter()
     if (updateParams.state !== "") {
       searchParams.set('state', updateParams.state);
     }
-  searchParams.set('pageName', "products");
+    searchParams.set('pageName', "products");
 
+    if(prdt!==""){
+      searchParams.set("prdt",prdt)
+    }
+      
     setProgress(30);
 
 
@@ -151,6 +157,10 @@ const modifyCloudinaryUrl = (url) => {
           searchParams.set('state',state);
   searchParams.set('pageName', "products");
 
+  if(prdt!==""){
+    searchParams.set('prdt', prdt);
+  }
+
         router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
         
     }
@@ -176,17 +186,15 @@ const addProduct=()=>{
   setPrdtOpens(true)
 }
 
-const openPrdt=(val)=>{
-  // setAddPrdt(true)
-  const searchParams = new URLSearchParams();
-  searchParams.set('prdt',val);
-  searchParams.set('page', page);
-          searchParams.set('state',state);
-  searchParams.set('pageName', "products");
+const openPrdt=()=>{
 
-  router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
+}
+
+useEffect(()=>{
+if(prdt!==""){
   setPrdtOpens(true)
 }
+},[prdt])
 
 const createHistory=async(value)=>{
   try{
@@ -322,7 +330,9 @@ const deletedProduct=async(item)=>{
           return (
               <div className={styles.product} key={index}>
                 <div className={styles.productImg}>
+                  <Link href={`/voguemine-admin?pageName=products&page=${page}&state=${state}&prdt=${item?._id}`}>
                   <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url)} alt={item?.title} width={200} height={200} style={{height:"auto",width:"100%"}} onClick={(e)=>openPrdt(item?._id)}/>
+                  </Link>
                   <div className={styles.prdtDelete}>
                     <p onClick={()=>deleteProduct(item)}><abbr title='Delete'><CiTrash/></abbr></p>
                     <p onClick={()=>duplicateProduct(item)}><abbr title='Duplicate'><IoDuplicateOutline/></abbr></p>
