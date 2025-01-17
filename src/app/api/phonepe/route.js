@@ -85,7 +85,7 @@ export async function POST(request) {
       merchantTransactionId,
       merchantUserId: userId,
       amount: amount * 100, // Convert to smallest currency unit
-      redirectUrl: `http://localhost:3000/api/phonepe/status?merchantTransactionId=${merchantTransactionId}&orderData=${JSON.stringify({parsedBody})}`,
+      redirectUrl: `https://voguemine.com/api/phonepe/status?merchantTransactionId=${merchantTransactionId}&orderData=${JSON.stringify({parsedBody})}`,
       redirectMode: "POST",
       mobileNumber: number,
       paymentInstrument: {

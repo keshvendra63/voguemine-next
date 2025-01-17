@@ -36,7 +36,7 @@ export async function POST(request) {
   
       if (statusResponse.data.code === "PAYMENT_SUCCESS") {
         const response = await axios.post(
-          "http://localhost:3000/api/order/create-order",
+          "https://voguemine.com/api/order/create-order",
           (orderData.parsedBody)
         );
     
@@ -45,7 +45,7 @@ export async function POST(request) {
         
         if (success) {
           // Step 6: Construct the redirect URL with query parameters
-          const redirectUrl = `http://localhost:3000/thankyou?orderNumber=${orderNumber}&firstname=${firstname}&amount=${amount}`;
+          const redirectUrl = `https://voguemine.com/thankyou?orderNumber=${orderNumber}&firstname=${firstname}&amount=${amount}`;
     
           // Step 7: Redirect the user to the thank you page
           return new Response(null, {

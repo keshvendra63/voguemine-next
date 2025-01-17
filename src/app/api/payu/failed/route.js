@@ -3,7 +3,7 @@ export async function POST(request) {
     try {
             
           // Step 6: Construct the redirect URL with query parameters
-          const redirectUrl = `http://localhost:3000/checkout`;
+          const redirectUrl = `https://voguemine.com/checkout`;
     
           // Step 7: Redirect the user to the thank you page
           return new Response(null, {
