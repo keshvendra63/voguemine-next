@@ -131,7 +131,6 @@ const modifyCloudinaryUrl = (url) => {
 
   useEffect(() => {
     if(prdtOpens===false){
-<<<<<<< HEAD
       if(cvalue!==""){
         const fetchcl=async()=>{
             try{
@@ -154,10 +153,6 @@ const modifyCloudinaryUrl = (url) => {
         
       }
       else{
-
-      
-=======
->>>>>>> b7a0377ff3a0a2807377d23d52bc53b4e2c24d5d
         const getProducts=async()=>{
         try{
             const response=await fetch(`/api/products?page=${page}&state=${state}&limit=100`)
@@ -174,15 +169,12 @@ const modifyCloudinaryUrl = (url) => {
         catch(err){
             console.log(err)
         }
-    }
 
-    getProducts()
-<<<<<<< HEAD
+    }
+    getProducts()  
+
   }
-=======
-          
->>>>>>> b7a0377ff3a0a2807377d23d52bc53b4e2c24d5d
-      
+
       const searchParams = new URLSearchParams();
         searchParams.delete('prdt');
           searchParams.set('page', page);
@@ -195,12 +187,8 @@ const modifyCloudinaryUrl = (url) => {
         
     }
 
-<<<<<<< HEAD
   }, [page, state,prdtOpens,cvalue]);
-=======
-  }, [page, state,prdtOpens]);
->>>>>>> b7a0377ff3a0a2807377d23d52bc53b4e2c24d5d
- 
+
 
 // const [addPrdt,setAddPrdt]=useState(false)
 
