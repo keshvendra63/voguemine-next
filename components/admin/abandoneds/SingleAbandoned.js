@@ -210,7 +210,7 @@ const deleteAbandoned=()=>{
             const response = await fetch(`/api/order/create-order`,{
               method:"POST",
               headers: { "Content-Type": "application/json" },
-              body:JSON.stringify({shippingInfo:{
+              body:JSON.stringify({ shippingInfo:{
                 firstname:firstname,
                 lastname:lastname,
                 email:email,

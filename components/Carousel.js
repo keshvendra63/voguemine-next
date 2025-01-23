@@ -5,6 +5,7 @@ import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
 
 const Carousel = ({banners}) => {
+
   const images = [
    banners[0],
    banners[1],

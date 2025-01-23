@@ -89,6 +89,8 @@ const Page = async () => {
           ?.sort((a, b) => (a?.order ?? Infinity) - (b?.order ?? Infinity))
           ?.map((item, index) => (
             <div className={styles.cate} key={index}>
+                <Link href={`/collections/${item?.handle}`}>
+
              < Image
                 src={modifyCloudinaryUrl(item?.images[0]?.url)}
                 alt={item?.title}
@@ -98,10 +100,10 @@ const Page = async () => {
               />
               <div className={styles.info}>
                 <p className={styles.collectioName}>{item?.category}</p>
-                <Link href={`/collections/${item?.handle}`}>
                   <button>SHOP NOW</button>
-                </Link>
               </div>
+              </Link>
+
             </div>
           ))}
       </div>

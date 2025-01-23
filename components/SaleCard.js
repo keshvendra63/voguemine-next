@@ -1,12 +1,12 @@
 "use client"
 import React,{useEffect,useState,useContext} from 'react'
-import styles from "../src/app/collections/[cid]/collections.module.css";
+import styles from "../src/app/flash-offers/offers.module.css";
 import Link from 'next/link';
 import Image from 'next/image';
 import { GlobalContext } from "../GlobalContext";
 import toast from 'react-hot-toast';
 
-const ProductCard = ({item}) => {
+const SaleCard = ({item}) => {
     const [cartSize,setCartSize]=useState("")
     const [cartColor,setCartColor]=useState(item?.variants[0]?.color || "")
     const {myCarts,setMyCart } = useContext(GlobalContext);
@@ -202,7 +202,7 @@ style={{
       display:variant.quantity === 0 ? "none" : "block",
       textDecorationThickness: variant.quantity === 0 ? '1px' : 'auto',
       pointerEvents: variant.quantity === 0 ? 'none' : 'auto', // Disable pointer events if quantity is 0
-      color:cartSize===variant?.size?"#d2b188":"black",border:cartSize===variant?.size?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"
+      color:cartSize===variant?.size?"rgb(120, 16, 255)":"black",border:cartSize===variant?.size?"1px solid rgb(120, 16, 255)":"1px solid rgb(202, 202, 202)"
     }}
     onClick={(e)=>setCartSize((variant?.size).trim())}
   >
@@ -238,4 +238,4 @@ style={{
   )
 }
 
-export default ProductCard
+export default SaleCard

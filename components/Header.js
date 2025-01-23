@@ -87,7 +87,12 @@ useEffect(()=>{
   let sum=0;
     
   for(let index=0; index < cartItems?.length; index++){
+    if(cartItems[index]?.isSale){
+      sum =sum+(Number(cartItems[index]?.quantity) *((cartItems[index]?.price)-(cartItems[index]?.price*0.2)))
+    }
+    else{
       sum =sum+(Number(cartItems[index]?.quantity) *cartItems[index]?.price)
+    }
   }
   setTotalAmount(sum)
   if(myCarts?.length>0){
@@ -109,7 +114,7 @@ const increaseQty = (item) => {
       cartItem.size === item.size // Match by size
     ) {
       // Find the stock for the matching variant
-      const matchingVariant = cartItem.product.variants.find(
+      const matchingVariant = cartItem.prdt.variants.find(
         (variant) =>
           variant.color === cartItem.color &&
           variant.size === cartItem.size
@@ -266,6 +271,8 @@ addToCartEvent()
             <Link href="/kids" onClick={closeHam}><li>Kids</li></Link>
             <Link href="/accessories" onClick={closeHam}><li>Accessories</li></Link>
             <Link href="/track-order" onClick={closeHam}><li>Orders</li></Link>
+            <Link href="/flash-offers" onClick={closeHam}><li className={styles.saleMenu}>Flash Offers</li></Link>
+
           </ul>
           <div className={styles.socialInfo}>
             <div className={styles.socialIcons}>
@@ -327,7 +334,14 @@ addToCartEvent()
   
                       <div className={styles.cartQty}>
                         <p><span onClick={(e)=>decreaseQty(item)}>-</span><span>{item?.quantity}</span><span onClick={(e)=>increaseQty(item)}>+</span></p>
-                        <p>Rs. {item?.price * item?.quantity}</p>
+                        {
+                          item?.isSale?
+                        <p style={{display:'flex',alignItems:"center"}}><span style={{color:"gray",fontSize:"11px",textDecoration:"line-through",marginRight:'5px'}}>Rs. {item?.price * item?.quantity}</span><span>Rs. {((item?.price)-(item?.price*0.2)) * item?.quantity}</span></p>
+:
+<p>Rs. {item?.price * item?.quantity}</p>
+
+
+                        }
                       </div>
                       <button onClick={(e)=>handleRemoveFromCart(item)}>Remove</button>
   
@@ -340,7 +354,7 @@ addToCartEvent()
               <div className={styles.cartCheckout} style={{right:carts?0:"-100%"}}>
                 <div className={styles.cartTotal}>
                 <p>{cartItems?.length} Items</p>
-                <p>Total Rs. {totalAmount}</p>
+                <p>Total Rs. {parseInt(totalAmount)}</p>
                 </div>
                 <Link href="/checkout" onClick={checkOutClick}><button>Checkout</button></Link>
                 

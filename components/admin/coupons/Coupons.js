@@ -27,7 +27,7 @@ catch(err){
       // const queryParams = new URLSearchParams(location.search);
         useEffect(()=>{
           const searchParams = new URLSearchParams();
-          searchParams.set('pageName',"banners");
+          searchParams.set('pageName',"coupon");
           router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
             },[])
   useEffect(()=>{

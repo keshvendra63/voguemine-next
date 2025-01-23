@@ -9,7 +9,6 @@ export async function GET(request) {
     await connectDb();
 
     // Extract query parameters
-    const search = searchParams.get("search");
     const color = searchParams.get("color");
     const size = searchParams.get("size");
     const brand = searchParams.get("brand");
@@ -18,29 +17,11 @@ export async function GET(request) {
     const sort = searchParams.get("sort"); // New sort parameter
     const page = parseInt(searchParams.get("page")) || 1;
 
-    if (!search) {
-      return Response.json(
-        { success: false, error: "Search query is required" },
-        { status: 400 }
-      );
-    }
-
     // Construct initial search filters
-    const searchKeywords = search
-      .toLowerCase()
-      .split(" ")
-      .filter(Boolean);
-
     const baseQuery = {
-      $and: searchKeywords.map((keyword) => ({
-        $or: [
-          { title: { $regex: new RegExp(keyword, "i") } },
-          { sku: { $regex: new RegExp(`^${keyword}$`, 'i') } },
-          { category: { $regex: new RegExp(keyword, "i") } },
-          { brand: { $regex: new RegExp(keyword, "i") } },
-          { collectionName: { $regex: new RegExp(keyword, "i") } },
-        ],
-      })),
+      $and: [
+        { isSale: true }, // Include only products on sale
+      ],
     };
 
     // Fetch initial results for filters

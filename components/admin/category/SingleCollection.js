@@ -96,7 +96,7 @@ const handleSave = async () => {
     const response = await fetch('/api/products/reorder', {
       method:"POST",
       headers: { "Content-Type": "application/json" },
-      body:JSON.stringify(productIds)
+      body:JSON.stringify({productIds})
   })
     if (response.status === 200) {
       toast.success('Order saved successfully!');

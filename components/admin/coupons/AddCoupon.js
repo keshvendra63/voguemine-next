@@ -183,7 +183,6 @@ catch(err){
                         cEmail: customerEmail,
                       })
                 })
-                console.log(response)
                 if(response.ok){
                     localStorage.removeItem('otp')
                     toast.success('Coupon Updated successfully');

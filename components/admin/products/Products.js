@@ -95,11 +95,12 @@ const router=useRouter()
       updateURL({ page, state });
     }
   };
+  const [cvalue,setCvalue]=useState("")
 
   const clearFilter = () => {
     updateURL({ page: '', state: '' });
+    setCvalue("")
   };
-const [cvalue,setCvalue]=useState("")
 
 const [productState1,setproductState1]=useState([])
 
@@ -109,7 +110,7 @@ const fetchcl=async(e)=>{
         const response=await fetch(`/api/products?page=1&state=${state}&limit=1000&sort=order&collectionHandle=${e.target.value}`)
         const data=await response.json()
         if(response.ok){
-            setCachedProducts({ ...cachedProducts, [`${page}-${state}`]: data });
+            setCachedProducts(data);
             setproductState(data.products)
             setproductState1(data)
         }
@@ -130,13 +131,36 @@ const modifyCloudinaryUrl = (url) => {
 
   useEffect(() => {
     if(prdtOpens===false){
-      if (!cachedProducts[`${page}-${state}`]) {
+      if(cvalue!==""){
+        const fetchcl=async()=>{
+            try{
+                const response=await fetch(`/api/products?page=1&state=${state}&limit=1000&sort=order&collectionHandle=${cvalue}`)
+                const data=await response.json()
+                if(response.ok){
+                    setCachedProducts(data);
+                    setproductState(data.products)
+                    setproductState1(data)
+                }
+                else{
+                    console.log("Unable to fetch orders")
+                }
+            }
+            catch(err){
+                console.log(err)
+            }
+        }
+        fetchcl()
+        
+      }
+      else{
+
+      
         const getProducts=async()=>{
         try{
             const response=await fetch(`/api/products?page=${page}&state=${state}&limit=100`)
             const data=await response.json()
             if(response.ok){
-                setCachedProducts({ ...cachedProducts, [`${page}-${state}`]: data });
+                setCachedProducts(data);
                 setproductState(data.products)
                 setproductState1(data)
             }
@@ -148,19 +172,23 @@ const modifyCloudinaryUrl = (url) => {
             console.log(err)
         }
     }
+
     getProducts()
-          
-      }
+  }
+      
       const searchParams = new URLSearchParams();
         searchParams.delete('prdt');
           searchParams.set('page', page);
           searchParams.set('state',state);
   searchParams.set('pageName', "products");
+
+ 
+
         router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
         
     }
 
-  }, [page, state, cachedProducts,prdtOpens]);
+  }, [page, state,prdtOpens,cvalue]);
  
 
 // const [addPrdt,setAddPrdt]=useState(false)
@@ -321,11 +349,11 @@ const deletedProduct=async(item)=>{
         </select>
       </div>
       <div className={styles.productTable}>
-        {(cachedProducts[`${page}-${state}`] || productState1)?.products?.map((item, index) => {
+        {(cachedProducts || productState1)?.products?.map((item, index) => {
           return (
               <div className={styles.product} key={index}>
                 <div className={styles.productImg}>
-                  <Link href={`/voguemine-admin?pageName=products&page=${page}&state=${state}&prdt=${item?._id}`} style={{display:"flex",height:"100%"}}>
+                  <Link href={`/voguemine-admin?pageName=products&page=${page}&state=${state}&prdt=${item?._id}`} style={{display:'flex',height:'100%'}}>
                   <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url)} alt={item?.title} width={200} height={200} style={{height:"auto",width:"100%"}} onClick={(e)=>openPrdt(item?._id)}/>
                   </Link>
                   <div className={styles.prdtDelete}>
@@ -335,6 +363,7 @@ const deletedProduct=async(item)=>{
                 </div>
                 <p className={styles.title} onClick={(e)=>openPrdt(item?._id)}>{item?.title}</p>
                 <p className={styles.sku} onClick={(e)=>openPrdt(item?._id)}>{item?.sku}</p>
+                <p className={styles.sku} style={{color:"black",marginTop:'5px'}} onClick={(e)=>openPrdt(item?._id)}>{item?.isSale?"In Sale":"Not Sale"}</p>
                 <p className={styles.state} onClick={(e)=>openPrdt(item?._id)} style={{ color: item?.state === 'active' ? '#28ae2e' : '#ff3f3f' }}>
                   {item?.state}
                 </p>

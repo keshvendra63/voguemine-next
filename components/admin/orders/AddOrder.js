@@ -646,9 +646,13 @@ useEffect(()=>{
             <div className={styles.details}>
               <p>{item?.product?.title}</p>
               <p><span>color:</span>{item?.color}</p>
+              
               <p><span>size:</span>{item?.size}</p>
               <p><span>sku:</span>{item?.sku || item?.product?.sku}</p>
+              <p><span>In Sale:</span>{item?.product?.isSale?"Yes":"No"}</p>
+
             </div>
+            
           
     <p className={styles.price}>&#8377;{item?.price}</p>
     <p className={styles.qty}>{item?.quantity}</p>

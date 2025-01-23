@@ -71,12 +71,36 @@
 }
 
 .navbar .midNav .menuItems ul li {
-    margin: 0 10px;
+    margin: 0 9px;
     padding: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+}
+.navbar .midNav .menuItems ul .saleMenu{
+    position: relative;
+    color: red;
+    animation: menuColor 1s ease-in-out infinite;
+
+} 
+@keyframes menuColor {
+    0%{
+        color: red;
+
+    }
+    50%{
+        color: rgb(255, 187, 0);
+
+    }
+    75%{
+        color: blue;
+
+    }
+    100%{
+        color: red;
+
+    }
 }
 
 .navbar .midNav .menuItems ul li:hover {

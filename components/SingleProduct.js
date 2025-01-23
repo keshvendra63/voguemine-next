@@ -167,7 +167,7 @@ useEffect(() => {
         // If product does not exist in cart, add it
         const updatedCart = [
           ...cart,
-          { id: product._id, product:product?._id, color, size, quantity,price:product.price,sku:product?.sku,prdt:product },
+          { id: product._id, product:product?._id, color, size, quantity,price:product.price,sku:product?.sku,prdt:product,isSale:product?.isSale },
         ];
         setCart(updatedCart);
         setMyCart(updatedCart)
@@ -297,10 +297,20 @@ useEffect(() => {
                     <li><IoIosStar /></li>
                     <li><IoIosStar /></li>
                 </ul>
-                <div className={styles.prices}>
-                    <p>Rs. {product?.price}</p>
-                    <p>Rs. {parseInt(product?.price*2.35)}</p>
-                </div>
+                {
+                  product?.isSale?
+                  <div className={styles.prices}>
+                  
+                  <p>Rs. {parseInt((product?.price)-(product?.price*0.2))}</p>
+                  <p>Rs. {product?.price}</p>
+              </div>
+              :
+              <div className={styles.prices}>
+              <p>Rs. {product?.price}</p>
+          </div>
+
+                }
+               
                 <p className={styles.color}>Color: {product?.variants[0]?.color}</p>
                 {
       existingCart?

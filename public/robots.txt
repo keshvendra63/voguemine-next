@@ -6,4 +6,6 @@ Disallow: /collections/undefined
 Disallow: /products/undefined
 Disallow: /voguemine-admin
 Disallow: /order-track
+Disallow: /thankyou
+Disallow: /flash-offers
 Sitemap: https://voguemine.com/api/sitemap.xml

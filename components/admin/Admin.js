@@ -60,6 +60,10 @@ const categoryClick=(menuVal)=>{
     setHam(false)
     updateURL()
     setCategory(menuVal)
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('pageName',"category");
+    searchParams.set('category',menuVal);
+    router.push(`${pathname}?${searchParams.toString()}`, { scroll: true });
     
 }
 const [dropD,setDropD]=useState(false)
@@ -131,7 +135,6 @@ const searchOpen=async()=>{
             setSearchLoad(true)
             const response=await fetch(`/api/products/search?search=${searchValue}&limit=50`)
             const data=await response.json()
-            console.log(data)
             if(data.success){
                 setSearchItems(data.products)
                 setSearchLoad(false)
@@ -154,7 +157,6 @@ const handleonKeyDown=async(event)=>{
                 setSearchLoad(true)
                 const response=await fetch(`/api/products/search?search=${searchValue}&limit=50`)
                 const data=await response.json()
-                console.log(data)
                 if(data.success){
                     setSearchItems(data.products)
                     setSearchLoad(false)

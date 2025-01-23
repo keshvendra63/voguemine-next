@@ -21,9 +21,9 @@ const page = () => {
     const [state, setState] = useState("")
     const [pincode, setPincode] = useState("")
     const [verified, setVerified] = useState(false)
-    const [success, setSuccess] = useState(false)
     const [coupon, setCoupon] = useState("")
     const [couponAmount, setCouponAmount] = useState(null)
+    const [offerAmount, setOfferAmount] = useState(0)
     const [otp,setOtp]=useState("")
 const [payMethod, setPayMethod] = useState("payu")
 const [orderType, setOrderType] = useState("Prepaid")
@@ -58,21 +58,62 @@ const [orderType, setOrderType] = useState("Prepaid")
 
 
     const [totalAmount,setTotalAmount]=useState(null)
+    const [offerNOtotalAmount,setOfferNoTotalAmount]=useState(0)
+
+
   useEffect (()=> {
     setCartItems(JSON.parse(localStorage.getItem("cartState")) || [])
     const orderItems = cartItems?.map(({ prdt, id, ...rest }) => rest);
     setOrderItems(orderItems)
 },[])
+const [offertotalAmount,setoffertotalAmount]=useState(0)
+const [prepaidDisc,setprepaidDisc]=useState(0)
 useEffect(()=>{
   let sum=0;
+  let offer=0;
+  let coupo=0;
+  let subt=0;
+  let offerno=0;
+  let saleItems=0;
+  let totaloffer=0;
     
   for(let index=0; index < cartItems?.length; index++){
+    
       sum =sum+(Number(cartItems[index]?.quantity) *cartItems[index]?.price)
+      if(cartItems[index]?.isSale){
+        saleItems+=cartItems[index]?.quantity
+        totaloffer+=cartItems[index]?.quantity * cartItems[index]?.price
+        if(saleItems>=3){
+          offer=totaloffer*0.25
+          coupo =(totaloffer-totaloffer*0.25)
+        }
+        else{
+          offer=totaloffer*0.20
+          coupo =(totaloffer-totaloffer*0.20)
+        }
+        
+      }
+      else{
+        subt=subt+(Number(cartItems[index]?.quantity) *(cartItems[index]?.price*0.1))
+        offerno=offerno+(Number(cartItems[index]?.quantity) *(cartItems[index]?.price))
+        coupo =coupo+(Number(cartItems[index]?.quantity) *cartItems[index]?.price)
+      }
   }
   setTotalAmount(sum)
+  setprepaidDisc(subt)
+  setOfferAmount(offer)
+  setOfferNoTotalAmount(offerno)
+  setoffertotalAmount(coupo)
+  if(orderType==="COD"){
+    setCouponAmount(0)
+  }
+  else{
+  setCouponAmount(subt)
+  }
   const orderItems = cartItems?.map(({ prdt, id, ...rest }) => rest);
   setOrderItems(orderItems)
-},[cartItems,myCarts])
+},[cartItems,myCarts,orderType])
+console.log(offertotalAmount)
 useEffect (()=> {
     setCartItems(JSON.parse(localStorage.getItem("cartState")) || [])
 },[myCarts])
@@ -165,32 +206,24 @@ const increaseQty = (item) => {
     }
 }, [address1, firstname, lastname, email, address, city, state, pincode])
 
-useEffect(() => {
-  setCouponAmount((totalAmount) / 10);
-}, [totalAmount]);
-
-
 const codClick = () => {
   setShippingCost(200)
   setOrderType("COD")
-  setCouponAmount(0)
   setPayMethod("cod")
   toast.error("Oops, you are missing top deals by selecting COD")
 }
 const payuClick = () => {
   setShippingCost(0)
   setOrderType("Prepaid")
-  setCouponAmount((totalAmount) / 10)
   setPayMethod("payu")
 }
 const phonepeClick = () => {
   setShippingCost(0)
   setOrderType("Prepaid")
-  setCouponAmount((totalAmount) / 10)
   setPayMethod("phonepe")
 }
 
-const finalAmount = shippingCost + totalAmount - couponAmount
+const finalAmount = shippingCost + totalAmount - couponAmount - offerAmount
 
 
 const applyCoupon = async() => {
@@ -200,7 +233,7 @@ const applyCoupon = async() => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
               name: coupon,
-              totalAmount,
+              totalAmount:offerNOtotalAmount,
               customerType: "all", // replace as needed
               cartItemCount: cartItems?.length,
               customerEmail: email,
@@ -208,7 +241,6 @@ const applyCoupon = async() => {
       });
 
       const data = await response.json();
-
       if (response.ok) {
           setCouponAmount(parseInt(data.discountAmount));
           if (data.discountType === "freeShip") {
@@ -465,7 +497,7 @@ const getHash =async () => {
       totalPrice:totalAmount, 
       finalAmount, 
       shippingCost, 
-      discount:couponAmount
+      discount:couponAmount + offerAmount
     };
 
     // Send POST request to initiate payment
@@ -502,7 +534,7 @@ const checkOutHandler =() => {
           razorpayPaymentId: "COD",
           razorpayOrderId: "COD", 
       };
-      createOrder({ totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount, orderItems: orderItems, paymentInfo: data, shippingInfo: JSON.parse(localStorage.getItem("address")), tag: "Voguemine", isPartial: false })
+      createOrder({ totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount + offerAmount, orderItems: orderItems, paymentInfo: data, shippingInfo: JSON.parse(localStorage.getItem("address")), tag: "Voguemine", isPartial: false })
   }
 
   else {
@@ -512,7 +544,7 @@ const checkOutHandler =() => {
               razorpayPaymentId: uniqueId, // Set a placeholder value for Razorpay payment ID for COD orders
               razorpayOrderId: "Phonepe", // Set a placeholder value for Razorpay order ID for COD orders
           };
-         phonePePayment({amount:finalAmount, number:phone, merchantTransactionId:uniqueId, totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount, orderItems: orderItems, paymentInfo: data, shippingInfo:{firstname,lastname,email,phone,address,city,state,pincode}, tag: "Voguemine", isPartial: false })
+         phonePePayment({amount:finalAmount, number:phone, merchantTransactionId:uniqueId, totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount + offerAmount, orderItems: orderItems, paymentInfo: data, shippingInfo:{firstname,lastname,email,phone,address,city,state,pincode}, tag: "Voguemine", isPartial: false })
       }
       if (payMethod === "payu") {
           getHash()
@@ -529,13 +561,13 @@ const checkOutHandler =() => {
       return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
     };    
 
-    const payUdata={totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount, orderItems: orderItems, paymentInfo: {
+    const payUdata={totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount + offerAmount, orderItems: orderItems, paymentInfo: {
       orderCreationId: "Prepaid", // Set a placeholder value for order creation ID for COD orders
       razorpayPaymentId: `${transactionId}`, // Set a placeholder value for Razorpay payment ID for COD orders
       razorpayOrderId: "PayU", // Set a placeholder value for Razorpay order ID for COD orders
   }, shippingInfo:{firstname,lastname,email,phone,address,city,state,pincode}, tag: "Voguemine", isPartial: false }
 
-  const abandoneddata={totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount, orderItems: orderItems, paymentInfo: {
+  const abandoneddata={totalPrice: totalAmount, finalAmount: finalAmount, shippingCost: shippingCost, orderType: orderType, discount: couponAmount + offerAmount, orderItems: orderItems, paymentInfo: {
     orderCreationId: "COD", // Set a placeholder value for order creation ID for COD orders
     razorpayPaymentId: `COD`, // Set a placeholder value for Razorpay payment ID for COD orders
     razorpayOrderId: "COD", // Set a placeholder value for Razorpay order ID for COD orders
@@ -587,7 +619,6 @@ useEffect(() => {
   };
 }, [firstname,lastname,email,phone,address,city,state,pincode]);
   
-
    
   return (
     <>
@@ -761,7 +792,13 @@ return  <div className={styles.checkoutItems} key={index}>
             <span>{item?.quantity}</span>
             <span onClick={(e)=>increaseQty(item)}>+</span>
             </div>
-        <p>Rs. {item?.price * item?.quantity}</p>
+            {
+                          item?.isSale?
+                          <p style={{display:'flex',alignItems:'center',fontSize:'17px',justifyContent:"flex-end",width:"100%"}}><span style={{color:'gray',fontSize:'13px',textDecoration:'line-through',marginRight:'5px',border:"none",width:"100%"}}>Rs. {item?.price}</span><span style={{border:"none",width:"100%"}}>Rs. {((item?.price)-(item?.price*0.2))}</span></p>
+:
+<p>Rs. {item?.price}</p>
+
+                        }
         </div>
         </div>
     </div>
@@ -782,21 +819,21 @@ return  <div className={styles.checkoutItems} key={index}>
             <div className={`${styles.paymentOption} ${payMethod==="cod"?styles.active:""}`} onClick={codClick}>
                 <div><img src="https://png.pngtree.com/png-clipart/20210530/original/pngtree-badge-of-cash-on-delivery-vector-illustration-png-image-png-image_6339704.png" alt="" />
                 <p>Cash On Delivery</p></div>
-                <p>Rs. {totalAmount}</p>
+                <p>Rs. {parseInt(totalAmount + 200 - offerAmount)}</p>
             </div>
             <div className={`${styles.paymentOption} ${payMethod==="payu"?styles.active:""}`} onClick={payuClick}>
                 <div>
                 <img src="https://1000logos.net/wp-content/uploads/2023/03/PayU-logo.jpg" alt="" />
                 <p>PayU Online Payments</p>
                 </div>
-                <p>Rs. {totalAmount - totalAmount/10}</p>
+                <p>Rs. {parseInt(totalAmount - prepaidDisc - offerAmount)}</p>
             </div>
             <div className={`${styles.paymentOption} ${payMethod==="phonepe"?styles.active:""}`} onClick={phonepeClick}>
                 <div>
                 <img src="https://seeklogo.com/images/P/phonepe-logo-B9E7D6F75F-seeklogo.com.png" alt="" />
                 <p>PhonePe Online Payments</p>
                 </div>
-                <p>Rs. {totalAmount - totalAmount/10}</p>
+                <p>Rs. {parseInt(totalAmount - prepaidDisc - offerAmount)}</p>
             </div>
         </div>
         <div className={styles.checkoutTotal}>
@@ -804,13 +841,15 @@ return  <div className={styles.checkoutItems} key={index}>
                 <li>Subtotal</li>
                 <li>Shipping</li>
                 <li>Discount</li>
+                <li style={{color:'green'}}>Offer Amount</li>
                 <li>Total</li>
             </ul>
             <ul>
                 <li>Rs. {totalAmount}</li>
                 <li>Rs. {shippingCost}</li>
                 <li>-Rs. {couponAmount}</li>
-                <li>Rs. {finalAmount}</li>
+                <li style={{color:'green'}}>-Rs. {parseInt(offerAmount)}</li>
+                <li>Rs. {parseInt(finalAmount)}</li>
             </ul>
         </div>
         <div className={styles.address}>

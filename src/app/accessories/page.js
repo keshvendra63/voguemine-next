@@ -83,11 +83,13 @@ const accessoriesData = await fetchMensData();
       <div className={styles.categoryList}>
       {accessoriesData?.sort((a, b) => (a?.order ?? Infinity) - (b?.order ?? Infinity))?.map((item, index) => (
             <div className={styles.cate} key={index}>
+              <Link href={`/collections/${item?.handle}`} >
               <Image src={modifyCloudinaryUrl(item?.images[0]?.url)} alt={item?.title} width={512} height={512} style={{width:"100%",height: "auto"}}/>
               <div className={styles.info}>
                 <p className={styles.collectioName}>{item?.category}</p>
-                <Link href={`/collections/${item?.handle}`} ><button>SHOP NOW</button></Link>
+                <button>SHOP NOW</button>
               </div>
+              </Link>
             </div>
           ))}
       </div>

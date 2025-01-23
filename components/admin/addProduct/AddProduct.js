@@ -45,6 +45,7 @@ const [productState,setproductState]=useState("")
 const [productCollectionName,setproductCollectionName]=useState("")
 const [productVariants,setproductVariants]=useState([])
 const [productTags,setproductTags]=useState("")
+const [productIsSale,setproductIsSale]=useState(false)
 const [metaDesc,setmetaDesc]=useState("")
 const [metaTitle,setmetaTitle]=useState("")
 const [metaDesc1,setmetaDesc1]=useState("")
@@ -133,7 +134,6 @@ setUser(user)
   
     const opacity = isDragging ? 0 : 1;
     drag(drop(ref));
-    console.log(src)
   
     return (
       <div ref={ref} style={{ opacity }} className={styles.imageContainer}>
@@ -183,6 +183,7 @@ setUser(user)
     setproductSku(product?.sku || "");
     setproductCollectionName(product?.collectionName || "");
     setproductVariants(product?.variants || []);
+    setproductIsSale(product?.isSale)
     setmetaDesc(product?.metaDesc || "");
     setmetaTitle(product?.metaTitle || "");
     setmetaDesc1(product?.metaDesc1 || "");
@@ -221,6 +222,7 @@ setUser(user)
   setproductSku("");
   setproductCollectionName("");
   setproductVariants([]);
+  setproductIsSale(false)
   setmetaDesc("");
   setmetaTitle("");
   setmetaDesc1("");
@@ -255,6 +257,7 @@ setUser(user)
       handle: productHandle || "",
       order:productOrder || 1,
       sold:sold || 0,
+      isSale:productIsSale || false,
       ratings:productRatings || [],
       totalrating:productTotalRatings || 0,
       description: productDescription || "",
@@ -475,6 +478,7 @@ const deletedProduct=async()=>{
             handle:`${productHandle} -copy`,
             description: productDescription,
             price: productPrice,
+            isSale:false,
             price1: productPrice1,
             category: productCategory,
             brand: productBrand,
@@ -536,7 +540,6 @@ const handleUploadSuccess = (result) => {
   }
 };
 
-console.log(main)
 
 
 
@@ -713,6 +716,18 @@ console.log(main)
                 id="">
                 <option value="false">False</option>
                 <option value="true">True</option>
+              </select>
+            </div>
+            <div className={styles.status}>
+              <p>In Clearance Sale</p>
+              <select
+                name="isSale"
+                onChange={(e)=>setproductIsSale(e.target.value)}
+                value={formik.values.isSale}
+                className={styles.formControl}
+                id="">
+                <option value={false}>No</option>
+                <option value={true}>Yes</option>
               </select>
             </div>
             <div className={styles.insights}>

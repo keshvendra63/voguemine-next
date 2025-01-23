@@ -116,6 +116,10 @@ var productSchema = new mongoose.Schema(
       type:String,
       default:"false"
     },
+    isSale:{
+      type:Boolean,
+      default:false,
+    }
     
   },
   {
