@@ -1,0 +1,82 @@
+.offer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 16;
+    background-color: rgba(0, 0, 0, 0.489);
+    backdrop-filter: blur(2px);
+    justify-content: center;
+    align-items: center;
+    font-family: var(--primary-font);
+}
+.offer .bgGif{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer .bgGif img{
+    width: 100%;
+    height: 100%;
+}
+.offer .content{
+    margin: 10px;
+
+    background-color: white;
+    padding: 10px;
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+}
+.offer .content img{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.offer .content h2{
+    color: #d2b188;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+.offer .content p{
+    margin-bottom: 10px;
+    font: 400;
+    color: gray;
+}
+.offer .content p span{
+    font-weight: 600;
+    color: black;
+}
+.offer .content button{
+    padding: 8px 15px;
+    background-color: #d2b188;
+    color: white;
+    border: none;
+    letter-spacing: 1px;
+    font: 500;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.offer .content .closeBtn{
+    cursor: pointer;
+    position: absolute;
+    top: -35px;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    border-radius: 50%;
+    padding: 3px;
+    font-size: 25px;
+}
