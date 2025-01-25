@@ -360,7 +360,10 @@ return (
   dataObj?.variants?.map((item, idx) => {
     const isSelected = selectedItems[index]?.includes(idx);
     return (
-      <li
+      <>
+      {
+        item?.quantity>0?
+        <li
         key={idx}
         className={`${styles.listItem} ${isSelected ? styles.selectedItem : ''}`}
         // onClick={() => handleItemClick(index, idx)}
@@ -370,6 +373,26 @@ return (
         <p>{item?.quantity} available</p>
         <p>&#8377; {dataObj?.price}</p>
       </li>
+      :
+      <li
+        key={idx}
+        className={`${styles.listItem} ${isSelected ? styles.selectedItem : ''}`}
+        style={{
+          opacity:0.6,
+          cursor:"default"
+
+        }}
+        // onClick={() => handleItemClick(index, idx)}
+      >
+<input type="checkbox" name="" id="" disabled={true} />
+
+        <p>{item?.color} / {item?.size}</p>
+        <p>{item?.quantity} available</p>
+        <p>&#8377; {dataObj?.price}</p>
+      </li>
+
+      }
+      </>
     )
   })
 }
