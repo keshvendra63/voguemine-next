@@ -1,19 +1,46 @@
 .about{
     margin: 65px 8vw;
-    text-align: center;
     font-family: var(--primary-font);
+}
+.about .about1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 20px;
 }
 .about h1{
     color: #d2b188;
     margin-bottom: 20px;
+    text-align: center;
 }
 .about img{
-    margin-bottom: 20px;
-    width: 350px;
-    aspect-ratio: 1/1;
+    width: 100%;
+    height: auto;
+    object-fit: cover !important;
 } 
 .about p{
-    margin-bottom: 20px;
+    padding: 0 30px;
     font-size: 20px;
     letter-spacing: 1px;
+    text-align: justify;
+    margin-bottom: 30px;
+
+}
+.about p::first-letter{
+    margin-left: 50px;
+}
+
+@media screen and (max-width:950px) {
+    .about{
+        margin: 65px 1rem;
+        font-family: var(--primary-font);
+    }
+    .about .about1{
+        grid-template-columns: 1fr;
+    }
+    .about p{
+        padding: 0;
+        margin-top: 30px;
+    
+    }
 }

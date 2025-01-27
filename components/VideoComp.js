@@ -14,6 +14,7 @@ const VideoComp = () => {
         <h1 style={{opacity:0,margin:0,fontSize:'1px'}}>Home Page</h1>
       </div>
       <div className={styles.videos}>
+        <Link href="/men">
         <div className={styles.videoContainer}>
           <video
             className={styles.video}
@@ -28,6 +29,8 @@ const VideoComp = () => {
             Your browser does not support the video tag.
           </video>
         </div>
+        </Link>
+        <Link href="/women">
         <div className={styles.videoContainer}>
           <video
             className={styles.video}
@@ -35,16 +38,18 @@ const VideoComp = () => {
             loop
             preload="metadata"
             autoPlay
-            poster='https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1732017952/lpc7riyoswvddqngrnml.jpg'
+            poster=' https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1712294902/yobby4ueygp6xuraay9h.webp'
 
            
           >
-            <source src="https://chicoline.com/static/media/video2.6fefcb40dcadb5d9c540.mp4" type="video/mp4" />
+            <source src="https://chicoline.com/static/media/video3.19091ce62ffd00d1de80.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
+        </Link>
       </div>
       <div className={`${styles.videos} ${styles.videos1}`}>
+        <Link href="/men">
         <div className={styles.videoContainer}>
           <video
             className={styles.video}
@@ -59,6 +64,7 @@ const VideoComp = () => {
             Your browser does not support the video tag.
           </video>
         </div>
+        </Link>
       </div>
     </div>
   );

@@ -12,7 +12,9 @@ const Footer = () => {
         <div className={styles.footer}>
            <div className={styles.topFooter}>
                 <div className={styles.topLeft}>
+                    <Link href="/home">
                     <Image src={logo} alt="Voguemine Logo" width={1024} height={35}/>
+                    </Link>
                     <ul>
                         <Link href="/home" ><li>Home</li></Link>
                         <Link href="/about"><li>About</li></Link>

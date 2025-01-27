@@ -106,7 +106,7 @@ const [sold,setSold]=useState(false)
   useEffect(() => {
     if (product?.variants) {
       if(size && color){
-        const isSoldOut = product?.variants?.find(variant => (variant.color).trim()===color && (variant.size).trim()===size && variant.quantity > 0);
+        const isSoldOut = product?.variants?.find(variant => (variant.color).trim()===color.trim() && (variant.size).trim()===size.trim() && variant.quantity > 0);
       if (isSoldOut) {
         setSold(false)
       }
@@ -125,14 +125,14 @@ const [sold,setSold]=useState(false)
 
 
       const findVariant = (color, size) => {
-        return product?.variants.find(variant => variant.color === color && variant.size === size);
+        return product?.variants.find(variant => (variant.color).trim() === color.trim() && (variant.size).trim() === size.trim());
       };
 
 const [existingCart,setExisitingCart]=useState(false)
 const [existQty,setExistQty]=useState(null)
 useEffect(() => {
     const existingItem = cart?.length>0 && cart?.find(
-      (item) => item?.id === product._id && item?.color === color && item?.size === size
+      (item) => item?.id === product._id && (item?.color).trim() === color.trim() && (item?.size).trim() === size.trim()
     );
     if (existingItem) {
       setExisitingCart(true);
