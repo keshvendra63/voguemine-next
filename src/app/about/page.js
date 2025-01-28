@@ -25,9 +25,9 @@ export const metadata = {
     canonical: "https://voguemine.com/about",
   },
   icons: {
-    icon: "http://localhost:3000/favicon-32x32.png", // Default favicon
-    apple: "http://localhost:3000/apple-touch-icon.png", // Apple Touch Icon
-    shortcut: "http://localhost:3000/favicon.ico", // Shortcut Icon
+    icon: "https://voguemine.com/favicon-32x32.png", // Default favicon
+    apple: "https://voguemine.com/apple-touch-icon.png", // Apple Touch Icon
+    shortcut: "https://voguemine.com/favicon.ico", // Shortcut Icon
   },
   other: {
     // Add custom meta tags here

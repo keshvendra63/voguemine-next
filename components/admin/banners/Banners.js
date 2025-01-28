@@ -75,7 +75,7 @@ try{
 const response=await fetch(`/api/banner/update-banners?id=677bc6e15dab1ba1f11b74a1&token=${user?.token}`,{
     method:"PUT",
     headers: { "Content-Type": "application/json" },
-    body:JSON.stringify(images)
+    body:JSON.stringify({images})
 })
 if(response.ok){
     toast.success("Banners Updated")
