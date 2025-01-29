@@ -28,7 +28,7 @@ setCartColor((item?.variants[0]?.color || "").trim())
   useEffect(() => {
     if (item?.variants) {
       if(cartSize && cartColor){
-        const isSoldOut = item?.variants?.find(variant => (variant.color).trim()===cartColor && (variant.size).trim()===cartSize && variant.quantity > 0);
+        const isSoldOut = item?.variants?.find(variant => (variant.color).trim()===cartColor.trim() && (variant.size).trim()===cartSize.trim() && variant.quantity > 0);
       if (isSoldOut) {
         setSold(false)
       }
@@ -143,7 +143,7 @@ setCartColor((item?.variants[0]?.color || "").trim())
     }
   
     const matchingCartItem = cart?.find(items => {
-      return items?.id === item?._id && items?.color === cartColor && items?.size === cartSize;
+      return items?.id === item?._id && (items?.color).trim() === cartColor.trim() && (items?.size).trim() === cartSize.trim();
     });
     if (matchingCartItem) {
       // If a matching cart item is found, set alreadyAdded to true
@@ -202,7 +202,7 @@ style={{
       display:variant.quantity === 0 ? "none" : "block",
       textDecorationThickness: variant.quantity === 0 ? '1px' : 'auto',
       pointerEvents: variant.quantity === 0 ? 'none' : 'auto', // Disable pointer events if quantity is 0
-      color:cartSize===variant?.size?"#d2b188":"black",border:cartSize===variant?.size?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"
+      color:cartSize.trim()===(variant?.size).trim()?"#d2b188":"black",border:cartSize.trim()===(variant?.size).trim()?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"
     }}
     onClick={(e)=>setCartSize((variant?.size).trim())}
   >

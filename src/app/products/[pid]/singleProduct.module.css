@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 3rem;
-    font-family: var(--primary-font);
+    
     /* background-color: rgba(242, 242, 242, 0.664); */
     margin-bottom: 20px;
 }

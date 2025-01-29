@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary-font:"Raleway", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,7 +19,6 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

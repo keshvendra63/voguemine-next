@@ -34,7 +34,7 @@ margin-top: 55px;
     font-size: 2.5em;
     font-weight: 800;
     word-spacing: 5px;
-    /* font-family: var(--primary-font); */
+    /*  */
     color: #C3A37D;
     font-family: var(--primary-font) !important;
 
@@ -56,7 +56,7 @@ margin-top: 55px;
     grid-gap: 10px;
 }
 .home .productsGrid .prdt{
-    font-family: var(--primary-font);
+    
     border-radius: 2px;
     padding: 5px;
     background-color: white;
@@ -120,7 +120,7 @@ margin-top: 55px;
     font-size: 2.5em;
     font-weight: 800;
     word-spacing: 5px;
-    /* font-family: var(--primary-font); */
+    /*  */
     text-transform: uppercase;
 }
 .home .trendingCollections h1 span:nth-child(2){
@@ -134,7 +134,7 @@ margin-top: 55px;
     margin: 2rem 0;
 }
 .home .trendingCollections .collections .collection{
-    font-family: var(--primary-font);
+    
     border-radius: 2px;
     padding-top: 10px;
     background-color: white;

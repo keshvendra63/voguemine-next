@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 20px;
-    font-family: var(--primary-font);
+    
 }
 .checkout .paySpin{
     justify-content: center;

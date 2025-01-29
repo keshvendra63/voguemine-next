@@ -10,6 +10,12 @@ import {GlobalProvider } from "../../GlobalContext"; // Import the provider
 import axios from "axios";
 import Offer from "../../components/offer/Offer";
 
+import { Quicksand } from 'next/font/google'
+ 
+const quicksand = Quicksand({
+  subsets: ['latin'],
+})
+
 export default function RootLayout({ children }) {
   const [progress, setProgress] = useState(0);
   const [isApiCalled, setIsApiCalled] = useState(false);
@@ -92,7 +98,7 @@ export default function RootLayout({ children }) {
   }, [pathname]); // Trigger effect on route change
 
   return (
-    <html lang="en">
+    <html lang="en" className={quicksand.className}>
       <head>
         <link rel="apple-touch-icon" sizes="180x180" href="https://voguemine.com/apple-touch-icon.png"/>
 <link rel="icon" type="image/png" sizes="32x32" href="https://voguemine.com/favicon-32x32.png"/>
@@ -141,7 +147,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body>
+      <body className={quicksand.className}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

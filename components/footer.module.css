@@ -1,7 +1,7 @@
 .footer{
     background-color: #EEEEEE;
     color: black;
-    font-family: var(--primary-font);
+    
     padding: 3rem 8vw 1rem 8vw;
     z-index: 11;
     /* position: relative */

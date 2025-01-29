@@ -1,6 +1,6 @@
 .about{
     margin: 65px 8vw;
-    font-family: var(--primary-font);
+    
 }
 .about .about1{
     display: grid;
@@ -33,7 +33,7 @@
 @media screen and (max-width:950px) {
     .about{
         margin: 65px 1rem;
-        font-family: var(--primary-font);
+        
     }
     .about .about1{
         grid-template-columns: 1fr;
