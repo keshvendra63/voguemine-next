@@ -7,6 +7,8 @@ import { BiSolidOffer } from "react-icons/bi";
 import toast from 'react-hot-toast';
 import { GlobalContext } from "../GlobalContext";
 import Image from 'next/image';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 const SingleProduct = ({product}) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -17,6 +19,10 @@ const [mainImage, setMainImage] = useState(product?.images[0]?.url || null);
 const [pquantity, setPquantity] = useState(null);
 const {myCarts,setMyCart } = useContext(GlobalContext);
 const [cart, setCart] = useState([]);
+const [name, setName] = useState("")
+const [email, setEmail] = useState("")
+const [msg, setMsg] = useState("")
+const [star, setStar] = useState(5)
 useEffect(()=>{
   setCart(JSON.parse(localStorage.getItem("cartState")) || []) 
   setColor((product?.variants[0]?.color || "").trim() )
@@ -258,7 +264,31 @@ useEffect(() => {
     return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
   };   
 
+
+  const commentPost = async() => {
+    if (name === "" || email === "" || msg === "") {
+      toast.error("Please Fill all the Fields")
+    }
+    else {
+      try{
+        const sendRate=await fetch("/api/products/rate-product",{
+          method:"PUT",
+          body:JSON.stringify({ name: name, email: email, comment: msg, star: star, prodId: product?._id })
+        })
+        if(sendRate.ok){
+          setMsg("")
+          setName("")
+          setEmail("")
+        }
+
+      }catch(err){
+        console.log(err)
+      }
+    }
+  }
+
     return (
+      <>
         <div className={styles.singleProduct}>
             <div className={styles.left}>
                 <div className={styles.mainImage}>
@@ -378,6 +408,45 @@ useEffect(() => {
                 </div>
             </div>
         </div>
+        <div className={styles.ratings}>
+        <p style={{ fontSize: '20px', fontWeight: 500 }}>Ratings</p>
+        <div className={styles.rating}>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Enter Name' />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Enter Email' />
+          <Stack spacing={1} className={styles.stars}>
+            <Rating name="size-small" value={star} size="medium" onChange={(e) => setStar(e.target.value)} />
+          </Stack>
+          <div className={styles.msg}>
+            <textarea name="" id="" value={msg} onChange={(e) => setMsg(e.target.value)} placeholder='Enter Message'></textarea>
+          </div>
+          <button onClick={commentPost}>Post</button>
+        </div>
+        <hr />
+        {
+          product?.ratings?.length > 0 ?
+            <div className={styles.ratingCount}>
+              <p style={{ fontSize: '20px', fontWeight: 500 }}>What Our Customers Says.</p>
+              {
+                product?.ratings?.map((item, index) => {
+                  return (
+                    <div className={styles.rate} key={index}>
+                      <div className={styles.name}>
+                        <p style={{ fontWeight: 500, marginBottom: 0 }}>{item?.name}</p>
+                        <Stack spacing={1} className={styles.star} style={{ fontSize: '25px', marginLeft: '20px' }}>
+                          <Rating name="size-small" value={item?.star} size="medium" onChange={(e) => setStar(e.target.value)} disabled/>
+                        </Stack>
+                      </div>
+                      <p style={{ color: 'grey', marginTop: '15px', fontSize: '14px' }}>{item?.comment}</p>
+                    </div>
+                  )
+                })
+              }
+            </div>
+            :
+            ""
+        }
+      </div>
+      </>
     )
 }
 

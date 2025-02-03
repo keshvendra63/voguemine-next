@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 3rem;
-    
+    font-family: var(--primary-font);
     /* background-color: rgba(242, 242, 242, 0.664); */
     margin-bottom: 20px;
 }
@@ -187,6 +187,52 @@ margin-bottom: 20px;
 
 }
 
+
+.ratings{
+    margin: 30px 0;
+    background-color: white;
+    padding: 20px 8vw;
+}
+.ratings button{
+    padding: 7px 15px;
+    background-color: #d2b188;
+    border: none;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.ratings .stars{
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.ratings .ratingCount{
+    margin-top: 20px;
+
+}
+.ratings .ratingCount .rate{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(242, 242, 242, 0.829);
+    padding: 10px 5px;
+    
+}
+.ratings .ratingCount .rate .name{
+    display: flex;
+    align-items: center;
+}
+.ratings input,.ratings textarea{
+    background-color: rgb(242, 242, 242);
+    width: 100%;
+    margin-bottom: 15px;
+    outline: none;
+    border: none;
+    padding: 10px 5px;
+    border-radius: 3px;
+}
+
 @media screen and (max-width:1250px) {
     .singleProduct .left .thumbs{
         grid-template-columns: repeat(3,1fr);
@@ -201,6 +247,9 @@ margin-bottom: 20px;
     .singleProduct{
         padding: 65px 2rem;
     }
+    .ratings{
+        padding: 20px 2rem;
+    }
 }
 @media screen and (max-width:800px) {
     .singleProduct{
@@ -212,5 +261,8 @@ margin-bottom: 20px;
     .singleProduct{
         padding: 65px 1rem;
 
+    }
+    .ratings{
+        padding: 20px 1rem;
     }
 }
