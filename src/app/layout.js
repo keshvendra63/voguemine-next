@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation"; // For route detection
 import { Toaster } from "react-hot-toast";
 import {GlobalProvider } from "../../GlobalContext"; // Import the provider
 import axios from "axios";
-import Offer from "../../components/offer/Offer";
+// import Offer from "../../components/offer/Offer";
 
 import { Quicksand } from 'next/font/google'
  
@@ -165,7 +165,6 @@ export default function RootLayout({ children }) {
             progress={progress}
             onLoaderFinished={() => setProgress(0)}
           />
-          <Offer/>
           <Header />
           {children}
           <Footer />
