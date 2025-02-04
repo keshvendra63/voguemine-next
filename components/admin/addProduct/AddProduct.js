@@ -84,7 +84,9 @@ setUser(user)
   const [colors, setColors] = useState('');
   const [sizes, setSizes] = useState('');
   const [main,setMain]=useState("")
-
+  const isVideo = (url) => {
+    return url.match(/\.(mp4|webm|ogg)$/i); // Check if the URL ends with a video extension
+  };
   const Images = ({ src, id, index, moveImage, deleteImage }) => {
     const ref = useRef(null);
     
@@ -138,7 +140,15 @@ setUser(user)
     return (
       <div ref={ref} style={{ opacity }} className={styles.imageContainer}>
         <div className={styles.image} style={{ backgroundImage: `url(${src})` }} onClick={()=>setMain(src)}>
-          <img src={src} alt="" />
+          {isVideo(src) ? (
+                                      <video width="100%" height="auto" controls style={{width:"140px",height:'140px'}}>
+                                          <source src={src} type="video/mp4" />
+                                          Your browser does not support the video tag.
+                                      </video>
+                                  ) : (
+                                    <img src={src} alt="" />
+                                  )}
+          
         </div>
         <button onClick={() => deleteImage(id)}>
           <IoMdClose />
@@ -378,7 +388,7 @@ else{
 
   const handleVariantChange = (index, field, value) => {
     if(getProductId!==""){
-      if(user?.firstname==="parul" || user?.firstname==="ujjawal" || user?.firstname==="Ankit Singh"){
+      if(user?.firstname==="parul"){
         setVariants((prevVariants) => {
           const updatedVariants = [...prevVariants];
           updatedVariants[index] = { ...updatedVariants[index], [field]: value };
@@ -398,7 +408,7 @@ else{
 
   const handleAddVariant = () => {
     if(getProductId!==""){
-      if(user?.firstname==="parul" || user?.firstname==="ujjawal" || user?.firstname==="Ankit Singh"){
+      if(user?.firstname==="parul"){
     setVariants((prevVariants) => [...prevVariants, { color: "", size: "", quantity: 0 }]);
 
 
@@ -410,7 +420,7 @@ else{
 
   const handleDeleteVariant = (index) => {
     if(getProductId!==""){
-      if(user?.firstname==="parul" || user?.firstname==="ujjawal" || user?.firstname==="Ankit Singh"){
+      if(user?.firstname==="parul"){
     setVariants((prevVariants) => prevVariants.filter((_, i) => i !== index));
 
       }}
@@ -545,8 +555,15 @@ const handleUploadSuccess = (result) => {
 
   return (
     <div className={styles.singlep}>
-      <div className={styles.mainImage} style={{display:main!==""?"block":'none'}}>
-        <img src={modifyCloudinaryUrl(main)} alt="" />
+      <div className={styles.mainImage} style={{display:main!==""?"flex":'none'}}>
+      {isVideo(main) ? (
+                                      <video width="100%" height="auto" controls style={{width:"auto",height:'600px'}}>
+                                          <source src={main} type="video/mp4" />
+                                          Your browser does not support the video tag.
+                                      </video>
+                                  ) : (
+                                    <img src={modifyCloudinaryUrl(main)} alt="" />
+                                  )}
         <p className={styles.close} onClick={()=>setMain("")}><IoMdClose/></p>
       </div>
       <div className={`${styles.back}`}>

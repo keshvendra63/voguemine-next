@@ -286,36 +286,62 @@ useEffect(() => {
       }
     }
   }
+  const isVideo = (url) => {
+    return url.match(/\.(mp4|webm|ogg)$/i); // Check if the URL ends with a video extension
+};
 
     return (
       <>
         <div className={styles.singleProduct}>
             <div className={styles.left}>
                 <div className={styles.mainImage}>
-                <Image src={modifyCloudinaryUrl(mainImage)} alt={product?.title} width={1100} height={500} style={{
-  width: '100%',
-  height:"auto",
-  aspectRatio: '1/1',
-  objectFit: 'cover', // Ensures the image fits nicely within the aspect ratio
-}}/>
+                {isVideo(mainImage) ? (
+                            <video width="100%" height="auto" autoPlay>
+                                <source src={mainImage} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        ) : (
+                            <Image
+                                src={mainImage}
+                                alt={product?.title}
+                                width={1100}
+                                height={500}
+                                style={{
+                                    width: '100%',
+                                    height: "auto",
+                                    aspectRatio: '1/1',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                        )}
 
                 </div>
                 <div className={styles.thumbs}>
-                    {
-                        product?.images?.map((item,index)=>{
-                            return <Image src={modifyCloudinaryUrl(item?.url)} alt={product?.title} key={index} width={550} height={250} style={{
-                              width: '100%',
-                              height:'auto',
-                              aspectRatio: '1/1',
-                              objectFit: 'cover', // Ensures the image fits nicely within the aspect ratio
-                            }}
-                            onClick={(e)=>changeMain(item?.url)}
-                            />
-                        })
-                    }
-                    
-                   
-                </div>
+                        {product?.images?.map((item, index) => (
+                            <div key={index} onClick={() => changeMain(item?.url)}>
+                                {isVideo(item?.url) ? (
+                                    <video width="100%" height="auto" controlsList='pause'>
+                                        <source src={item?.url} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                ) : (
+                                    <Image
+                                        src={item?.url}
+                                        alt={product?.title}
+                                        width={550}
+                                        height={250}
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto',
+                                            aspectRatio: '1/1',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                
             </div>
             <div className={styles.right}>
                 <h1>{product?.title}</h1>
