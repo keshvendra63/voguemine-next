@@ -9,6 +9,8 @@ import { GlobalContext } from "../GlobalContext";
 import Image from 'next/image';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import { IoPlayCircleOutline } from "react-icons/io5";
+
 const SingleProduct = ({product}) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -262,7 +264,8 @@ useEffect(() => {
   const modifyCloudinaryUrl = (url) => {
     const urlParts = url?.split('/upload/');
     return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
-  };   
+  };  
+
 
 
   const commentPost = async() => {
@@ -296,13 +299,13 @@ useEffect(() => {
             <div className={styles.left}>
                 <div className={styles.mainImage}>
                 {isVideo(mainImage) ? (
-                            <video width="100%" height="auto" autoPlay>
+                            <video width="100%" height="auto" autoPlay controls playsInline>
                                 <source src={mainImage} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         ) : (
                             <Image
-                                src={mainImage}
+                                src={modifyCloudinaryUrl(mainImage)}
                                 alt={product?.title}
                                 width={1100}
                                 height={500}
@@ -320,10 +323,40 @@ useEffect(() => {
                         {product?.images?.map((item, index) => (
                             <div key={index} onClick={() => changeMain(item?.url)}>
                                 {isVideo(item?.url) ? (
-                                    <video width="100%" height="auto" controlsList='pause'>
-                                        <source src={item?.url} type="video/mp4" />
-                                        Your browser does not support the video tag.
+                                    <div style={{ position: 'relative', width: '100%',border: '1px solid rgb(207, 207, 207)',
+                                      borderRadius: '10px' }}>
+                                    <video
+                                      width="100%"
+                                      height="auto"
+                                      autoPlay
+                                      style={{
+                                        zIndex: '1',
+                                      }}
+                                    >
+                                      <source src={item?.url} type="video/mp4" />
+                                      Your browser does not support the video tag.
                                     </video>
+                                  
+                                    {/* Play Icon Overlay */}
+                                    <IoPlayCircleOutline
+                                      style={{
+                                        position: 'absolute',
+                                        display:'flex',justifyContent:'center',alignItems:'center',
+                                        top: '0',
+                                        left: '0',
+                                        backgroundColor:"rgba(0, 0, 0, 0.300)",
+                                        fontSize: '30px',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        zIndex: '2',
+                                        padding:'20px',
+                                        width:'100%'
+                                        ,height:'100%',
+                                        borderRadius:'10px'
+                                      }}
+                                    />
+                                  </div>
+                                  
                                 ) : (
                                     <Image
                                         src={item?.url}
