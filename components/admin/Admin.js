@@ -19,7 +19,7 @@ import Image from 'next/image';
 import { FaBell } from 'react-icons/fa';
 
 const Admin = () => {
-    const {setCategory,setPrdtOpens}=useContext(GlobalContext)
+    const {setCategory,setPrdtOpens,bellorders}=useContext(GlobalContext)
 const [ham,setHam]=useState(false)
 const [menu,setMenu]=useState("home")
 const [searchBar,setSearchBar]=useState(false)
