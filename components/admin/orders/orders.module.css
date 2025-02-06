@@ -1,5 +1,5 @@
 .orders{
-    padding:5px 10px;
+    padding:0 10px;
 }
 .overlay{
     position: fixed;
@@ -275,7 +275,7 @@ display: none;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 15px;
-    max-height: 90vh;
+    height: auto;
     overflow-y: scroll;
 
 }

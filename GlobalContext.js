@@ -9,9 +9,11 @@ export const GlobalProvider = ({ children }) => {
   const [isApiCalled,setIsApiCalled]=useState(false)
   const [editOrderOpen,seteditOrderOpen]=useState(false)
   const [category,setCategory]=useState("")
+  const [bellorders,setbellOrders]=useState(0)
+
 
   return (
-    <GlobalContext.Provider value={{ myCarts, setMyCart,prdtOpens,setPrdtOpens,editOrderOpen,seteditOrderOpen,category,setCategory,isApiCalled,setIsApiCalled }} >
+    <GlobalContext.Provider value={{ myCarts, setMyCart,prdtOpens,setPrdtOpens,editOrderOpen,seteditOrderOpen,category,setCategory,isApiCalled,setIsApiCalled,bellorders,setbellOrders }} >
       {children}
     </GlobalContext.Provider>
   );

@@ -16,6 +16,7 @@ import Coupons from './coupons/Coupons';
 import { IoIosEyeOff,IoMdClose,IoMdEye } from "react-icons/io";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import { FaBell } from 'react-icons/fa';
 
 const Admin = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
@@ -279,6 +280,8 @@ useEffect(()=>{
                            
                         </div>
                     </div>
+<p className={styles.bell}><FaBell/><span>{bellorders}</span></p>
+
                     <button onClick={logoutClick}>Logout</button>
 
                 <div className={styles.adminMenu} style={{left:ham?0:"-100%"}}>

@@ -1,13 +1,16 @@
 "use client"
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useContext } from 'react'
 import styles from  './home.module.css'
 import { SlCalender } from "react-icons/sl";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { usePathname, useRouter } from 'next/navigation';
+import { GlobalContext } from '../../../GlobalContext';
 // import {getOrders, getYearlyData,getTodayData,getYesterdayData,getWeekData,getCustomData, getLastData} from '../../features/auth/authSlice'
 
 
 const Home = () => {
+  const {setbellOrders}=useContext(GlobalContext)
+
   const [maxData,setMaxData]=useState("Month")
   const [chartData,setChartData]=useState("Today")
   const [eventData,setEventData]=useState("Today")
@@ -145,6 +148,8 @@ getDataEvents()
   
       countObjects();
     } // Call the function when the component mounts or arraysOfObjects changes
+    setbellOrders(todayDataState && todayDataState[0]?.totalCount)
+
   }, [todayDataState]);
   useEffect(() => {
     // Function to count the total number of objects
