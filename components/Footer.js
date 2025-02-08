@@ -22,6 +22,8 @@ const Footer = () => {
                         <Link href="/women" ><li>Womens</li></Link>
                         <Link href="/kids" ><li>Kids</li></Link>
                         <Link href="/accessories" ><li>Accessories</li></Link>
+                        <Link href="/blogs" ><li>Blogs</li></Link>
+
                     </ul>
                 </div>
                 <div className={styles.topRight}>

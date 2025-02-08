@@ -19,7 +19,7 @@ import Image from 'next/image';
 import { FaBell } from 'react-icons/fa';
 
 const Admin = () => {
-    const {setCategory,setPrdtOpens,bellorders}=useContext(GlobalContext)
+    const {setCategory,setPrdtOpens}=useContext(GlobalContext)
 const [ham,setHam]=useState(false)
 const [menu,setMenu]=useState("home")
 const [searchBar,setSearchBar]=useState(false)
@@ -208,7 +208,27 @@ const [currentPage,setCurrentPage]=useState(pageName)
 useEffect(()=>{
     setCurrentPage(pageName)
 },[pageName])
+const [todayDataState,settodayDataState]=useState([])
+useEffect(()=>{
+    const getMonthlyData=async()=>{
+        try{
+            const response=await fetch('/api/order/getordersdata')
+            const data=await response.json()
+            if(response.ok){
+                settodayDataState(data.todaydata)
 
+            }
+            else{
+                console.log("Unable to fetch minthly data")
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    getMonthlyData()
+
+},[])
 
 
   return (
@@ -280,7 +300,7 @@ useEffect(()=>{
                            
                         </div>
                     </div>
-<p className={styles.bell}><FaBell/><span>{bellorders}</span></p>
+<p className={styles.bell}><FaBell/><span>{todayDataState && todayDataState[0]?.totalCount}</span></p>
 
                     <button onClick={logoutClick}>Logout</button>
 
@@ -310,7 +330,7 @@ useEffect(()=>{
     currentPage==="products"?
     <Products/>
     :currentPage==="orders"?
-    <Orders/>
+    <Orders income={todayDataState[0]?.totalIncome}/>
     :currentPage==="category"?
     <Category/>
     :currentPage==="abandoned"?

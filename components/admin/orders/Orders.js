@@ -13,32 +13,13 @@ import toast from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
 import EditOrder from './EditOrder';
 import CreateOrder from './CreateOrder';
-const Orders = () => {
-  const [todayDataState, settodayDataState] = useState([])
+const Orders = (props) => {
   const [progress, setProgress] = useState(0); // Progress state for LoadingBar
   const [user,setUser] =useState({})
   const {prdtOpens,setPrdtOpens,editOrderOpen,seteditOrderOpen} = useContext(GlobalContext);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")))
-    const getMonthlyData = async () => {
-      try {
-        const response = await fetch('/api/order/getordersdata')
-        const data = await response.json()
-        if (response.ok) {
-          settodayDataState(data.todaydata)
-
-        }
-        else {
-          console.log("Unable to fetch Today data")
-        }
-      }
-      catch (err) {
-        console.log(err)
-      }
-    }
-
-    getMonthlyData()
   }, [])
 
   const searchParams = useSearchParams();
@@ -299,7 +280,7 @@ const exportToExcel = () => {
   </div>
   </div>
       <div className={styles.head}>
-        <p className={styles.heading}>Orders(&#8377;<span>{Math.floor(todayDataState && todayDataState[0]?.totalIncome)}</span>)</p>
+        <p className={styles.heading}>Orders(&#8377;<span>{Math.floor(props?.income)}</span>)</p>
         <div className={`${styles.searchs} ${styles.search1}`}>
           <input type="search" name="" id="" placeholder='Search For Orders' onChange={(e) => setSearchValue(e.target.value)} />
           <p onClick={fetchSearch}>       <IoIosSearch />

@@ -270,6 +270,7 @@ addToCartEvent()
             <Link href="/women" onClick={closeHam}><li>Women</li></Link>
             <Link href="/kids" onClick={closeHam}><li>Kids</li></Link>
             <Link href="/accessories" onClick={closeHam}><li>Accessories</li></Link>
+            <Link href="/blogs" onClick={closeHam}><li>Blogs</li></Link>
             <Link href="/track-order" onClick={closeHam}><li>Orders</li></Link>
             <Link href="/flash-offers" onClick={closeHam}><li className={styles.saleMenu}>Flash Offers</li></Link>
 
