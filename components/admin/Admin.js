@@ -17,6 +17,7 @@ import { IoIosEyeOff,IoMdClose,IoMdEye } from "react-icons/io";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { FaBell } from 'react-icons/fa';
+import Blogs from './blogs/Blogs';
 
 const Admin = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
@@ -337,6 +338,8 @@ useEffect(()=>{
     <Abandoned/>
     :currentPage==="banners"?
     <Banners/>
+    :currentPage==="blogs"?
+    <Blogs/>
     :currentPage==="coupon"?
     <Coupons/>
     :currentPage==="home"?
