@@ -2,7 +2,7 @@ import Blog from "../../../../../models/blogModel";
 import connectDb from "../../../../../config/connectDb";
 import authMiddleware from "../../../../../controller/authController";
 
-export async function PUT(req){
+export async function POST(req){
     const body=await req.json()
     const {data,token}=body
     try{
