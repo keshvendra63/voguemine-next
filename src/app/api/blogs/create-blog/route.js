@@ -4,9 +4,9 @@ import authMiddleware from "../../../../../controller/authController";
 
 export async function PUT(req){
     const body=await req.json()
-    const {id,data,token}=body
+    const {data,token}=body
     try{
-        if(!id || !token || !body){
+        if(!token || !body){
         return Response.json({message:"Insufficient Information"},{status:404})
 
         }

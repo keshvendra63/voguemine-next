@@ -95,7 +95,6 @@ const AddBlog = ({blogId}) => {
                 method:"POST",
                 headers:{"Content-type":"application/json"},
                 body:JSON.stringify({
-                  id:blogId,
                   token:user?.token,
                   data:{
                     title,handle,metaTitle,metaDesc,description,state,numViews,images
