@@ -18,73 +18,13 @@ const quicksand = Quicksand({
 
 export default function RootLayout({ children }) {
   const [progress, setProgress] = useState(0);
-  const [isApiCalled, setIsApiCalled] = useState(false);
 
-    useEffect(() => {
-  
-      if (!isApiCalled) {
-        const setLocation = async () => {
-            try {
-  
-                // Fetch user's geolocation data
-                const response = await axios.get("https://api.ipgeolocation.io/ipgeo", {
-                    params: {
-                        apiKey: "6cff4a9708d241b8b5e35cb9979df323", // Replace with your API key
-                    },
-                });
-  
-                const { city, state_prov: state } = response.data;
-                if (response.status === 200) {
-  
-                    // Post city and state to your server
-                    const response1 = await fetch(`/api/chart/post-location?city=${city}&state=${state}`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                    });
-  
-                    if (response1.ok) {
-                        setIsApiCalled(true); // Mark API call as successful
-  
-                    } else {
-                        console.log("Unable to set location");
-                    }
-                }
-            } catch (error) {
-                console.log("Error fetching geolocation data:", error);
-            }
-        };
-  
-        setLocation();
-    }
-    }, [isApiCalled]);
 
   useEffect(() => {
     const cartState = localStorage.getItem("cartState");
     if (!cartState) {
       localStorage.setItem("cartState", JSON.stringify([])); // Initialize as an empty array
     }
-    // const handleAddToCartEvent = async () => {
-    //   try {
-    //     const response = await fetch('/api/meta', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         eventName: 'PageView',
-    //         eventData: {
-    //           event_id:Date.now().toString(),
-    //         },
-    //       }),
-    //     });
-    
-    //     const result = await response.json();
-    //     console.log('Event sent successfully:', result);
-    //   } catch (error) {
-    //     console.error('Error sending event:', error);
-    //   }
-    // };
-    // handleAddToCartEvent()
   }, []);
 
   const pathname = usePathname(); // Hook to detect path changes

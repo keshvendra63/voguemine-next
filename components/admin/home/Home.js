@@ -4,13 +4,11 @@ import styles from  './home.module.css'
 import { SlCalender } from "react-icons/sl";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { usePathname, useRouter } from 'next/navigation';
-// import {getOrders, getYearlyData,getTodayData,getYesterdayData,getWeekData,getCustomData, getLastData} from '../../features/auth/authSlice'
 
 
 const Home = () => {
 
   const [maxData,setMaxData]=useState("Month")
-  const [chartData,setChartData]=useState("Today")
   const [eventData,setEventData]=useState("Today")
   const router=useRouter()
   const pathname=usePathname()
@@ -39,11 +37,6 @@ const [ednDate,setEndDate]=useState()
   const [todayDataState,settodayDataState]=useState([])
   const [weekDataState,setweekDataState]=useState([])
   const [yesterdayDataState,setyesterdayDataState]=useState([])
-  const [monthlyDataChart,setmonthlyDataChart]=useState([])
-  const [yearlyDataChart,setyearlyDataChart]=useState([])
-  const [todayDataChart,settodayDataChart]=useState([])
-  const [weekDataChart,setweekDataChart]=useState([])
-  const [yesterdayDataChart,setyesterdayDataChart]=useState([])
   const [monthlyDataEvent,setmonthlyDataEvent]=useState([])
   const [yearlyDataEvent,setyearlyDataEvent]=useState([])
   const [todayDataEvent,settodayDataEvent]=useState([])
@@ -72,26 +65,6 @@ const [ednDate,setEndDate]=useState()
             console.log(err)
         }
     }
-    const getDataChart=async()=>{
-      try{
-          const response=await fetch('/api/chart/get-location')
-          const data=await response.json()
-          if(response.ok){
-              setmonthlyDataChart(data.monthdata)
-              setyearlyDataChart(data.yeardata)
-              setweekDataChart(data.weekdata)
-              setyesterdayDataChart(data.yesterdaydata)
-              settodayDataChart(data.todaydata)
-
-          }
-          else{
-              console.log("Unable to fetch minthly data")
-          }
-      }
-      catch(err){
-          console.log(err)
-      }
-  }
   const getDataEvents=async()=>{
     try{
         const response=await fetch('/api/chart/get-event')
@@ -129,7 +102,6 @@ const [ednDate,setEndDate]=useState()
   }
   getMonthlyData()
 getOrders()
-getDataChart()
 getDataEvents()
   },[])
 
@@ -397,68 +369,6 @@ ite
       </div>
       <div className={styles.bottom}>
         <div className={styles.chart}>
-          <div className={styles.leftChart}>
-            <div className={styles.chartHead}>
-              <p>Location Data</p>
-              <select name="" id="" value={chartData} onChange={(e)=>setChartData(e.target.value)}>
-                <option value="Today">Today</option>
-                <option value="Yesterday">Yesterday</option>
-                <option value="Week">Week</option>
-                <option value="Month">Month</option>
-                <option value="Year">Year</option>
-              </select>
-              </div>
-            <div className={styles.cities}>
-              <p>Cities</p>
-                  <div>
-                    {
-                      chartData==="Today"?
-                      todayDataChart?.map((item,index)=>{
-                        return <p key={index} className={styles.chartP}>
-                          <span>{item?.city}, {item?.state}</span>
-                          <span>{item?.users}</span>
-                        </p>
-                      })
-                      :
-                      chartData==="Yesterday"?
-                      yesterdayDataChart?.map((item,index)=>{
-                        return <p key={index} className={styles.chartP}>
-                          <span>{item?.city}, {item?.state}</span>
-                          <span>{item?.users}</span>
-                        </p>
-                      })
-                      :
-                      chartData==="Week"?
-                      weekDataChart?.map((item,index)=>{
-                        return <p key={index} className={styles.chartP}>
-                          <span>{item?.city}, {item?.state}</span>
-                          <span>{item?.users}</span>
-                        </p>
-                      })
-                      :
-                      chartData==="Month"?
-                      monthlyDataChart?.map((item,index)=>{
-                        return <p key={index} className={styles.chartP}>
-                          <span>{item?.city}, {item?.state}</span>
-                          <span>{item?.users}</span>
-                        </p>
-                      })
-                      :
-                      chartData==="Year"?
-                      yearlyDataChart?.map((item,index)=>{
-                        return <p key={index} className={styles.chartP}>
-                          <span>{item?.city}, {item?.state}</span>
-                          <span>{item?.users}</span>
-                        </p>
-                      })
-                      :
-                      <p>No Data</p>
-                    }
-                    
-                  </div>
-            </div>
-            
-          </div>
           <div className={styles.leftChart}>
             <div className={styles.chartHead}>
               <p>Events Data</p>
