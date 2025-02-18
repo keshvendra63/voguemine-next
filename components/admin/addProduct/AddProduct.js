@@ -388,7 +388,7 @@ else{
 
   const handleVariantChange = (index, field, value) => {
     if(getProductId!==""){
-      if(user?.firstname==="parul"){
+      if(user?.firstname==="parul" || user?.firstname==="Ankit Singh" || user?.firstname==="ujjawal"){
         setVariants((prevVariants) => {
           const updatedVariants = [...prevVariants];
           updatedVariants[index] = { ...updatedVariants[index], [field]: value };
@@ -408,7 +408,7 @@ else{
 
   const handleAddVariant = () => {
     if(getProductId!==""){
-      if(user?.firstname==="parul"){
+      if(user?.firstname==="parul" || user?.firstname==="Ankit Singh" || user?.firstname==="ujjawal"){
     setVariants((prevVariants) => [...prevVariants, { color: "", size: "", quantity: 0 }]);
 
 
@@ -420,7 +420,7 @@ else{
 
   const handleDeleteVariant = (index) => {
     if(getProductId!==""){
-      if(user?.firstname==="parul"){
+      if(user?.firstname==="parul" || user?.firstname==="Ankit Singh" || user?.firstname==="ujjawal"){
     setVariants((prevVariants) => prevVariants.filter((_, i) => i !== index));
 
       }}
