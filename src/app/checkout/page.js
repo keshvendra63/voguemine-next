@@ -267,6 +267,9 @@ const sendOtp=()=>{
   if(phone?.length<10){
     toast.error("Please Enter a Valid Phone Number")
   }
+  else if(phone==="9826333937"){
+    toast.error("You are not eligible")
+  }
   else{
     setOtpOpen(true)
     fetch("/api/otp/send-otp", {
