@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
           `,
           }}
         />
-
+        <meta name="fast2sms" content="Gq8VyG3vAAQHEfpB1zMZs1hnx4jDfLGP"/>
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
