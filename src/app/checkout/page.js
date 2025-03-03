@@ -20,7 +20,7 @@ const page = () => {
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
     const [pincode, setPincode] = useState("")
-    const [verified, setVerified] = useState(false)
+    const [verified, setVerified] = useState(true)
     const [coupon, setCoupon] = useState("")
     const [couponAmount, setCouponAmount] = useState(null)
     const [offerAmount, setOfferAmount] = useState(0)
@@ -327,9 +327,9 @@ const completeOrder = () => {
   if (firstname === "" || lastname === "" || email === "" || phone === "" || address === "" || city === "" || state === "" || pincode === "") {
       toast.error("Please Fill All Information")
   }
-  else if (verified === false) {
-      toast.error("Phone Number Not Verified")
-  }
+  // else if (verified === false) {
+  //     toast.error("Phone Number Not Verified")
+  // }
   else {
       setPaySpin(true)
       localStorage.setItem("address", JSON.stringify({
@@ -704,13 +704,13 @@ useEffect(() => {
                 </div>
                 <div className={styles.otpInput}>
                     <input type="number" placeholder='Phone Number*' value={phone} onChange={(e)=>setPhone(e.target.value)} readOnly={isRead}/>
-                    {
+                    {/* {
                       verified?
                       <p style={{color:"green",marginTop:'15px'}}><MdVerified/></p>
                       :
                     <button onClick={sendOtp}>Send Otp</button>
 
-                    }
+                    } */}
                 </div>
             </div>
             <div className={styles.personalInfo}>
