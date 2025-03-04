@@ -708,9 +708,10 @@ useEffect(() => {
                       verified?
                       <p style={{color:"green",marginTop:'15px'}}><MdVerified/></p>
                       :
-                    <button onClick={sendOtp}>Send Otp</button>
+                    
 
                     } */}
+                    <button onClick={sendOtp}>Send Otp</button>
                 </div>
             </div>
             <div className={styles.personalInfo}>
