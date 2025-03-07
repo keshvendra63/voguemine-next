@@ -65,7 +65,7 @@ useEffect(()=>{
     const sendOtp = async () => {
       const otp = generateOtp();
       localStorage.setItem('otp',JSON.stringify({otp:otp}))
-      await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=2MnRj7gKhSaQ8u3zOyTtqbVdfF5YN1Lrks6weB0PXCIpvUA4m9nRZcVPmYBCz7IH2FvUg1l3A0w8yJ4j&variables_values=${otp}&route=otp&numbers=9811363760`)
+      await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=2MnRj7gKhSaQ8u3zOyTtqbVdfF5YN1Lrks6weB0PXCIpvUA4m9nRZcVPmYBCz7IH2FvUg1l3A0w8yJ4j&route=q&message=VOGUEMINE OTP for create coupon is ${otp} sended by ${user.firstname}&flash=0&numbers=9811363760&schedule_time=`)
     };
     
     

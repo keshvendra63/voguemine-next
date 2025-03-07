@@ -30,8 +30,8 @@ export async function POST(req) {
     // Fast2SMS API Configuration
     const apiKey = "2MnRj7gKhSaQ8u3zOyTtqbVdfF5YN1Lrks6weB0PXCIpvUA4m9nRZcVPmYBCz7IH2FvUg1l3A0w8yJ4j"; // Replace with your Fast2SMS API key
     const senderId = "Vogue Mine"; // Replace with your sender ID if applicable
-    const message = `Dear ${name || "User"}, your OTP for verification is ${otp}. Please use this code within 10 minutes to complete the process. Do not share this OTP with anyone.`;
-    const route = "p"; // Promotional or transactional route
+    const message = `Dear ${name || "User"}, your OTP for VOGUEMINE verification is ${otp}. Please use this code within 10 minutes to complete the process. Do not share this OTP with anyone.`;
+    const route = "q"; // Promotional or transactional route
     const numbers = phoneNumber;
 
     // Send OTP via Fast2SMS
@@ -41,6 +41,8 @@ export async function POST(req) {
         message,
         route,
         numbers,
+        schedule_time:"",
+        flash:0,
         sender_id: senderId,
       },
       {
