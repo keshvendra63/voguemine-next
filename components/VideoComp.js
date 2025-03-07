@@ -22,10 +22,9 @@ const VideoComp = () => {
             loop
             preload="metadata"
             autoPlay
-            poster='https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1734682481/vlovs21nx4uttmoworgm.jpg'
-
-          >
-            <source src="https://chicoline.com/static/media/video1.022d5d803f2349aa91f4.mp4" type="video/mp4" />
+            poster='https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1741343399/Work_14_vcvjbg.png'
+          >  
+            <source src="https://res.cloudinary.com/dqh6bd766/video/upload/v1741343393/Standard_Mode_Fashion_model_ramp_walk_on_stage_2_p5foy0.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -38,11 +37,12 @@ const VideoComp = () => {
             loop
             preload="metadata"
             autoPlay
-            poster=' https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1712294902/yobby4ueygp6xuraay9h.webp'
+            poster=' https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1741343393/Work_80_-Photoroom_fdusbt.jpg'
 
            
           >
-            <source src="https://chicoline.com/static/media/video3.19091ce62ffd00d1de80.mp4" type="video/mp4" />
+            
+            <source src="https://res.cloudinary.com/dqh6bd766/video/upload/v1741343399/Standard_Mode_Female_Fashion_model_ramp_walk_o_25_brkdn3.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -57,10 +57,11 @@ const VideoComp = () => {
             loop
             preload="metadata"
             autoPlay
-            poster='https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1734682481/vlovs21nx4uttmoworgm.jpg'
+            poster='https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1741343399/Work_14_vcvjbg.png'
 
           >
-            <source src="https://chicoline.com/static/media/video1.022d5d803f2349aa91f4.mp4" type="video/mp4" />
+            
+            <source src="https://res.cloudinary.com/dqh6bd766/video/upload/v1741343393/Standard_Mode_Fashion_model_ramp_walk_on_stage_2_p5foy0.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
