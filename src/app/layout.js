@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={quicksand.className}>
       <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <link rel="apple-touch-icon" sizes="180x180" href="https://voguemine.com/apple-touch-icon.png"/>
 <link rel="icon" type="image/png" sizes="32x32" href="https://voguemine.com/favicon-32x32.png"/>
 <meta name="google-site-verification" content="xrlT6bzVL4FNaTdCqEXHx8Jp1v6W_i3TF81-ubR22Es" />

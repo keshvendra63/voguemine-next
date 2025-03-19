@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 20px;
+    color: black;
     
 }
 .checkout .paySpin{
@@ -68,6 +69,8 @@ margin-bottom: 15px;
     margin-bottom: 15px;
     padding: 0 10px;
     background-color: transparent;
+    font-size: 16px;
+    color: black;
 }
 .checkout .otpVerify div button{
 background-color: #d2b188;
@@ -180,11 +183,15 @@ cursor: pointer;
     border: none;
     outline: none;
     background-color: transparent;
+    font-size: 16px;
+
 }
 
 .checkout .checkoutLeft .personalInfo .otpInput input{
     width: 90%;
     background-color: transparent;
+    font-size: 16px;
+
 
 }
 .checkout .checkoutLeft .personalInfo div select{
@@ -198,7 +205,7 @@ cursor: pointer;
 .checkout .checkoutLeft .personalInfo div input::placeholder{
     color: #d2b188;
     letter-spacing: 1px;
-    font-size: 11px;
+    font-size: 16px;
 }
 .checkout .checkoutRight{
 }
@@ -280,6 +287,9 @@ cursor: pointer;
     border: 1px solid gray;
     outline: none;
     padding: 5px;
+    font-size: 16px;
+    background-color: transparent;
+
 }
 .checkout .checkoutRight .coupon p{
     margin-bottom: 8px;
