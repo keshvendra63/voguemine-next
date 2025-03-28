@@ -399,6 +399,10 @@ const setTrackpartner1=(e)=>{
     setTracklink("https://www.dtdc.in/tracking.asp")
 
   }
+  else if(e.target.value==="post"){
+    setTracklink("https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx")
+
+  }
   else if(e.target.value==="Ecom"){
     setTracklink("https://www.ecomexpress.in/tracking")
 
@@ -619,6 +623,8 @@ useEffect(()=>{
               <option value="Ecom">Ecom Express</option>
               <option value="Delivery">Delhivery</option>
               <option value="Shree Maruti">Shree Maruti</option>
+              <option value="post">Indian Post</option>
+
 
             </select>
           </div>
