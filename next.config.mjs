@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['res.cloudinary.com'], // Add Unsplash domain
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
       },
+    ],
+    unoptimized: true, // Disable Next.js optimization
+  },
 };
+
 export default nextConfig;
