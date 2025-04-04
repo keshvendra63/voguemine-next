@@ -25,6 +25,8 @@ const page = () => {
     const [couponAmount, setCouponAmount] = useState(null)
     const [offerAmount, setOfferAmount] = useState(0)
     const [otp,setOtp]=useState("")
+    const [vId,setVId]=useState("")
+
 const [payMethod, setPayMethod] = useState("payu")
 const [orderType, setOrderType] = useState("Prepaid")
     const [shippingCost, setShippingCost] = useState(0)
@@ -263,63 +265,90 @@ const [timeLeft, setTimeLeft] = useState(initialTime);
 const [intervalId, setIntervalId] = useState(null);
 
 const [otpOpen,setOtpOpen]=useState(false)
-const sendOtp=()=>{
-  if(phone?.length<10){
-    toast.error("Please Enter a Valid Phone Number")
-  }
-  else if(phone==="9826333937"){
-    toast.error("You are not eligible")
-  }
-  else{
-    setOtpOpen(true)
-    fetch("/api/otp/send-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phoneNumber: normalizePhoneNumber(phone),name:firstname }),
-    })
-      .then((res) => res.json())
-      .then((data) =>{
-        
-        toast.success(data.message)
-        localStorage?.setItem("otp",JSON.stringify({otp:parseInt(data.otp)}))
+const sendOtp = async () => {
+  if (phone?.length < 10) {
+    toast.error("Please Enter a Valid Phone Number");
+  } else if (phone === "9826333937") {
+    toast.error("You are not eligible");
+  } else {
+    setOtpOpen(true);
+    
+    // Prepare the request options for sending OTP
+    try {
+      const response = await fetch(`https://cpaas.messagecentral.com/verification/v3/send?countryCode=91&customerId=C-99F4F3D347BF4E0&flowType=SMS&mobileNumber=${normalizePhoneNumber(phone)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authToken': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJDLTk5RjRGM0QzNDdCRjRFMCIsImlhdCI6MTc0MjAyNDAzOSwiZXhwIjoxODk5NzA0MDM5fQ.Z2KJKH-m3IGnAMZe14q9H65iT-CD5eG5kos0KEDz8-5uftZQkuKG_0-jrj13k4F6QGAmHwOPoctbF3WPTg4dVA'
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setVId(data.data.verificationId);
         setTimeLeft(initialTime);
+        toast.success("OTP sent successfully");
 
+        // Start the countdown timer
         if (intervalId) clearInterval(intervalId);
         const id = setInterval(() => {
-            setTimeLeft((prevTime) => {
-                if (prevTime <= 1) {
-                    clearInterval(id);
-                    return 0;
-                }
-                return prevTime - 1;
-            });
+          setTimeLeft((prevTime) => {
+            if (prevTime <= 1) {
+              clearInterval(id);
+              return 0;
+            }
+            return prevTime - 1;
+          });
         }, 1000);
         setIntervalId(id);
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Failed to send OTP");
       }
-      )
-      }
-  
-}
+    } catch (error) {
+      toast.error("An error occurred while sending OTP");
+      console.error(error);
+    }
+  }
+};
 const formatTime = () => {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 };
 
-const verifyOtp = () => {
-  if (JSON.parse(localStorage?.getItem("otp"))?.otp === parseInt(otp)) {
-      setVerified(true)
-      toast.success("VERIFIED")
-      setIsread(true)
-      setOtpOpen(false)
-  }
+const verifyOtp = async () => {
+  const code = otp; // The OTP entered by the user
+  // Prepare the request options for verifying OTP
+  try {
+    const response = await fetch(`https://cpaas.messagecentral.com/verification/v3/validateOtp?countryCode=91&mobileNumber=${normalizePhoneNumber(phone)}&verificationId=${vId}&customerId=C-99F4F3D347BF4E0&code=${code}`, {
+      method: 'GET',
+      headers: {
+        'authToken': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJDLTk5RjRGM0QzNDdCRjRFMCIsImlhdCI6MTc0MjAyNDAzOSwiZXhwIjoxODk5NzA0MDM5fQ.Z2KJKH-m3IGnAMZe14q9H65iT-CD5eG5kos0KEDz8-5uftZQkuKG_0-jrj13k4F6QGAmHwOPoctbF3WPTg4dVA'
+      }
+    });
 
-  else {
-      setVerified(false)
-      setIsread(false)
-      toast.error("Wrong OTP")
+    if (response.ok) {
+      const data = await response.json();
+      if (data.data.verificationStatus=="VERIFICATION_COMPLETED") { // Adjust this condition based on the actual response structure
+        setVerified(true);
+        toast.success("VERIFIED");
+        setIsread(true);
+        setOtpOpen(false);
+      } else {
+        setVerified(false);
+        setIsread(false);
+        toast.error("Wrong OTP");
+      }
+    } else {
+      const errorData = await response.json();
+      toast.error(errorData.message || "Error verifying OTP");
+    }
+  } catch (error) {
+    toast.error("Error verifying OTP");
+    console.error(error);
   }
-}
+};
 
 const [paySpin,setPaySpin]=useState(false)
 

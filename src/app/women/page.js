@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 const fetchMensData = async () => {
   // Connect to MongoDB
   try{
-    const response=await fetch(`${process.env.API_PORT}collection/category?category=women`)
+    const response=await fetch(`${process.env.API_PORT}collection/web-category?category=women`)
     const data=await response.json()
     if(response.ok){
       return data

@@ -7,6 +7,7 @@ import Product from "../../../../../models/productModel";
 export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get("category")
+    
     try {
         await connectDb();
         let collectionsWithProductCount = ""

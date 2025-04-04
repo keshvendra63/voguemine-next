@@ -14,7 +14,7 @@ const modifyCloudinaryUrl = (url) => {
 // Function to fetch Men's Data
 const fetchMensData = async () => {
   try {
-    const response = await fetch(`${process.env.API_PORT}collection/category?category=men`, { cache: 'no-store' });
+    const response = await fetch(`${process.env.API_PORT}collection/web-category?category=men`, { cache: 'no-store' });
     const data = await response.json();
     if (response.ok) {
       return data;

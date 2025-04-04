@@ -62,12 +62,34 @@ useEffect(()=>{
       return Math.floor(10000000 + Math.random() * 90000000);
     };
     
-    const sendOtp = async () => {
-      const otp = generateOtp();
-      localStorage.setItem('otp',JSON.stringify({otp:otp}))
-      await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=2MnRj7gKhSaQ8u3zOyTtqbVdfF5YN1Lrks6weB0PXCIpvUA4m9nRZcVPmYBCz7IH2FvUg1l3A0w8yJ4j&route=q&message=VOGUEMINE OTP for create coupon is ${otp} sended by ${user.firstname}&flash=0&numbers=9811363760&schedule_time=`)
-    };
+    const [vId,setVId]=useState("")
     
+        const sendOtp = async () => {            
+            // Prepare the request options for sending OTP
+            try {
+              const response = await fetch(`https://cpaas.messagecentral.com/verification/v3/send?countryCode=91&customerId=C-99F4F3D347BF4E0&flowType=SMS&mobileNumber=9811363760`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'authToken': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJDLTk5RjRGM0QzNDdCRjRFMCIsImlhdCI6MTc0MjAyNDAzOSwiZXhwIjoxODk5NzA0MDM5fQ.Z2KJKH-m3IGnAMZe14q9H65iT-CD5eG5kos0KEDz8-5uftZQkuKG_0-jrj13k4F6QGAmHwOPoctbF3WPTg4dVA'
+                }
+              });
+          
+              if (response.ok) {
+                const data = await response.json();
+                setVId(data.data.verificationId);
+                toast.success("OTP sent successfully");
+        
+                // Start the countdown timer
+              } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || "Failed to send OTP");
+              }
+            } catch (error) {
+              toast.error("An error occurred while sending OTP");
+              console.error(error);
+            }
+          }
     
   
      useEffect(()=>{
@@ -115,8 +137,16 @@ useEffect(()=>{
   }
   
   const verifyOtp = async() => {
-    const storedOtp = 123456;
-    if (storedOtp === parseInt(myotp, 10)) {
+    const response = await fetch(`https://cpaas.messagecentral.com/verification/v3/validateOtp?countryCode=91&mobileNumber=9811363760&verificationId=${vId}&customerId=C-99F4F3D347BF4E0&code=${myotp}`, {
+      method: 'GET',
+      headers: {
+        'authToken': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJDLTk5RjRGM0QzNDdCRjRFMCIsImlhdCI6MTc0MjAyNDAzOSwiZXhwIjoxODk5NzA0MDM5fQ.Z2KJKH-m3IGnAMZe14q9H65iT-CD5eG5kos0KEDz8-5uftZQkuKG_0-jrj13k4F6QGAmHwOPoctbF3WPTg4dVA'
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.data.verificationStatus=="VERIFICATION_COMPLETED") {
         if(couponId===""){
 try{
 const response=await fetch(`/api/coupon/create-coupon?token=${user?.token}`,{
@@ -224,6 +254,7 @@ catch(err){
     } else {
       toast.error('Invalid OTP');
     }
+  }
   };
   const formattedExpiry = expiry.split("T")[0];
 
