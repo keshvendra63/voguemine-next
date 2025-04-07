@@ -1,5 +1,8 @@
 import Product from "../../../../models/productModel";
 import connectDb from "../../../../config/connectDb";
+export const config = {
+  maxDuration: 10,
+};
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -21,7 +24,9 @@ export async function GET(request) {
     };
 
     // Fetch products from the database
-    const products = await Product.find(query).exec();
+    const products = await Product.find(query)
+  .select("variants.brand variants.size brand")
+  .exec();
 
     if (!products || products.length === 0) {
       return Response.json({ success: false, error: "No products found" }, { status: 404 });
