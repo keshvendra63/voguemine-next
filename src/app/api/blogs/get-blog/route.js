@@ -1,6 +1,8 @@
 import Blog from "../../../../../models/blogModel";
 import connectDb from "../../../../../config/connectDb";
-
+export const config = {
+    maxDuration: 10,
+  };
 export async function GET(req){
     const {searchParams}=new URL(req.url)
     const id=searchParams.get("id") || ""

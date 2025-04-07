@@ -1,6 +1,8 @@
 import Blog from "../../../../../models/blogModel";
 import connectDb from "../../../../../config/connectDb";
-
+export const config = {
+    maxDuration: 10,
+  };
 export async function GET(){
     try{
         await connectDb()

@@ -4,6 +4,9 @@ import Women from '../../../../../models/womensModel';
 import Kid from '../../../../../models/kidsModel';
 import Accessories from '../../../../../models/accessoriesModel';
 import Product from "../../../../../models/productModel";
+export const config = {
+  maxDuration: 10,
+};
 export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get("category")

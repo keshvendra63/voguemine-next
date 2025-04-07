@@ -1,6 +1,8 @@
 import Order from "../../../../../models/orderModel"; // Adjust the import path as needed
 import connectDb from "../../../../../config/connectDb";
-
+export const config = {
+  maxDuration: 10,
+};
 export async function GET(req) {
   await connectDb();
 

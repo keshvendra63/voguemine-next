@@ -1,6 +1,9 @@
 import connectDb from "../../../../../config/connectDb";
 import Abondend from "../../../../../models/abandonedModel";
 import Product from "../../../../../models/productModel"; // Ensure Product is imported
+export const config = {
+  maxDuration: 10,
+};
 export async function GET(request){
     const {searchParams}=new URL(request.url)
     const limit = parseInt(searchParams.get("limit") || 50); // Number of items per page

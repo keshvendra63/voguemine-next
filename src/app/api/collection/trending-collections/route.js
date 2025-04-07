@@ -4,7 +4,9 @@ import Men from '../../../../../models/mensModel';
 import Women from '../../../../../models/womensModel';
 import Kid from '../../../../../models/kidsModel';
 import Accessories from '../../../../../models/accessoriesModel';
-
+export const config = {
+    maxDuration: 10,
+  };
 export async function GET(request) {
     try {
         await connectDb();
