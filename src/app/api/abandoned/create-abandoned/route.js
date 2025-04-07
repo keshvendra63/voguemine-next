@@ -2,7 +2,9 @@ import Product from "../../../../../models/productModel"; // Your Product model
 import Abondend from "../../../../../models/abandonedModel"; // Your Order model
 import connectDb from "../../../../../config/connectDb";
 // Function to update inventory after order creation
-
+export const config = {
+  maxDuration: 10,
+};
 export async function POST(req,res){
   const body = await req.text(); // Read the raw body as a string
   const parsedBody = JSON.parse(body); // Parse the string as JSON

@@ -4,6 +4,9 @@ import Order from "../../../../../models/orderModel"; // Your Order model
 import User from "../../../../../models/userModel"; // Your User model
 import connectDb from "../../../../../config/connectDb";
 // Function to update inventory after order creation
+export const config = {
+  maxDuration: 10,
+};
 const processOrder = async (orderItems) => {
   try {
     // Iterate through each order item
