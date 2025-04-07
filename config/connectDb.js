@@ -1,25 +1,29 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-let isConnected; // Track the connection status
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
 const connectDb = async () => {
-    if (isConnected) {
-        console.log("MongoDB is already connected.");
-        return; // If already connected, exit the function
-    }
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-    try {
-        await mongoose.connect(process.env.MONGO_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            maxPoolSize: 400, // Limit connections
-        });
-        isConnected = true; // Set the connection status to true
-        console.log("MongoDB Connected Successfully!");
-    } catch (err) {
-        console.error('Error connecting to MongoDB:', err);
-        process.exit(1);
-    }
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      maxPoolSize: 400,
+    }).then((mongoose) => {
+      return mongoose;
+    });
+  }
+
+  cached.conn = await cached.promise;
+  console.log("MongoDB connected.");
+  return cached.conn;
 };
 
 export default connectDb;
