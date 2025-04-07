@@ -12,7 +12,7 @@ const connectDb = async () => {
         await mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            maxPoolSize: 10, // Limit connections
+            maxPoolSize: 100, // Limit connections
         });
         isConnected = true; // Set the connection status to true
         console.log("MongoDB Connected Successfully!");
