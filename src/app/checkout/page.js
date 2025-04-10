@@ -501,7 +501,7 @@ const phonePePayment = async ({amount, number, merchantTransactionId,shippingInf
     });
 
     const data = await response.json();
-
+console.log(data,response)
     if (response.ok && data.success) {
       // Redirect to the payment URL
       const paymentUrl = data.url; // Corrected to use the `url` from the `data` object
@@ -542,6 +542,7 @@ const getHash =async () => {
     });
 
     const data = await response.json();
+    console.log(data,response)
 
     if (response.ok && data.success) {
       // Redirect to the payment URL
