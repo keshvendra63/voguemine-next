@@ -132,7 +132,7 @@ export async function POST(request) {
   } catch (error) {
     console.error("Error in POST handler:", error.message);
     return Response.json(
-      { success: false, error: "Internal Server Error" },
+      { success: false, error: error },
       { status: 500 }
     );
   }
