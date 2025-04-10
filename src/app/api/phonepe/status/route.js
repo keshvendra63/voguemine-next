@@ -1,5 +1,9 @@
 import crypto from "crypto";
 import axios from "axios";
+
+export const config = {
+  maxDuration: 10,
+};
 const SHA256 = (data) => {
   return crypto.createHash("sha256").update(data).digest("hex");
 };

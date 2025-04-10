@@ -4,6 +4,10 @@ import crypto from "crypto";
 import connectDb from "../../../../config/connectDb";
 import Product from "../../../../models/productModel";
 // Utility function to generate SHA256 hash
+
+export const config = {
+  maxDuration: 10,
+};
 const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount, discount, shippingCost) => {
   try {
     let calculatedTotalPrice = 0;

@@ -1,4 +1,6 @@
-
+export const config = {
+  maxDuration: 10,
+};
 export async function POST(request) {
     try {
             

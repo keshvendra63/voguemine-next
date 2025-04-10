@@ -1,6 +1,9 @@
 import axios from "axios";
 import connectDb from "../../../../../config/connectDb";
 import Product from "../../../../../models/productModel";
+export const config = {
+  maxDuration: 10,
+};
 const validateOrderPricesAndAmounts = async ({orderItems, totalPrice, finalAmount, discount, shippingCost}) => {
   try {
     let calculatedTotalPrice = 0;
