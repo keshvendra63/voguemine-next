@@ -68,7 +68,6 @@ const Page = async ({ params, searchParams }) => {
   // const size = searchParams?.size || "";
 
   let prdtData = null;
-  let collectionName = null;
   let noPrdt = false;
 
   try {
@@ -88,24 +87,12 @@ const Page = async ({ params, searchParams }) => {
       prdtData = productData;
     } else {
       console.log("Error fetching products");
+      window.location.reload()
     noPrdt = true;
 
-    }
-
-    const collectionResponse = await fetch(
-      `${process.env.API_PORT}collection?handle=${cid}`
-    );
-    const collectionData = await collectionResponse.json();
-
-    if (collectionData.success) {
-      collectionName = collectionData.collection.category;
-
-    } else {
-      noPrdt = true;
     }
   } catch (error) {
     console.log("Error fetching data:", error.message);
-    noPrdt = true;
   }
   return (
     <>
@@ -138,7 +125,7 @@ const Page = async ({ params, searchParams }) => {
           </Link>
         </div>
       ) : (
-        <Products data={prdtData} collectionName={collectionName} />
+        <Products data={prdtData} />
       )}
     </>
   );

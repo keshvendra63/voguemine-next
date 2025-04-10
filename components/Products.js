@@ -9,7 +9,7 @@ import { useParams, useSearchParams, useRouter, usePathname } from "next/navigat
 import LoadingBar from "react-top-loading-bar"; // Import LoadingBar
 import ProductCard from "./ProductCard";
 
-const Products = ({data,collectionName}) => {
+const Products = ({data}) => {
 
   const { cid } = useParams();
   const searchParams = useSearchParams();
@@ -128,7 +128,7 @@ const Products = ({data,collectionName}) => {
     onLoaderFinished={() => setProgress(0)}
   />
     <div className={styles.overlay} style={{display:sortOpen?"block":"none"}}></div>
-  <h1>{collectionName}</h1>
+  <h1>{data?.products?.length>0 && data.products[0]?.collectionName}</h1>
   <div className={styles.sortBtn}>
     <p onClick={filterToggle}><span>Sort & Filter</span> <span><CiFilter/></span></p>
   </div>

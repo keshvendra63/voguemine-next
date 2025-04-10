@@ -20,6 +20,7 @@ const fetchMensData = async () => {
       return data;
     } else {
       console.log("Unable to fetch Collection");
+      window.location.reload()
       return [];
     }
   } catch (err) {

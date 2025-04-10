@@ -13,8 +13,6 @@ const connectDb = async () => {
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       maxPoolSize: 400,
     }).then((mongoose) => {
       return mongoose;

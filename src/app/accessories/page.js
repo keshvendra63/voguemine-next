@@ -15,6 +15,8 @@ const fetchMensData = async () => {
     }
     else{
       console.log("Unable to fetch Collection")
+      window.location.reload()
+
       return null
     }
 
