@@ -44,10 +44,14 @@ const Orders = (props) => {
         }
         else {
           console.log("Unable to fetch orders")
+          window.location.reload()
+
         }
       }
       catch (err) {
         console.log(err)
+        window.location.reload()
+
       }
     }
     getOrders()
@@ -94,10 +98,14 @@ const Orders = (props) => {
         }
         else {
           console.log("Unable to fetch orders")
+          window.location.reload()
+
         }
       }
       catch (err) {
         console.log(err)
+        window.location.reload()
+
       }
     }
     getOrders()
@@ -149,10 +157,14 @@ const Orders = (props) => {
         }
         else {
           console.log("Unable to fetch orders")
+          window.location.reload()
+
         }
       }
       catch (err) {
         console.log(err)
+        window.location.reload()
+
       }
     }
     getOrders()
@@ -197,10 +209,14 @@ const Orders = (props) => {
             }
             else {
               console.log("Unable to fetch orders")
+          window.location.reload()
+
             }
           }
           catch (err) {
             console.log(err)
+          window.location.reload()
+
           }
         }
         getOrders()  

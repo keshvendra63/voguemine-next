@@ -16,10 +16,14 @@ if(response.ok){
 }
 else{
   console.log("Unable to fetch coupons")
+  window.location.reload()
+
 }
 }
 catch(err){
   console.log(err)
+  window.location.reload()
+
 }
   }
   const pathname = usePathname();

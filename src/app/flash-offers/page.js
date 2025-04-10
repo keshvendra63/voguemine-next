@@ -59,12 +59,12 @@ const Page = async ({searchParams }) => {
       prdtData = productData;
     } else {
       console.log("Error fetching products");
-    noPrdt = true;
+      window.location.reload()
 
     }
   } catch (error) {
     console.log("Error fetching data:", error.message);
-    noPrdt = true;
+    window.location.reload()
   }
   return (
     <>

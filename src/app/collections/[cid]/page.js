@@ -40,6 +40,8 @@ export async function generateMetadata({ params }) {
     }
   } catch (error) {
     console.error("Error fetching metadata:", error.message);
+    window.location.reload()
+
   }
 
   return {
@@ -93,6 +95,8 @@ const Page = async ({ params, searchParams }) => {
     }
   } catch (error) {
     console.log("Error fetching data:", error.message);
+    window.location.reload()
+
   }
   return (
     <>

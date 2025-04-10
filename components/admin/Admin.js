@@ -221,10 +221,14 @@ useEffect(()=>{
             }
             else{
                 console.log("Unable to fetch minthly data")
+          window.location.reload()
+
             }
         }
         catch(err){
             console.log(err)
+          window.location.reload()
+
         }
     }
     getMonthlyData()

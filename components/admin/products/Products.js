@@ -50,10 +50,14 @@ const router=useRouter()
             }
             else{
                 console.log("Unable to fetch collections")
+          window.location.reload()
+
             }
         }
         catch(err){
             console.log(err)
+          window.location.reload()
+
         }
     }
     getCollections()
@@ -116,10 +120,14 @@ const fetchcl=async(e)=>{
         }
         else{
             console.log("Unable to fetch orders")
+          window.location.reload()
+
         }
     }
     catch(err){
         console.log(err)
+        window.location.reload()
+
     }
 }
 
@@ -143,10 +151,14 @@ const modifyCloudinaryUrl = (url) => {
                 }
                 else{
                     console.log("Unable to fetch orders")
+          window.location.reload()
+
                 }
             }
             catch(err){
                 console.log(err)
+          window.location.reload()
+
             }
         }
         fetchcl()
@@ -166,10 +178,14 @@ const modifyCloudinaryUrl = (url) => {
             }
             else{
                 console.log("Unable to fetch orders")
+          window.location.reload()
+
             }
         }
         catch(err){
             console.log(err)
+          window.location.reload()
+
         }
     }
 

@@ -63,9 +63,13 @@ const page =async () => {
         featured=data?.data
       } else {
         console.error("Error fetching featured Products:", data.error);
+        window.location.reload()
+
       }
     } catch (error) {
       console.error("Error fetching featured Products:", error.message);
+      window.location.reload()
+
     }
   };
   const fetchCollections = async () => {
@@ -81,9 +85,13 @@ const page =async () => {
         collectionData=data?.data
       } else {
         console.error("Error fetching featured Products:", data.error);
+        window.location.reload()
+
       }
     } catch (error) {
       console.error("Error fetching featured Products:", error.message);
+      window.location.reload()
+
     }
   };
   const fetchBanners = async () => {
@@ -99,9 +107,13 @@ const page =async () => {
         banners=data
       } else {
         console.error("Error fetching banners:", data.error);
+        window.location.reload()
+
       }
     } catch (error) {
       console.error("Error fetching banners:", error.message);
+      window.location.reload()
+
     }
   };
   

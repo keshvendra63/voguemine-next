@@ -26,6 +26,7 @@ const Category = () => {
                     }
                     else {
                         console.log("Unable to fetch Collections")
+                        
                     }
                 }
                 catch (error) {

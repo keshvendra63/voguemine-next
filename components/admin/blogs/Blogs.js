@@ -17,10 +17,14 @@ const Blogs = () => {
     }
     else{
       console.log("Unable to fetch Blogs")
+      window.location.reload()
+
     }
     }
     catch(err){
       console.log(err)
+      window.location.reload()
+
     }
       }
       const pathname = usePathname();

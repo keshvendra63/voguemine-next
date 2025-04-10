@@ -69,10 +69,14 @@ const page = async ({ params }) => {
     if (data.success && data.product[0]) {
       product = data.product[0];
     } else {
+      window.location.reload()
+
       noPrdt = true;
     }
   } catch (error) {
     console.error("Error fetching product:", error.message);
+    window.location.reload()
+
     noPrdt = true;
   }
 

@@ -59,10 +59,14 @@ const [ednDate,setEndDate]=useState()
             }
             else{
                 console.log("Unable to fetch minthly data")
+          window.location.reload()
+
             }
         }
         catch(err){
             console.log(err)
+          window.location.reload()
+
         }
     }
   const getDataEvents=async()=>{
@@ -79,10 +83,14 @@ const [ednDate,setEndDate]=useState()
         }
         else{
             console.log("Unable to fetch minthly data")
+          window.location.reload()
+
         }
     }
     catch(err){
         console.log(err)
+        window.location.reload()
+
     }
 }
     const getOrders=async()=>{
@@ -94,10 +102,14 @@ const [ednDate,setEndDate]=useState()
           }
           else{
               console.log("Unable to fetch orders")
+          window.location.reload()
+
           }
       }
       catch(err){
           console.log(err)
+          window.location.reload()
+
       }
   }
   getMonthlyData()
@@ -216,10 +228,14 @@ const customDateGet=async()=>{
             }
             else{
                 console.log("Unable to fetch minthly data")
+          window.location.reload()
+
             }
         }
         catch(err){
             console.log(err)
+          window.location.reload()
+
         }
 }
    

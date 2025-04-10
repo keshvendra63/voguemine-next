@@ -51,10 +51,14 @@ const page = async() => {
     }
     else{
         console.log("No Blogs Found")
+        window.location.reload()
+
     }
 
    }catch(err){
     console.log(err)
+    window.location.reload()
+
    }
    const modifyCloudinaryUrl = (url) => {
     const urlParts = url?.split('/upload/');

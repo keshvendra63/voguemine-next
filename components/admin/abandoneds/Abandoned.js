@@ -39,10 +39,13 @@ const Abandoned = () => {
         }
         else {
           console.log("Unable to fetch orders")
+          window.location.reload()
         }
       }
       catch (err) {
         console.log(err)
+        window.location.reload()
+
       }
     }
     getOrders()
@@ -110,10 +113,14 @@ const Abandoned = () => {
                           }
                           else {
                             console.log("Unable to fetch orders")
+          window.location.reload()
+
                           }
                         }
                         catch (err) {
                           console.log(err)
+          window.location.reload()
+
                         }
                       }
                       getOrders()
