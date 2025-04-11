@@ -12,9 +12,7 @@ const connectDb = async () => {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGO_URL, {
-      maxPoolSize: 400,
-    }).then((mongoose) => {
+    cached.promise = mongoose.connect(process.env.MONGO_URL).then((mongoose) => {
       return mongoose;
     });
   }
