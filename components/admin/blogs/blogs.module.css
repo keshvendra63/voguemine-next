@@ -1,5 +1,6 @@
 .blog{
     margin: 10px;
+    color: black;
 }
 .blog .addblog{
     position: fixed;
@@ -11,6 +12,8 @@
     min-height: 100vh;
     background-color: rgba(0, 0, 0, 0.676);
     z-index: 100;
+    color: black;
+
 }
 .blog .addblog .close{
     position: absolute;
@@ -124,6 +127,7 @@
     border-radius: 3px;
     border: 1px solid #d2b188;
     background-color: transparent;
+    color: black;
     outline: none;
 }
 .blog .blogMake .title textarea{
@@ -133,6 +137,8 @@
     border-radius: 3px;
     border: 1px solid #d2b188;
     background-color: transparent;
+    color: black;
+
     outline: none;
 }
 .blog .blogMake .title select{
@@ -142,6 +148,8 @@
     border-radius: 3px;
     border: 1px solid #d2b188;
     background-color: transparent;
+    color: black;
+
     outline: none;
 }
 .blog .blogMake .title .uploadBtn{

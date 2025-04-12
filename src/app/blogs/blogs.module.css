@@ -38,7 +38,7 @@
     height: auto;
 }
 .blogs .blogList .blog p{
-color: gray;
+color: rgb(180, 180, 180);
 margin-bottom: 20px;
 font-size: 13px;
 letter-spacing: 1px;
@@ -87,7 +87,7 @@ display: -webkit-box;
 .singleBlog p{
     font-size: 16px;
     letter-spacing: 1px;
-    color: black;
+    color: rgb(203, 203, 203);
     text-align: justify;
 }
 
