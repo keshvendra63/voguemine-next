@@ -42,7 +42,7 @@ export async function generateMetadata() {
   return {
   title: "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
   description:
-    "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+    "Explore the stylish collection of woman's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern woman. Shop now!",
   keywords: categories,
   openGraph: {
     title: "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
