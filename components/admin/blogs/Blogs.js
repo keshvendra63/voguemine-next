@@ -79,7 +79,7 @@ const Blogs = () => {
       </div>
       <div className={styles.blogList}>
       {
-          blogsState?.slice()?.reverse()?.map((item,index)=>{
+          blogsState?.map((item,index)=>{
             return(
               <div className={styles.blogCard} onClick={()=>openBlog(item?._id)} key={index}>
                   <Image src={modifyCloudinaryUrl(item?.images[0]?.url)} alt={item?.title} width={500} height={500}/>
