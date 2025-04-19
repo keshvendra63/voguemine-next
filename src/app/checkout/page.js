@@ -860,13 +860,13 @@ return  <div className={styles.checkoutItems} key={index}>
                 </div>
                 <p>Rs. {parseInt(totalAmount - prepaidDisc - offerAmount)}</p>
             </div>
-            <div className={`${styles.paymentOption} ${payMethod==="phonepe"?styles.active:""}`} onClick={phonepeClick}>
+           {/* <div className={`${styles.paymentOption} ${payMethod==="phonepe"?styles.active:""}`} onClick={phonepeClick}>
                 <div>
                 <img src="https://seeklogo.com/images/P/phonepe-logo-B9E7D6F75F-seeklogo.com.png" alt="" />
                 <p>PhonePe Online Payments</p>
                 </div>
                 <p>Rs. {parseInt(totalAmount - prepaidDisc - offerAmount)}</p>
-            </div>
+            </div> */}
         </div>
         <div className={styles.checkoutTotal}>
             <ul>
