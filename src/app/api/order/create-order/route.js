@@ -43,113 +43,113 @@ const processOrder = async (orderItems) => {
 };
 
 // Function to send email after 3 hours
-// const msgAfter3hour = async (firstname, ordernumber, email) => {
-//   await sendEmail({
-//     to: email,
-//     subject: "Tracking Details: Your Order is in Process!",
-//     text: "Tracking Details: Your Order is in Process!",
-//     htmlContent: `
-//     <!DOCTYPE html>
-//     <html lang="en">
-//     <head>
-//         <meta charset="UTF-8">
-//         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//         <title>Order Confirmation</title>
-//         <style>
-//             body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-//             .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-//             h2 { color: #333333; }
-//             p { color: #555555; }
-//             .order-details { margin-top: 20px; }
-//             .order-details p { margin: 5px 0; }
-//             .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dddddd; font-size: 12px; color: #999999; text-align: center; }
-//         </style>
-//     </head>
-//     <body>
-//         <div class="container">
-//             <h2>Tracking Details: Your Order is in Process!</h2>
-//             <p>Dear ${firstname},</p>
+const msgAfter3hour = async (firstname, ordernumber, email) => {
+  await sendEmail({
+    to: email,
+    subject: "Tracking Details: Your Order is in Process!",
+    text: "Tracking Details: Your Order is in Process!",
+    htmlContent: `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Confirmation</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+            .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+            h2 { color: #333333; }
+            p { color: #555555; }
+            .order-details { margin-top: 20px; }
+            .order-details p { margin: 5px 0; }
+            .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dddddd; font-size: 12px; color: #999999; text-align: center; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Tracking Details: Your Order is in Process!</h2>
+            <p>Dear ${firstname},</p>
 
-//             <div class="order-details">
-//                 <p><strong>Your Order Number is:</strong> #${ordernumber}</p>
-//                 <p>Once your order is on its way, we'll promptly send you a tracking link for easy monitoring of its dispatch from our side.</p>
-//             </div>
+            <div class="order-details">
+                <p><strong>Your Order Number is:</strong> #${ordernumber}</p>
+                <p>Once your order is on its way, we'll promptly send you a tracking link for easy monitoring of its dispatch from our side.</p>
+            </div>
 
-//             <p>Thank you for choosing <strong>voguemine.com</strong> for your shopping needs!</p>
+            <p>Thank you for choosing <strong>voguemine.com</strong> for your shopping needs!</p>
 
-//             <div class="footer">
-//                 <p>&copy; 2024 Voguemine. All rights reserved.</p>
-//             </div>
-//         </div>
-//     </body>
-//     </html>
-//     `
-//   });
-// };
+            <div class="footer">
+                <p>&copy; 2024 Voguemine. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `
+  });
+};
 
 
-// const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount, discount, shippingCost) => {
-//   try {
-//     let calculatedTotalPrice = 0;
+const validateOrderPricesAndAmounts = async (orderItems, totalPrice, finalAmount, discount, shippingCost) => {
+  try {
+    let calculatedTotalPrice = 0;
 
-//     for (const orderItem of orderItems) {
-//       const { product, quantity, price: price } = orderItem;
-//       const productId = product;
+    for (const orderItem of orderItems) {
+      const { product, quantity, price: price } = orderItem;
+      const productId = product;
 
-//       // Fetch product details from the database
-//       const foundProduct = await Product.findById(productId);
+      // Fetch product details from the database
+      const foundProduct = await Product.findById(productId);
 
-//       if (!foundProduct) {
-//         throw new Error(`Product with ID ${productId} not found`);
-//       }
+      if (!foundProduct) {
+        throw new Error(`Product with ID ${productId} not found`);
+      }
 
-//       // Compare individual product prices
-//       if (foundProduct.price !== price) {
-//         throw new Error(
-//           `Price mismatch for product ${foundProduct.title}. Expected: ₹${foundProduct.price}, Received: ₹${price}`
-//         );
-//       }
+      // Compare individual product prices
+      if (foundProduct.price !== price) {
+        throw new Error(
+          `Price mismatch for product ${foundProduct.title}. Expected: ₹${foundProduct.price}, Received: ₹${price}`
+        );
+      }
 
-//       // Calculate the total price
-//       calculatedTotalPrice += foundProduct.price * quantity;
+      // Calculate the total price
+      calculatedTotalPrice += foundProduct.price * quantity;
 
-//       // Optional: Validate inventory (as per your earlier logic)
-//       const variant = foundProduct.variants.find(
-//         (variant) =>
-//           (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
-//       );
+      // Optional: Validate inventory (as per your earlier logic)
+      const variant = foundProduct.variants.find(
+        (variant) =>
+          (variant.color).toLowerCase().trim() === (orderItem.color).toLowerCase().trim() && (variant.size).toLowerCase().trim() === (orderItem.size).toLowerCase().trim()
+      );
 
-//       if (!variant) {
-//         throw new Error(`Variant not found for color: ${orderItem.color}, size: ${orderItem.size}`);
-//       }
+      if (!variant) {
+        throw new Error(`Variant not found for color: ${orderItem.color}, size: ${orderItem.size}`);
+      }
 
-//       if (variant.quantity < quantity) {
-//         throw new Error(`Not enough quantity available for ${orderItem.color} - ${orderItem.size}`);
-//       }
-//     }
+      if (variant.quantity < quantity) {
+        throw new Error(`Not enough quantity available for ${orderItem.color} - ${orderItem.size}`);
+      }
+    }
 
-//     // Validate total price
-//     if (calculatedTotalPrice !== totalPrice) {
-//       throw new Error(
-//         `Total price mismatch. Expected: ₹${calculatedTotalPrice}, Received: ₹${totalPrice}`
-//       );
-//     }
+    // Validate total price
+    if (calculatedTotalPrice !== totalPrice) {
+      throw new Error(
+        `Total price mismatch. Expected: ₹${calculatedTotalPrice}, Received: ₹${totalPrice}`
+      );
+    }
 
-//     // Calculate the expected final amount
-//     const expectedFinalAmount = calculatedTotalPrice - discount + shippingCost;
+    // Calculate the expected final amount
+    const expectedFinalAmount = calculatedTotalPrice - discount + shippingCost;
 
-//     // Validate final amount
-//     if (expectedFinalAmount !== finalAmount) {
-//       throw new Error(
-//         `Final amount mismatch. Expected: ₹${expectedFinalAmount}, Received: ₹${finalAmount}`
-//       );
-//     }
+    // Validate final amount
+    if (expectedFinalAmount !== finalAmount) {
+      throw new Error(
+        `Final amount mismatch. Expected: ₹${expectedFinalAmount}, Received: ₹${finalAmount}`
+      );
+    }
 
-//     console.log("All prices and amounts validated successfully");
-//   } catch (error) {
-//     throw new Error(error.message);
-//   }
-// };
+    console.log("All prices and amounts validated successfully");
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 export async function POST(req,res){
   const body = await req.text(); // Read the raw body as a string
@@ -159,7 +159,7 @@ export async function POST(req,res){
   try {
     await connectDb()
 
-    // await validateOrderPricesAndAmounts(orderItems, totalPrice, finalAmount, discount, shippingCost);
+    await validateOrderPricesAndAmounts(orderItems, totalPrice, finalAmount, discount, shippingCost);
 
     for (const orderItem of orderItems) {
       const { product, color, size, quantity } = orderItem;
@@ -274,9 +274,9 @@ export async function POST(req,res){
     await processOrder(orderItems);
 
     // Schedule a message after 3 hours
-    // setTimeout(() => {
-    //   msgAfter3hour(shippingInfo.firstname, order.orderNumber, shippingInfo.email);
-    // }, 10800000); // 3 hours in milliseconds
+     setTimeout(() => {
+       msgAfter3hour(shippingInfo.firstname, order.orderNumber, shippingInfo.email);
+     }, 10800000); // 3 hours in milliseconds
 
   
     
