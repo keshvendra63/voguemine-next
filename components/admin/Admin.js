@@ -18,7 +18,9 @@ import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { FaBell } from 'react-icons/fa';
 import Blogs from './blogs/Blogs';
-
+import WatchProducts from './watchProducts/Products';
+import WatchOrders from './watchOrders/Orders';
+import WatchBanners from './watchBanners/Banners';
 const Admin = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
 const [ham,setHam]=useState(false)
@@ -326,6 +328,9 @@ useEffect(()=>{
                         <li onClick={(e)=>menuToggle("coupon")}>Coupons</li>
                         <li onClick={(e)=>menuToggle("blogs")}>Blogs</li>
                         <li onClick={(e)=>menuToggle("banners")}>Banners</li>
+                        <li onClick={(e)=>menuToggle("watchOrders")}>Watch Orders</li>
+                        <li onClick={(e)=>menuToggle("watchproducts")}>Watch Products</li>
+                        <li onClick={(e)=>menuToggle("watchbanners")}>Watch Banners</li>
                     </ul>
                 </div>
             </div>
@@ -334,14 +339,23 @@ useEffect(()=>{
 
     currentPage==="products"?
     <Products/>
-    :currentPage==="orders"?
+    :
+    currentPage==="watchproducts"?
+    <WatchProducts/>
+    :
+
+    currentPage==="orders"?
     <Orders income={todayDataState[0]?.totalIncome}/>
+    :currentPage==="watchOrders"?
+    <WatchOrders income={todayDataState[0]?.totalIncome}/>
     :currentPage==="category"?
     <Category/>
     :currentPage==="abandoned"?
     <Abandoned/>
     :currentPage==="banners"?
     <Banners/>
+    :currentPage==="watchbanners"?
+    <WatchBanners/>
     :currentPage==="blogs"?
     <Blogs/>
     :currentPage==="coupon"?

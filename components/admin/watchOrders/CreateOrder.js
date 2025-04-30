@@ -16,7 +16,6 @@ const CreateOrder = () => {
   const [shipping,setShipping]=useState(0)
   const [amountInput, setAmountInput] = useState('0');
   const [firstname,setFirstname]=useState("")
-  const [lastname,setLastname]=useState("")
   const [email,setEmail]=useState("")
   const [phone,setPhone]=useState("")
   const [address,setAddress]=useState("")
@@ -24,7 +23,6 @@ const CreateOrder = () => {
   const [state,setState]=useState("")
   const [pincode,setPincode]=useState("")
   const [orderType,setOrderType]=useState("COD")
-const [tag,setTag]=useState("Voguemine")
 
 
   const toggleDrop = (index) => {
@@ -44,7 +42,7 @@ const handleKeyDown = (event) => {
   if (event.key === 'Enter' && query!=="") {
     const searchProducts=async()=>{
 try{
- const response=await fetch(`/api/products/search?search=${query}`)
+ const response=await fetch(`/api/watchProducts/search?search=${query}`)
  const data=await response.json()
  if(data.success){
     setProductState(data?.products)
@@ -91,7 +89,6 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
     product: {
       brand: selectedProduct.brand,
       category: selectedProduct.category,
-      collectionName: selectedProduct.collectionName,
       description: selectedProduct.description,
       handle: selectedProduct.handle,
       id: selectedProduct._id,
@@ -101,15 +98,12 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
       sku: selectedProduct.sku,
       sold: selectedProduct.sold,
       state: selectedProduct.state,
-      tags: selectedProduct.tags,
       title: selectedProduct.title,
       totalrating: selectedProduct.totalrating,
       updatedAt: selectedProduct.updatedAt,
-      variants: selectedProduct.variants,
+      quantity: selectedProduct.quantity,
       _id: selectedProduct._id,
     },
-    color: selectedVariant.color,
-    size: selectedVariant.size,
     quantity: newQuantity,
     price: selectedProduct.price,
   };
@@ -119,7 +113,7 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
   if (!isChecked) {
     setOrderItems(prevItems => [...prevItems, newItem]);
   } else {
-    setOrderItems(prevItems => prevItems.filter(item => item.product._id !== newItem.product._id || item.color !== newItem.color || item.size !== newItem.size));
+    setOrderItems(prevItems => prevItems.filter(item => item.product._id !== newItem.product._id));
   }
 
   setSelectedItems(prevState => {
@@ -197,12 +191,11 @@ const user=JSON.parse(localStorage.getItem("user"))
 const submitClick=()=>{
    const updateOrder=async()=>{
     try {
-        const response = await fetch(`/api/order/create-order`,{
+        const response = await fetch(`/api/watchOrder/create-order`,{
           method:"POST",
           headers: { "Content-Type": "application/json" },
           body:JSON.stringify({shippingInfo:{
-            firstname:firstname,
-            lastname:lastname,
+            name:firstname,
             email:email,
             phone:phone,
             address:address,
@@ -221,7 +214,6 @@ const submitClick=()=>{
             orderType:orderType,
             discount:discount,
             finalAmount:total,
-            tag:tag
           
         })
         })
@@ -319,8 +311,7 @@ return (
         // onClick={() => handleItemClick(index, idx)}
       >
 <input type="checkbox" name="" id="" onClick={() => handleItemClick(index, idx, quantity)} />
-        <p>{item?.color} / {item?.size}</p>
-        <p>{item?.quantity} available</p>
+        <p>{dataObj?.quantity} available</p>
         <p>&#8377; {dataObj?.price}</p>
       </li>
     )
@@ -357,7 +348,6 @@ return (
           <img src={modifyCloudinaryUrl(item?.product?.images && item?.product?.images[0]?.url)} alt="" />
           <div className={styles.detail}>
             <p className={styles.title}>{item?.product?.title}</p>
-            <p className={styles.size}><span>{item?.size}</span> / <span>{item?.color}</span></p>
             <p className={styles.sku}>SKU: {item?.product?.sku}</p>
             <p className={styles.price}>&#8377; {item?.price}</p>
           </div>
@@ -403,13 +393,6 @@ return (
               </div>
           </div>
           <div className={styles.dataRight}>
-          <div className={styles.notes}>
-              <p className={styles.prdtHead} style={{fontWeight:600,fontSize:'13px',margin:'15px 0'}}>Select Brand</p>
-<select name="" id="" value={tag} onChange={(e)=>setTag(e.target.value)}>
-  <option value="Voguemine">Voguemine</option>
-  <option value="Rampvalk">Rampvalk</option>
-</select>
-              </div>
               <div className={styles.notes}>
               <p className={styles.prdtHead} style={{fontWeight:600,fontSize:'13px',margin:'15px 0'}}>Order Type</p>
 <p>Status: {orderType}</p>
@@ -419,8 +402,7 @@ return (
 <p className={styles.prdtHead} style={{fontWeight:600,fontSize:'13px',margin:'15px 0'}}>Customer Details</p>
 
 
-  <input type="text" placeholder='First Name' value={firstname} onChange={(e)=>setFirstname(e.target.value)}/>
-  <input type="text" placeholder='Last Name' value={lastname} onChange={(e)=>setLastname(e.target.value)}/>
+  <input type="text" placeholder='Name' value={firstname} onChange={(e)=>setFirstname(e.target.value)}/>
   <input type="email" placeholder='Email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
   <input type="number" placeholder='Phone' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
   <input type="text" placeholder='Address' value={address} onChange={(e)=>setAddress(e.target.value)}/>

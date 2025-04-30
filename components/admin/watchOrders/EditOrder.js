@@ -5,25 +5,25 @@ import { CiTrash } from "react-icons/ci";
 import toast from 'react-hot-toast';
 import { GlobalContext } from '../../../GlobalContext';
 
-const CreateOrder = () => {
-      const {setPrdtOpens} = useContext(GlobalContext);
+const EditOrder = ({getOrderId}) => {
+        const {setPrdtOpens,seteditOrderOpen} = useContext(GlobalContext);
   
+  const [orderState,setOrderState] = useState([])
   const [productState,setProductState] = useState([])
   const [openDrops, setOpenDrops] = useState([]);
   const [open, setOpen] =useState(false);
   const quantity=1
-  const [discount,setDiscount]=useState(0)
+  const [discount,setDiscount]=useState(orderState?.discount)
   const [shipping,setShipping]=useState(0)
   const [amountInput, setAmountInput] = useState('0');
-  const [firstname,setFirstname]=useState("")
-  const [lastname,setLastname]=useState("")
-  const [email,setEmail]=useState("")
-  const [phone,setPhone]=useState("")
-  const [address,setAddress]=useState("")
-  const [city,setCity]=useState("")
-  const [state,setState]=useState("")
-  const [pincode,setPincode]=useState("")
-  const [orderType,setOrderType]=useState("COD")
+  const [firstname,setFirstname]=useState(orderState?.shippingInfo?.name)
+  const [email,setEmail]=useState(orderState?.shippingInfo?.email)
+  const [phone,setPhone]=useState(orderState?.shippingInfo?.phone)
+  const [address,setAddress]=useState(orderState?.shippingInfo?.address)
+  const [city,setCity]=useState(orderState?.shippingInfo?.city)
+  const [state,setState]=useState(orderState?.shippingInfo?.state)
+  const [pincode,setPincode]=useState(orderState?.shippingInfo?.pincode)
+  const [orderType,setOrderType]=useState(orderState?.shippingInfo?.orderType)
 const [tag,setTag]=useState("Voguemine")
 
 
@@ -44,7 +44,7 @@ const handleKeyDown = (event) => {
   if (event.key === 'Enter' && query!=="") {
     const searchProducts=async()=>{
 try{
- const response=await fetch(`/api/products/search?search=${query}`)
+ const response=await fetch(`/api/watchProducts/search?search=${query}`)
  const data=await response.json()
  if(data.success){
     setProductState(data?.products)
@@ -62,6 +62,48 @@ searchProducts()
     setQuery("")
   }
 };
+
+useEffect(()=>{
+  setDiscount(orderState?.discount)
+},[orderState?.discount])
+useEffect(()=>{
+  setFirstname(orderState?.shippingInfo?.name)
+setEmail(orderState?.shippingInfo?.email)
+setPhone(orderState?.shippingInfo?.phone)
+  setAddress(orderState?.shippingInfo?.address)
+  setCity(orderState?.shippingInfo?.city)
+setState(orderState?.shippingInfo?.state)
+  setPincode(orderState?.shippingInfo?.pincode)
+  setOrderType(orderState?.shippingInfo?.orderType)
+  setShipping(orderState?.shippingCost)
+},[orderState?.shippingInfo])
+useEffect(()=>{
+    if(getOrderId!==""){
+        const getSingleOrder=async()=>{
+            try {
+              const response = await fetch(`/api/watchOrder/single-order?id=${getOrderId}`)
+              const data =await response.json()
+              if (response.ok) {
+               setOrderState(data)
+              }
+              else {
+                console.log("Unable to fetch order")
+              }
+            }
+            catch (err) {
+              console.log(err)
+            }
+          }
+          getSingleOrder()
+    }
+    
+},[getOrderId])
+
+useEffect(() => {
+  if (orderState?.orderItems) {
+    setOrderItems(orderState?.orderItems); // Initialize orderItems with orderState.orderItems
+  }
+}, [orderState?.orderItems]);
 
 function search(productState) {
   return productState?.filter((productState) =>
@@ -91,7 +133,6 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
     product: {
       brand: selectedProduct.brand,
       category: selectedProduct.category,
-      collectionName: selectedProduct.collectionName,
       description: selectedProduct.description,
       handle: selectedProduct.handle,
       id: selectedProduct._id,
@@ -101,11 +142,10 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
       sku: selectedProduct.sku,
       sold: selectedProduct.sold,
       state: selectedProduct.state,
-      tags: selectedProduct.tags,
       title: selectedProduct.title,
       totalrating: selectedProduct.totalrating,
       updatedAt: selectedProduct.updatedAt,
-      variants: selectedProduct.variants,
+      quantity: selectedProduct.quantity,
       _id: selectedProduct._id,
     },
     color: selectedVariant.color,
@@ -119,7 +159,7 @@ const handleItemClick = (filteredIndex, variantIndex, newQuantity) => {
   if (!isChecked) {
     setOrderItems(prevItems => [...prevItems, newItem]);
   } else {
-    setOrderItems(prevItems => prevItems.filter(item => item.product._id !== newItem.product._id || item.color !== newItem.color || item.size !== newItem.size));
+    setOrderItems(prevItems => prevItems.filter(item => item.product._id !== newItem.product._id));
   }
 
   setSelectedItems(prevState => {
@@ -167,7 +207,9 @@ const shippingAdd=()=>{
 const subtotal = orderItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
 const calculateUpdatedAmount = () => {
-
+  if (!amountInput.trim()){
+    setDiscount(orderState?.discount)
+  };
 
   if (amountInput.endsWith('%')) {
     const percentage = parseFloat(amountInput) / 100;
@@ -197,51 +239,38 @@ const user=JSON.parse(localStorage.getItem("user"))
 const submitClick=()=>{
    const updateOrder=async()=>{
     try {
-        const response = await fetch(`/api/order/create-order`,{
-          method:"POST",
+        const response = await fetch(`/api/watchOrder/update-order?id=${orderState?._id}&token=${user?.token}`,{
+          method:"PUT",
           headers: { "Content-Type": "application/json" },
-          body:JSON.stringify({shippingInfo:{
-            firstname:firstname,
-            lastname:lastname,
-            email:email,
-            phone:phone,
-            address:address,
-            city:city,
-            state:state,
-            pincode:pincode,
-          },
-          paymentInfo:
-            {
-              razorpayOrderId:"COD",
-              razorpayPaymentId:"COD"
+          body:JSON.stringify({
+            shippingInfo:{
+              name:firstname,
+              email:email,
+              phone:phone,
+              address:address,
+              city:city,
+              state:state,
+              pincode:pincode
             },
+            paymentInfo:orderState.paymentInfo,
             orderItems:orderItems,
             totalPrice:subtotal,
             shippingCost:shipping,
-            orderType:orderType,
+            orderType:orderState?.orderType,
             discount:discount,
             finalAmount:total,
-            tag:tag
-          
+            orderStatus:orderState?.orderStatus,
+            createdAt:orderState?.createdAt,
+            tag:tag,
+            orderCalled:orderState?.orderCalled, 
+          })
         })
-        })
+        const data=await response.json()
         if(response.ok){
-            toast.success("Order Created")
-            const createHistory=async()=>{
-              try {
-                  const response = await fetch(`/api/history/create-history`,{
-                    method:"PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body:JSON.stringify({name:user?.firstname,title:"Order Created",sku:"",productchange:`For ${firstname}, Amount:${total}, orderType:${orderType}, Items:${orderItems?.length}`,time:new Date()})
-                  })
-                }
-                catch (err) {
-                  console.log(err)
-                }
-          }
-          createHistory()
+            toast.success("Order Upadted")
+            setOrderState(data)
             setPrdtOpens(false)
-            
+            seteditOrderOpen(false)
         }
         else{
             toast.error("Unable to Update Order")
@@ -253,7 +282,19 @@ const submitClick=()=>{
    }
    updateOrder()
     
-
+const createHistory=async()=>{
+    try {
+        const response = await fetch(`/api/watchOrder/set-history`,{
+          method:"PUT",
+          headers: { "Content-Type": "application/json" },
+          body:JSON.stringify({orderId:orderState?._id,name:user?.firstname,time:(new Date()),message:`Order Edited by ${user?.firstname}`})
+        })
+      }
+      catch (err) {
+        console.log(err)
+      }
+}
+createHistory()
 
 }
 
@@ -266,8 +307,8 @@ const modifyCloudinaryUrl = (url) => {
     <div className={styles.newOrder}>
       {/* <form action=""> */}
         <div className={styles.head}>
-          <p>Create Order</p>
-          <button onClick={submitClick} className={styles.submitBtn}>Create</button>
+          <p>Update Order</p>
+          <button onClick={submitClick} className={styles.submitBtn}>Update</button>
         </div>
         <div className={styles.orderData}>
           <div className={styles.dataLeft}>
@@ -313,16 +354,38 @@ return (
   dataObj?.variants?.map((item, idx) => {
     const isSelected = selectedItems[index]?.includes(idx);
     return (
-      <li
+      <>
+      {
+        item?.quantity>0?
+        <li
         key={idx}
         className={`${styles.listItem} ${isSelected ? styles.selectedItem : ''}`}
         // onClick={() => handleItemClick(index, idx)}
       >
 <input type="checkbox" name="" id="" onClick={() => handleItemClick(index, idx, quantity)} />
-        <p>{item?.color} / {item?.size}</p>
-        <p>{item?.quantity} available</p>
+        <p>{dataObj?.quantity} available</p>
         <p>&#8377; {dataObj?.price}</p>
       </li>
+      :
+      <li
+        key={idx}
+        className={`${styles.listItem} ${isSelected ? styles.selectedItem : ''}`}
+        style={{
+          opacity:0.6,
+          cursor:"default"
+
+        }}
+        // onClick={() => handleItemClick(index, idx)}
+      >
+<input type="checkbox" name="" id="" disabled={true} />
+
+        <p>{dataObj?.quantity} available</p>
+        <p>&#8377; {dataObj?.price}</p>
+      </li>
+
+      }
+      </>
+      
     )
   })
 }
@@ -357,7 +420,6 @@ return (
           <img src={modifyCloudinaryUrl(item?.product?.images && item?.product?.images[0]?.url)} alt="" />
           <div className={styles.detail}>
             <p className={styles.title}>{item?.product?.title}</p>
-            <p className={styles.size}><span>{item?.size}</span> / <span>{item?.color}</span></p>
             <p className={styles.sku}>SKU: {item?.product?.sku}</p>
             <p className={styles.price}>&#8377; {item?.price}</p>
           </div>
@@ -403,16 +465,9 @@ return (
               </div>
           </div>
           <div className={styles.dataRight}>
-          <div className={styles.notes}>
-              <p className={styles.prdtHead} style={{fontWeight:600,fontSize:'13px',margin:'15px 0'}}>Select Brand</p>
-<select name="" id="" value={tag} onChange={(e)=>setTag(e.target.value)}>
-  <option value="Voguemine">Voguemine</option>
-  <option value="Rampvalk">Rampvalk</option>
-</select>
-              </div>
               <div className={styles.notes}>
               <p className={styles.prdtHead} style={{fontWeight:600,fontSize:'13px',margin:'15px 0'}}>Order Type</p>
-<p>Status: {orderType}</p>
+<p>Status: {orderState?.orderType}</p>
               </div>
               <div className={styles.notes}>
 <div className={styles.customerDetail}>
@@ -420,7 +475,6 @@ return (
 
 
   <input type="text" placeholder='First Name' value={firstname} onChange={(e)=>setFirstname(e.target.value)}/>
-  <input type="text" placeholder='Last Name' value={lastname} onChange={(e)=>setLastname(e.target.value)}/>
   <input type="email" placeholder='Email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
   <input type="number" placeholder='Phone' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
   <input type="text" placeholder='Address' value={address} onChange={(e)=>setAddress(e.target.value)}/>
@@ -437,4 +491,4 @@ return (
   )
 }
 
-export default CreateOrder
+export default EditOrder
