@@ -69,7 +69,7 @@ var watchabondendSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-abondendSchema.pre("save", async function (next) {
+watchabondendSchema.pre("save", async function (next) {
   try {
     if (!this.orderNumber) {
       const latestOrder = await this.constructor.findOne({}, {}, { sort: { 'createdAt': -1 } });
