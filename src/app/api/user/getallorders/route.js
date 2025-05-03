@@ -1,5 +1,6 @@
 import connectDb from "../../../../../config/connectDb";
 import Order from "../../../../../models/orderModel";
+import WatchOrder from '../../../../../models/watchOrderModel'
 import Product from "../../../../../models/productModel"; // Ensure Product is imported
 
 export async function GET(request){
@@ -7,6 +8,7 @@ export async function GET(request){
     const limit = parseInt(searchParams.get("limit") || 50); // Number of items per page
     const page = parseInt(searchParams.get("page") || 1); // Current page, default is 1
     const search =searchParams.get("search") || "" // Current page, default is 1
+    const isWatchOrders =searchParams.get("isWatchOrders") || "" // Current page, default is 1
 
     try {
       let query = {};
@@ -26,14 +28,21 @@ export async function GET(request){
           // Example: { 'fieldName': { $regex: new RegExp(searchKeyword, 'i') } }
         ];
       }
-  
-      const count = await Order.countDocuments(query); // Total number of matching orders
+      let count;
+  if(isWatchOrders){
+    count = await WatchOrder.countDocuments(query); // Total number of matching orders
+
+  }else{
+    count = await Order.countDocuments(query); // Total number of matching orders
+
+  }
   
       // Calculate the skipping value based on the current page
       const skip = Math.max(0, (count - (page * limit)));
   
       // Query orders with pagination and search criteria
-      const orders = await Order.find(query)
+      if(isWatchOrders!==""){
+        const orders = await WatchOrder.find(query)
         .populate("user")
         .populate("orderItems.product")
         .skip(skip)
@@ -46,6 +55,22 @@ export async function GET(request){
                 totalOrders: count
               }
         )
+      }else{
+        const orders = await Order.find(query)
+        .populate("user")
+        .populate("orderItems.product")
+        .skip(skip)
+        .limit(limit);
+        return Response.json(
+            {
+                orders,
+                currentPage: page,
+                totalPages: Math.ceil(count / limit),
+                totalOrders: count
+              }
+        )
+      }
+     
   
     } catch (error) {
       console.error(error);
