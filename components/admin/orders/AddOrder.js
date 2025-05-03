@@ -65,45 +65,40 @@ const createHistory=async(data)=>{
   const [currentOrderState, setCurrentOrderState] = useState(null); // Add state to track the current order
 
   const pdfDownload = async () => {
-    const splitOrders = splitOrder(orderState); // Split orders based on your logic
+    // Use the original orderState directly
+    setCurrentOrderState(orderState);
   
-    // Loop through each split order
-    for (let i = 0; i < splitOrders.length; i++) {
-      const splitOrder = splitOrders[i];
+    // Wait for the state to update and the DOM to re-render
+    await new Promise(resolve => setTimeout(resolve, 500));  // Small delay to ensure the DOM updates
   
-      // Update the current order state to render correct packing slip
-      setCurrentOrderState(splitOrder);
+    // Generate the PDF for the current order
+    generatePDF(targetRef, { filename: `voguemine_order_${orderState.orderNumber}.pdf` });
   
-      // Wait for the state to update and the DOM to re-render
-      await new Promise(resolve => setTimeout(resolve, 500));  // Small delay to ensure the DOM updates
+    // Dispatch history actions for the order
+    createHistory({
+      orderId: orderState?._id,
+      name: user?.firstname,
+      time: new Date(),
+      message: `Packing Slip Downloaded by ${user?.firstname}`
+    });
   
-      // Generate the PDF for the current order
-      generatePDF(targetRef, { filename: `voguemine_order_${splitOrder.orderNumber}_${i + 1}.pdf` });
-  
-      // Dispatch history actions for each split order
-      createHistory({
-        orderId: splitOrder?._id,
-        name: user?.firstname,
-        time: new Date(),
-        message: `Packing Slip Downloaded by ${user?.firstname}`
-      })
-      try{
-        const response=await fetch("/api/history/create-history",{
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: user?.firstname,
-            title: splitOrder?.orderNumber,
-            sku: splitOrder?.orderNumber,
-            productchange: "Print Packing Slip",
-            time: new Date()
-          }),
-      })
-      }catch(error){
-        console.log(error)
-      }
-      }
+    try {
+      await fetch("/api/history/create-history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: user?.firstname,
+          title: orderState?.orderNumber,
+          sku: orderState?.orderNumber,
+          productchange: "Print Packing Slip",
+          time: new Date()
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
   const [subTotal,setSubTotal]=useState(null)
   useEffect(() => {
     getSingleOrder()
@@ -444,65 +439,6 @@ const showOrders=()=>{
 const modifyCloudinaryUrl = (url) => {
   const urlParts = url?.split('/upload/');
   return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
-};
-
-
-const splitOrder = (order) => {
-  const maxFinalAmount = 20000; // Split if final amount exceeds this value
-  let currentSubtotal = 0;
-  let currentOrderItems = [];
-  const result = [];
-
-  const totalOrderSubtotal = order?.orderItems?.reduce((acc, item) => acc + (item?.price * item?.quantity), 0);
-
-  // Base order number (e.g., "VM1291")
-  const baseOrderNumber = order?.orderNumber;
-
-  order?.orderItems?.forEach((item, index) => {
-    const itemTotalPrice = item?.price * item?.quantity;
-    const provisionalFinalAmount = currentSubtotal 
-                                  + itemTotalPrice 
-                                  - (order?.discount * (currentSubtotal + itemTotalPrice) / totalOrderSubtotal)
-                                  + (result.length === 0 ? order?.shippingCost : 0);
-
-    if (provisionalFinalAmount > maxFinalAmount) {
-      // Generate order number with suffix (e.g., "VM1291A", "VM1291B")
-      const suffix = String.fromCharCode(65 + result.length); // 'A' for first, 'B' for second, etc.
-
-      result.push({
-        ...order,
-        orderNumber: `${baseOrderNumber}${suffix}`, // Add suffix to order number
-        orderItems: [...currentOrderItems],
-        subtotal: currentSubtotal,
-        finalAmount: currentSubtotal 
-                     - (order?.discount * currentSubtotal / totalOrderSubtotal)
-                     + (result.length === 0 ? order?.shippingCost : 0), // Shipping only for first order
-      });
-
-      currentOrderItems = [];
-      currentSubtotal = 0;
-    }
-
-    currentOrderItems.push(item);
-    currentSubtotal += itemTotalPrice;
-
-    // Add last order
-    if (index === order?.orderItems?.length - 1) {
-      const suffix = String.fromCharCode(65 + result.length); // 'A' for first, 'B' for second, etc.
-
-      result.push({
-        ...order,
-        orderNumber: `${baseOrderNumber}${suffix}`, // Add suffix to order number
-        orderItems: [...currentOrderItems],
-        subtotal: currentSubtotal,
-        finalAmount: currentSubtotal 
-                     - (order?.discount * currentSubtotal / totalOrderSubtotal)
-                     + (result.length === 0 ? order?.shippingCost : 0),
-      });
-    }
-  });
-
-  return result;
 };
 
 
