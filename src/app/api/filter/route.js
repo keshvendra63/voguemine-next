@@ -43,12 +43,12 @@ export async function GET(request) {
       if (product.variants && Array.isArray(product.variants)) {
         product.variants.forEach((variant) => {
           if (variant.size) uniqueSizes.add(variant.size.trim()); // Convert size to lowercase and add unique sizes
-          if (variant.color) uniqueColors.add(variant.color.trim().toLowerCase()); // Convert color to lowercase and add unique colors
+          if (variant.color) uniqueColors.add(variant.color.toLowerCase().trim()); // Convert color to lowercase and add unique colors
         });
       }
     
       if (product.brand) {
-        uniqueBrands.add(product.brand.toLowerCase()); // Convert brand to lowercase and add unique brand
+        uniqueBrands.add(product.brand.toLowerCase().trim()); // Convert brand to lowercase and add unique brand
       }
     });
 

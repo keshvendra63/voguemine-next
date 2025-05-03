@@ -45,10 +45,11 @@ export async function GET(request) {
         .get("brand")
         .split(",")
         .map((brand) => brand.trim().toLowerCase());
+    
       query["$expr"] = {
         $in: [
-          { $toLower: "$brand" }, // Convert brand field in DB to lowercase
-          brands,                 // Array of input brands
+          { $toLower: { $trim: { input: "$brand" } } }, // Trim and convert brand field in DB to lowercase
+          brands, // Array of input brands
         ],
       };
     }
