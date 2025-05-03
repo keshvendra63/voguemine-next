@@ -1,8 +1,8 @@
 import connectDb from "../../../../../config/connectDb";
 import Order from "../../../../../models/orderModel";
-import WatchOrder from '../../../../../models/watchOrderModel'
+import WatchOrder from "../../../../../models/watchOrderModel";
 import Product from "../../../../../models/productModel"; // Ensure Product is imported
-
+import WatchProducts from "../../../../../components/admin/watchProducts/Products";
 export async function GET(request){
     const {searchParams}=new URL(request.url)
     const limit = parseInt(searchParams.get("limit") || 50); // Number of items per page
