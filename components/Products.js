@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../src/app/collections/[cid]/collections.module.css";
 import { CiFilter } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
@@ -9,32 +9,36 @@ import { useParams, useSearchParams, useRouter, usePathname } from "next/navigat
 import LoadingBar from "react-top-loading-bar"; // Import LoadingBar
 import ProductCard from "./ProductCard";
 
-const Products = ({data}) => {
+const Products = ({ data }) => {
 
   const { cid } = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [sortOpen, setSortOpen] = useState(false);
-  const [filter,setFilter]=useState([])
+  const [filter, setFilter] = useState([])
   const [size, setSize] = useState("")
   const [sort, setSort] = useState("")
   const [color, setColor] = useState("")
   const [brand, setBrand] = useState("")
- 
-  const colorArray=[
-    "Red","Orange","Yellow","Green","Blue","Pink","Purple","Voilet","Brown","White","Grey","Black","Peach","Beigr","Silver","Mehroom","Magenta","Teal","Lavender","Cream"
-  ]
+  const [isBrandOpen, setIsBrandOpen] = useState(false)
+  const [isColorOpen, setIsColorOpen] = useState(false)
+  const [isSizeOpen, setIsSizeOpen] = useState(false)
+
+
+  // const colorArray=[
+  //   "Red","Orange","Yellow","Green","Blue","Pink","Purple","Voilet","Brown","White","Grey","Black","Peach","Beigr","Silver","Mehroom","Magenta","Teal","Lavender","Cream"
+  // ]
   const [progress, setProgress] = useState(0); // Progress state for LoadingBar
 
   const page = parseInt(searchParams.get("page") || "1");
-  useEffect(()=>{
+  useEffect(() => {
     setBrand(searchParams.get("brand"))
     setColor(searchParams.get("color"))
     setSize(searchParams.get("size"))
     setSort(searchParams.get("sort") || "-createdAt")
 
-  },[])
+  }, [])
 
   const updateURL = (updatedParams) => {
     const params = new URLSearchParams();
@@ -44,7 +48,7 @@ const Products = ({data}) => {
     if (updatedParams.size) params.set("size", updatedParams.size);
     if (updatedParams.color) params.set("color", updatedParams.color);
     if (updatedParams.brand) params.set("brand", updatedParams.brand);
-    if(updatedParams.sort) params.set("sort",updatedParams.sort)
+    if (updatedParams.sort) params.set("sort", updatedParams.sort)
 
     // Push the updated URL without reloading
     setProgress(30);
@@ -54,67 +58,67 @@ const Products = ({data}) => {
     setTimeout(() => setProgress(100), 700);
   };
   const handlePageChange = (event, value) => {
-    updateURL({ page: value,sort,size,color,brand });
+    updateURL({ page: value, sort, size, color, brand });
   };
 
 
-  const applyFilter=()=>{
-    updateURL({page:1,sort,size,color,brand})
+  const applyFilter = () => {
+    updateURL({ page: 1, sort, size, color, brand })
   }
   const clearFilter = () => {
     setBrand("");
     setColor("");
     setSort("");
     setSize("");
-      updateURL({ page, sort: "", size: "", color: "", brand: "" });
+    updateURL({ page, sort: "", size: "", color: "", brand: "" });
 
   };
 
 
-  const toggleBrand=(brands)=>{
-    if(brand===brands){
+  const toggleBrand = (brands) => {
+    if (brand === brands) {
       setBrand("")
     }
-    else{
+    else {
       setBrand(brands)
     }
   }
-  const toggleColor=(colors)=>{
-    if(color===colors){
+  const toggleColor = (colors) => {
+    if (color === colors) {
       setColor("")
     }
-    else{
+    else {
       setColor(colors)
     }
   }
-  const toggleSize=(sizes)=>{
-    if(size===sizes){
+  const toggleSize = (sizes) => {
+    if (size === sizes) {
       setSize("")
     }
-    else{
+    else {
       setSize(sizes)
     }
   }
 
   // Connect to MongoDB and fetch products
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchFilter = async () => {
-        try {
-          const response = await fetch(`/api/filter?collectionHandle=${cid}`);
-          const data = await response.json();
-    
-          if (data.success) {
-            setFilter(data)
-          } else {
-            console.error("Error:", data.error);
-          }
-        } catch (error) {
-          console.error("Failed to fetch products:", error.message);
+      try {
+        const response = await fetch(`/api/filter?collectionHandle=${cid}`);
+        const data = await response.json();
+
+        if (data.success) {
+          setFilter(data)
+        } else {
+          console.error("Error:", data.error);
         }
-      };
+      } catch (error) {
+        console.error("Failed to fetch products:", error.message);
+      }
+    };
     fetchFilter()
-  },[cid])
+  }, [cid])
 
   const filterToggle = () => {
     setSortOpen((prev) => !prev);
@@ -122,103 +126,121 @@ const Products = ({data}) => {
 
   return (
     <div className={styles.collections}>
-    <LoadingBar
-    color="#C3A37D"
-    progress={progress}
-    onLoaderFinished={() => setProgress(0)}
-  />
-    <div className={styles.overlay} style={{display:sortOpen?"block":"none"}}></div>
-  <h1>{data?.products?.length>0 && data.products[0]?.collectionName}</h1>
-  <div className={styles.sortBtn}>
-    <p onClick={filterToggle}><span>Sort & Filter</span> <span><CiFilter/></span></p>
-  </div>
+      <LoadingBar
+        color="#C3A37D"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <div className={styles.overlay} style={{ display: sortOpen ? "block" : "none" }}></div>
+      <h1>{data?.products?.length > 0 && data.products[0]?.collectionName}</h1>
+      <div className={styles.sortBtn}>
+        <p onClick={filterToggle}><span>Sort & Filter</span> <span><CiFilter /></span></p>
+      </div>
 
-  <div className={styles.collectionProducts}>
-    <div className={styles.sort} style={{bottom:sortOpen?0:"-100%"}}>
-        <p className={styles.sortName}><span>Sort & Filter</span><span onClick={filterToggle}><IoMdClose/></span></p>
-        <div className={styles.sortBtns}>
+      <div className={styles.collectionProducts}>
+        <div className={styles.sort} style={{ bottom: sortOpen ? 0 : "-100%" }}>
+          <p className={styles.sortName}><span>Sort & Filter</span><span onClick={filterToggle}><IoMdClose /></span></p>
+          <div className={styles.sortBtns}>
             <button onClick={clearFilter}>Clear All</button>
             <button onClick={applyFilter}>Apply</button>
-        </div>
-        <div className={styles.sortBy}>
-          <p>Sort By</p>
-            <select name="" id="" value={sort} onChange={(e)=>setSort(e.target.value)}>
-                <option value="-createdAt">Releavance</option>
-                <option value="price">Price (Low to High)</option>
-                <option value="-price">Price (High to Low)</option>
-                <option value="-createdAt">New to Old</option>
-                <option value="createdAt">Old to New</option>
-                <option value="-title">Title (Z to A)</option>
-                <option value="title">Title (A to Z)</option>
+          </div>
+          <div className={styles.sortBy}>
+            <p>Sort By</p>
+            <select name="" id="" value={sort} onChange={(e) => setSort(e.target.value)}>
+              <option value="-createdAt">Releavance</option>
+              <option value="price">Price (Low to High)</option>
+              <option value="-price">Price (High to Low)</option>
+              <option value="-createdAt">New to Old</option>
+              <option value="createdAt">Old to New</option>
+              <option value="-title">Title (Z to A)</option>
+              <option value="title">Title (A to Z)</option>
             </select>
-        </div>
-        <p className={styles.sortName}>Filter By</p>
-        <div className={styles.chooseBrand}>
+          </div>
+          <p className={styles.sortName}>Filter By</p>
+          <div className={styles.chooseBrand}>
             <div>
-                <p>Brand</p>
-                <p>+</p>
+              <p>Brand</p>
+              {
+                isBrandOpen ?
+                  <p onClick={()=>setIsBrandOpen(false)} style={{cursor:'pointer'}}>-</p>
+                  :
+                  <p onClick={()=>setIsBrandOpen(true)} style={{cursor:'pointer'}}>+</p>
+
+              }
             </div>
-            <ul>
+            <ul style={{ overflow: 'hidden', height: isBrandOpen ? "100%" : "0" }}>
+              {
+                filter && filter?.brands?.map((item, index) => {
+                  return <li key={index} onClick={(e) => toggleBrand(item)} style={{ color: brand === item ? "#d2b188" : "black", border: brand === item ? "1px solid #d2b188" : "1px solid rgb(202, 202, 202)" }}>{item}</li>
+                })
+              }
+
+            </ul>
+          </div>
+          <div className={styles.chooseBrand}>
+            <div>
+              <p>Size</p>
+              {
+                isSizeOpen ?
+                  <p onClick={()=>setIsSizeOpen(false)} style={{cursor:'pointer'}}>-</p>
+                  :
+                  <p onClick={()=>setIsSizeOpen(true)} style={{cursor:'pointer'}}>+</p>
+
+              }
+            </div>
+            <ul style={{ overflow: 'hidden', height: isSizeOpen ? "100%" : "0" }}>
+              {
+                filter && filter?.sizes?.map((item, index) => {
+                  return <li key={index} onClick={(e) => toggleSize(item)} style={{ color: size === item ? "#d2b188" : "black", border: size === item ? "1px solid #d2b188" : "1px solid rgb(202, 202, 202)" }}>{item}</li>
+                })
+              }
+            </ul>
+          </div><div className={styles.chooseBrand}>
+            <div>
+              <p>Colour</p>
+              {
+                isColorOpen ?
+                  <p onClick={()=>setIsColorOpen(false)} style={{cursor:'pointer'}}>-</p>
+                  :
+                  <p onClick={()=>setIsColorOpen(true)} style={{cursor:'pointer'}}>+</p>
+
+              }
+            </div>
+            <ul style={{ overflow: 'hidden', height: isColorOpen ? "100%" : "0" }}>
+              {
+                filter && filter.colors?.map((item, index) => {
+                  return <li key={index} onClick={(e) => toggleColor(item)} style={{ color: color === item ? "#d2b188" : "black", border: color === item ? "1px solid #d2b188" : "1px solid rgb(202, 202, 202)" }}>{item}</li>
+                })
+              }
+            </ul>
+          </div>
+        </div>
+        {
+          data && data?.products?.length > 0 ?
+            <div className={styles.collectionPrdts}>
+              <div className={styles.allPrdts}>
                 {
-                    filter && filter?.brands?.map((item,index)=>{
-                        return <li key={index} onClick={(e)=>toggleBrand(item)} style={{color:brand===item?"#d2b188":"black",border:brand===item?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"}}>{item}</li>
-                    })
+                  data?.products && data?.products.map((item, index) => {
+                    return <ProductCard key={index} item={item} page={page} />
+                  })
                 }
 
-            </ul>
-        </div>
-        <div className={styles.chooseBrand}>
-            <div>
-                <p>Size</p>
-                <p>+</p>
+              </div>
+              <div className={styles.pagination}>
+                <Stack spacing={2}>
+                  <Pagination count={data?.pagination?.totalPages} page={page} onChange={handlePageChange} /></Stack>
+              </div>
             </div>
-            <ul>
-            {
-                    filter && filter?.sizes?.map((item,index)=>{
-                        return <li key={index} onClick={(e)=>toggleSize(item)} style={{color:size===item?"#d2b188":"black",border:size===item?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"}}>{item}</li>
-                    })
-                }
-            </ul>
-        </div><div className={styles.chooseBrand}>
-            <div>
-                <p>Colour</p>
-                <p>+</p>
+            :
+            <div className={styles.noData}>
+              <p>No Products Found</p>
+              <button onClick={clearFilter}>Clear Filter</button>
             </div>
-            <ul>
-            {
-                    colorArray && colorArray?.map((item,index)=>{
-                        return <li key={index} onClick={(e)=>toggleColor(item)} style={{color:color===item?"#d2b188":"black",border:color===item?"1px solid #d2b188":"1px solid rgb(202, 202, 202)"}}>{item}</li>
-                    })
-                }
-            </ul>
-        </div>
+        }
+
+
+      </div>
     </div>
-    {
-      data && data?.products?.length>0?
-      <div className={styles.collectionPrdts}>
-      <div className={styles.allPrdts}>
-          {
-              data?.products && data?.products.map((item,index)=>{
-                  return <ProductCard key={index} item={item} page={page}/>
-              })
-          }
-          
-      </div>
-      <div className={styles.pagination}>
-      <Stack spacing={2}>
-            <Pagination count={data?.pagination?.totalPages} page={page} onChange={handlePageChange}/></Stack>
-      </div>
-  </div>
-  :
-  <div className={styles.noData}>
-  <p>No Products Found</p>
-  <button onClick={clearFilter}>Clear Filter</button>
-</div>
-    }
-   
-
-  </div>
-</div>
   )
 }
 

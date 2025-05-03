@@ -25,7 +25,7 @@ export async function GET(request) {
 
     // Fetch products from the database
     const products = await Product.find(query)
-  .select("variants.brand variants.size brand")
+  .select("variants.color variants.size brand")
   .exec();
 
     if (!products || products.length === 0) {
@@ -34,15 +34,16 @@ export async function GET(request) {
 
     // Arrays to store unique sizes, colors, and brands
     const uniqueSizes = new Set();
-    // const uniqueColors = new Set();
+    const uniqueColors = new Set();
     const uniqueBrands = new Set();
+
 
     // Loop through products and their variants to collect unique sizes, colors, and brands
     products.forEach((product) => {
       if (product.variants && Array.isArray(product.variants)) {
         product.variants.forEach((variant) => {
           if (variant.size) uniqueSizes.add(variant.size.trim()); // Convert size to lowercase and add unique sizes
-          // if (variant.color) uniqueColors.add(variant.color.toLowerCase()); // Convert color to lowercase and add unique colors
+          if (variant.color) uniqueColors.add(variant.color.trim().toLowerCase()); // Convert color to lowercase and add unique colors
         });
       }
     
@@ -53,7 +54,7 @@ export async function GET(request) {
 
     // Convert sets to arrays
     const sizes = Array.from(uniqueSizes);
-    // const colors = Array.from(uniqueColors);
+    const colors = Array.from(uniqueColors);
     const brands = Array.from(uniqueBrands).sort()
 
     // Response with products and filter arrays
@@ -61,7 +62,7 @@ export async function GET(request) {
       {
         success: true,
         sizes,
-        // colors,
+        colors,
         brands,
       },
       { status: 200 }
