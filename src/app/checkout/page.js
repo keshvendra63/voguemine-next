@@ -625,34 +625,26 @@ const createAbandonedCart = async () => {
 };
 
 const debouncedCreateAbandoned = debounce(() => {
-  // Check if all fields are filled
+  // Trigger if firstname and phone are filled, and hasn't already triggered
   if (
     firstname !== "" &&
-    lastname !== "" &&
-    email !== "" &&
     phone?.length === 10 &&
-    address !== "" &&
-    city !== "" &&
-    state !== "" &&
-    pincode !== "" &&
-    !hasAbandonedBeenCreated // Ensure it's only triggered once
+    !hasAbandonedBeenCreated
   ) {
     if (cartItems?.length > 0) {
-     createAbandonedCart()
-     setHasAbandonedBeenCreated(true); // Mark as triggered
-
+      createAbandonedCart();
+      setHasAbandonedBeenCreated(true); // Mark as triggered
     }
   }
-}, 3000);
+}, 2000);
+
 useEffect(() => {
   debouncedCreateAbandoned();
-  // Cleanup debounce on unmount
   return () => {
     debouncedCreateAbandoned.cancel();
   };
-}, [firstname,lastname,email,phone,address,city,state,pincode]);
-  
-   
+}, [firstname, phone, cartItems]);
+
   return (
     <>
     {
