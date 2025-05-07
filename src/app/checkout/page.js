@@ -311,6 +311,48 @@ const sendOtp = async () => {
     }
   }
 };
+
+// const sendOtp = async () => {
+//   if (phone?.length < 10) {
+//     toast.error("Please Enter a Valid Phone Number");
+//   } else if (phone === "9826333937") {
+//     toast.error("You are not eligible");
+//   } else {
+//     setOtpOpen(true);
+    
+//     // Prepare the request options for sending OTP
+//     try {
+//       const res = await fetch(`/api/twilio/send-otp?phone=${normalizePhoneNumber(phone)}`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//       });
+  
+//       const data = await res.json();
+//       if (data.success){
+//         setTimeLeft(initialTime);
+//         toast.success("OTP sent successfully");
+//         // Start the countdown timer
+//         if (intervalId) clearInterval(intervalId);
+//         const id = setInterval(() => {
+//           setTimeLeft((prevTime) => {
+//             if (prevTime <= 1) {
+//               clearInterval(id);
+//               return 0;
+//             }
+//             return prevTime - 1;
+//           });
+//         }, 1000);
+//         setIntervalId(id);
+//       } else {
+//         toast.error("Failed to send OTP");
+//       }
+//     } catch (error) {
+//       toast.error("An error occurred while sending OTP");
+//       console.log(error);
+//     }
+//   }
+// };
+
 const formatTime = () => {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -349,6 +391,31 @@ const verifyOtp = async () => {
     console.error(error);
   }
 };
+// const verifyOtp = async () => {
+//   const code = otp; // The OTP entered by the user
+//   // Prepare the request options for verifying OTP
+//   try {
+//     const res = await fetch(`/api/twilio/verify-otp?phone=${normalizePhoneNumber(phone)}&code=${code}`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+
+//     const data = await res.json();
+//     if (data.success) {
+//         setVerified(true);
+//         toast.success("VERIFIED");
+//         setIsread(true);
+//         setOtpOpen(false);
+    
+//     } else {
+//       const errorData = await response.json();
+//       toast.error(errorData.message || "Error verifying OTP");
+//     }
+//   } catch (error) {
+//     toast.error("Error verifying OTP");
+//     console.log(error);
+//   }
+// };
 
 const [paySpin,setPaySpin]=useState(false)
 
