@@ -292,6 +292,9 @@ useEffect(() => {
   const isVideo = (url) => {
     return url.match(/\.(mp4|webm|ogg)$/i); // Check if the URL ends with a video extension
 };
+const multiplier = parseFloat((Math.random() * (3 - 2) + 2).toFixed(1));
+const originalPrice = parseInt(product?.price * multiplier);
+const discountPercent = Math.round(((originalPrice - product?.price) / originalPrice) * 100);
 
     return (
       <>
@@ -388,8 +391,8 @@ useEffect(() => {
                 </ul>
                 <div className={styles.prices}>
                   <p>Rs. {product?.price}</p>
-                  <p>Rs. {parseInt(product?.price*2.5)}</p>
-                  <p>65% OFF</p>
+                  <p>Rs. {originalPrice}</p>
+                  <p>{discountPercent}% OFF</p>
                   </div>
                
                 <p className={styles.color}>Color: {product?.variants[0]?.color}</p>
