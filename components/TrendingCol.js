@@ -16,7 +16,7 @@ const TrendingCol = ({name,collections,banner,prdts,color}) => {
           {
           collections?.map((item,index)=>{
             return <Link href={`/collections/${item?.handle}`} key={index} >
-            <div className={styles.collection} style={{border:`1px solid ${color}`}}>
+            <div className={styles.collection}>
               <Image src={modifyCloudinaryUrl(item?.images[0]?.url)} alt={item?.title} width={550} height={250} style={{
                 width: '100%',
                 height:"auto",
