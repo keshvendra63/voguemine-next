@@ -167,12 +167,6 @@ setCartColor((item?.variants[0]?.color || "").trim())
                         :
                         ""
                     }
-                    {
-                        item?.isSale?
-                        <p className={styles.isSale}>20% Off</p>
-                        :
-                        ""
-                    }
                     
                     <Link href={`/products/${item?.handle}`}>
                     <Image
@@ -211,13 +205,8 @@ style={{
 ))}
                       </ul>
                       <div className={styles.prdtPrices}>
-                        {
-                          item?.isSale?
-                          <p style={{display:'flex',alignItems:'center',fontSize:'15px'}}><span style={{color:'gray',fontSize:'10px',textDecoration:'line-through',marginRight:'5px'}}>Rs. {item?.price}</span><span>Rs. {((item?.price)-(item?.price*0.2))}</span></p>
-:
-<p>Rs. {item?.price}</p>
+                          <p style={{display:'flex',alignItems:'center',fontSize:'15px'}}><span >Rs. {item?.price}</span><span style={{color:'gray',fontSize:'10px',textDecoration:'line-through',marginLeft:'5px'}}>Rs. {parseInt(item?.price*2.5)}</span></p>
 
-                        }
                           {
                             sold && alreadyAdded?
                           <button onClick={handleRemoveFromCart}>Remove From Cart</button>

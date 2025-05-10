@@ -386,19 +386,11 @@ useEffect(() => {
                     <li><IoIosStar /></li>
                     <li><IoIosStar /></li>
                 </ul>
-                {
-                  product?.isSale?
-                  <div className={styles.prices}>
-                  
-                  <p>Rs. {parseInt((product?.price)-(product?.price*0.2))}</p>
+                <div className={styles.prices}>
                   <p>Rs. {product?.price}</p>
-              </div>
-              :
-              <div className={styles.prices}>
-              <p>Rs. {product?.price}</p>
-          </div>
-
-                }
+                  <p>Rs. {parseInt(product?.price*2.5)}</p>
+                  <p>65% OFF</p>
+                  </div>
                
                 <p className={styles.color}>Color: {product?.variants[0]?.color}</p>
                 {

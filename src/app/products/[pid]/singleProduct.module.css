@@ -73,6 +73,12 @@ letter-spacing: 1px;
     color: gray;
     font-weight: 500;
 }
+.singleProduct .right .prices p:nth-child(3){
+    color: rgb(255, 76, 76);
+    font-weight: 500;
+    margin-left: 1rem;
+    font-weight: 600;
+}
 .singleProduct .right .color{
 font-weight: 600;
 letter-spacing: 1px;
