@@ -69,7 +69,7 @@ const page = async() => {
         <h1>Voguemine's Blogs</h1>
         <div className={styles.blogList}>
             {
-                blogs && blogs?.map((item,index)=>{
+                blogs?.length>0 && blogs?.map((item,index)=>{
                     return <div className={styles.blog} key={index}>
                     <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url) || logo} alt="" width={500} height={500}/>
                     <p className={styles.blogTitle}>{item?.title}</p>
