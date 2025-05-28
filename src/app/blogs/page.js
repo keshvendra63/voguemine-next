@@ -71,7 +71,7 @@ const page = async() => {
             {
                 blogs && blogs?.map((item,index)=>{
                     return <div className={styles.blog} key={index}>
-                    <Image src={modifyCloudinaryUrl(item?.images[0]?.url) || logo} alt="" width={500} height={500}/>
+                    <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url) || logo} alt="" width={500} height={500}/>
                     <p className={styles.blogTitle}>{item?.title}</p>
                     <p dangerouslySetInnerHTML={{ __html: item?.description }} />                    
                     <Link href={`/blogs/news/${item?.handle}`}>

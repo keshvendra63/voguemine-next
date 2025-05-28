@@ -82,7 +82,7 @@ const Blogs = () => {
           blogsState?.map((item,index)=>{
             return(
               <div className={styles.blogCard} onClick={()=>openBlog(item?._id)} key={index}>
-                  <Image src={modifyCloudinaryUrl(item?.images[0]?.url)} alt={item?.title} width={500} height={500}/>
+                  <Image src={modifyCloudinaryUrl(item?.images && item?.images[0]?.url)} alt={item?.title} width={500} height={500}/>
                       <p className={styles.name}>{item?.title}</p>
                       <p className={styles.date}>{new Date(item?.createdAt).toLocaleDateString('en-GB')}</p>
                       <p className={styles.status}>{item?.state}</p>
