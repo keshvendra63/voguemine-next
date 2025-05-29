@@ -1,0 +1,46 @@
+.about{
+    margin: 95px 8vw;
+    
+}
+.about .about1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 20px;
+}
+.about h1{
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.about img{
+    width: 100%;
+    height: auto;
+    object-fit: cover !important;
+} 
+.about p{
+    padding: 0 30px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: justify;
+    margin-bottom: 30px;
+
+}
+.about p::first-letter{
+    margin-left: 50px;
+}
+
+@media screen and (max-width:950px) {
+    .about{
+        margin: 95px 1rem;
+        
+    }
+    .about .about1{
+        grid-template-columns: 1fr;
+    }
+    .about p{
+        padding: 0;
+        margin-top: 30px;
+    
+    }
+}
