@@ -9,6 +9,15 @@ const nextConfig = {
     ],
     unoptimized: true, // Disable Next.js optimization
   },
+   async redirects() {
+    return [
+      {
+        source: "/home",
+        destination: "/",
+        permanent: true, // 308 redirect
+      },
+    ];
+  },
 };
 
 export default nextConfig;
