@@ -158,7 +158,7 @@ const RatingsCarousel = () => {
 
   return (
     <div className={styles.ratingsCarousel}>
-      <button onClick={() => scroll('left')} className={styles.arrow}><FaArrowCircleLeft/></button>
+      <button name="Prev Button" onClick={() => scroll('left')} className={styles.arrow}><FaArrowCircleLeft/></button>
       <div className={styles.carouselContainer} ref={containerRef}>
         {ratings.map((item, index) => (
           <div key={index} className={styles.carouselItem}>
@@ -178,7 +178,7 @@ const RatingsCarousel = () => {
           </div>
         ))}
       </div>
-      <button onClick={() => scroll('right')} className={styles.arrow}><FaArrowCircleRight/></button>
+      <button name="Next Button" onClick={() => scroll('right')} className={styles.arrow}><FaArrowCircleRight/></button>
     </div>
   );
 };

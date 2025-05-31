@@ -86,7 +86,7 @@ margin-top: 85px;
     overflow: hidden;
     text-overflow: ellipsis;
     height: 2.4em; 
-    color: rgb(106, 106, 106);
+    color: rgb(37, 37, 37);
 
 }
 .home .productsGrid .prdt .info .productPrice{
@@ -99,7 +99,6 @@ margin-top: 85px;
 }
 .home .productsGrid .prdt .info .productPrice span:nth-child(2){
 font-size: 12px;
-color: rgb(168, 168, 168);
 text-decoration: line-through;
 margin-left: 1rem;
 }
@@ -181,7 +180,6 @@ margin-left: 1rem;
 .home .trendingCollections .viewAllCol a{
     cursor: pointer;
     background-color: white;
-    padding: 5px 15px;
     z-index: 1;
 }
 .home .trendingCollections .viewAllCol::before{
@@ -195,6 +193,7 @@ margin-left: 1rem;
 .home .trendingCollections .viewAllCol button{
     letter-spacing: 1px;
     font-weight: 500;
+    padding: 10px 15px;
     background-color: transparent;
     border: none;
     cursor: pointer;
