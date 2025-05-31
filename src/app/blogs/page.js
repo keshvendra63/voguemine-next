@@ -18,7 +18,7 @@ export const metadata = {
     url: "https://voguemine.com/blogs",
     images: [
       {
-        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_30/v1732017754/qcykdxftz90kqc8mwfso.jpg",
+        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_50/v1732017754/qcykdxftz90kqc8mwfso.jpg",
       },
     ],
   },
@@ -62,7 +62,7 @@ const page = async() => {
    }
    const modifyCloudinaryUrl = (url) => {
     const urlParts = url?.split('/upload/');
-    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_30/${urlParts[1]}`;
+    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_50/${urlParts[1]}`;
   };
   return (
     <div className={styles.blogs}>

@@ -13,7 +13,7 @@ export const metadata = {
     url: "https://voguemine.com/pages/refund-and-return-policy",
     images: [
       {
-        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_30/v1734682478/dfzq7rtgtph2r965mtjq.jpg",
+        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_50/v1734682478/dfzq7rtgtph2r965mtjq.jpg",
       },
     ],
   },

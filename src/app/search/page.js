@@ -16,7 +16,7 @@ export async function generateMetadata({searchParams }) {
           url: `https://voguemine.com/search`,
           images: [
             {
-              url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_30/v1730799285/zcs4bd74xuruedy7lnyt.jpg",
+              url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_50/v1730799285/zcs4bd74xuruedy7lnyt.jpg",
             },
           ],
         },
