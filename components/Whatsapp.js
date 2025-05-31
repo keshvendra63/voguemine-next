@@ -9,4 +9,3 @@ const Whatsapp = () => {
 }
 
 export default Whatsapp
-s
