@@ -263,9 +263,9 @@ addToCartEvent()
           </ul>
           <div className={styles.socialInfo}>
             <div className={styles.socialIcons}>
-            <a href='https://www.instagram.com/voguemine_fashion/' ><CiInstagram className={styles.socialIcon}/></a>
-<a href='https://www.facebook.com/vogueminefashion' ><CiFacebook className={styles.socialIcon}/></a>
-<a href='https://wa.me/+919899202079?text=Hello there!' ><PiWhatsappLogoLight className={styles.socialIcon}/></a>
+            <a href='https://www.instagram.com/voguemine_fashion/' target="_blank" rel="noopener noreferrer" aria-label="Instagram"><CiInstagram className={styles.socialIcon}/></a>
+<a href='https://www.facebook.com/vogueminefashion' target="_blank" rel="noopener noreferrer" aria-label="Facebook"><CiFacebook className={styles.socialIcon}/></a>
+<a href='https://wa.me/+919899202079?text=Hello there!' target="_blank" rel="noopener noreferrer" aria-label="Whatsapp"><PiWhatsappLogoLight className={styles.socialIcon}/></a>
             </div>
             <p>© 2024, Voguemine</p>
           </div>

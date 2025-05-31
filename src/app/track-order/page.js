@@ -128,7 +128,7 @@ const page = () => {
             <img src="https://i.pinimg.com/originals/6f/fd/64/6ffd64c5366898c59bbc91d9aec935c3.png" alt="empty email" />
             <p>{error ? "Sorry We don't have any data." : "Loading..."}</p>
             <p>Kindly check your email again.</p>
-           <Link href="/"><button>SHOP NOW</button></Link>
+           <Link href="/" style={{padding:'10px 15px'}}><button style={{padding:'10px 15px'}}>SHOP NOW</button></Link>
           </div>
         )}
       </div>
