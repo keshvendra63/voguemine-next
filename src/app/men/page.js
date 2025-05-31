@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 // Function to modify Cloudinary URL
 const modifyCloudinaryUrl = (url) => {
   const urlParts = url?.split('/upload/');
-  return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
+  return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_30/${urlParts[1]}`;
 };
 
 // Function to fetch Men's Data
@@ -46,7 +46,7 @@ export async function generateMetadata() {
       url: "https://voguemine.com/men",
       images: [
         {
-          url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1734682478/dfzq7rtgtph2r965mtjq.jpg",
+          url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_30/v1734682478/dfzq7rtgtph2r965mtjq.jpg",
         },
       ],
     },
