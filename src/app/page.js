@@ -21,7 +21,7 @@ export const metadata = {
     url: "https://voguemine.com/",
     images: [
       {
-        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1732017754/qcykdxftz90kqc8mwfso.jpg",
+        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_50/v1732017754/qcykdxftz90kqc8mwfso.jpg",
       },
     ],
   },
@@ -126,7 +126,7 @@ const page = async () => {
   await fetchBanners()
   const modifyCloudinaryUrl = (url) => {
     const urlParts = url?.split('/upload/');
-    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
+    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_50/${urlParts[1]}`;
   };
 
   return (

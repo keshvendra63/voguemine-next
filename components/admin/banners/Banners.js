@@ -97,7 +97,7 @@ catch(error){
 
     const modifyCloudinaryUrl = (url) => {
     const urlParts = url?.split('/upload/');
-    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
+    return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_50/${urlParts[1]}`;
   };
 
   return (
