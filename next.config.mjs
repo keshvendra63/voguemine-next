@@ -9,6 +9,9 @@ const nextConfig = {
     ],
     unoptimized: true, // Disable Next.js optimization
   },
+  experimental: {
+    legacyBrowsers: false,
+  },
    async redirects() {
     return [
       {

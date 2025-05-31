@@ -30,7 +30,7 @@ const fetchMensData = async () => {
 };
 const modifyCloudinaryUrl = (url) => {
   const urlParts = url?.split('/upload/');
-  return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_50/${urlParts[1]}`;
+  return urlParts && `${urlParts[0]}/upload/c_limit,h_1000,f_auto,q_auto/${urlParts[1]}`;
 };
 
 
@@ -51,7 +51,7 @@ export async function generateMetadata() {
     url: "https://voguemine.com/women",
     images: [
       {
-        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_50/v1712294902/yobby4ueygp6xuraay9h.webp",
+        url: "https://res.cloudinary.com/dqh6bd766/image/upload/c_limit,h_1000,f_auto,q_auto/v1712294902/yobby4ueygp6xuraay9h.webp",
       },
     ],
   },
