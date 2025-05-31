@@ -63,10 +63,10 @@ const Carousel = ({banners}) => {
 
       {/* Navigation Buttons */}
       <div className={styles.buttons}>
-        <button name="Prev Button" onClick={prevImage} className={styles.prevButton}>
+        <button aria-label="Prev Button" onClick={prevImage} className={styles.prevButton}>
           <GrPrevious/>
         </button>
-        <button name="Next Button" onClick={nextImage} className={styles.nextButton}>
+        <button aria-label="Next Button" onClick={nextImage} className={styles.nextButton}>
           <GrNext/>
         </button>
       </div>

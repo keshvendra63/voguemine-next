@@ -254,18 +254,18 @@ addToCartEvent()
           style={{ left: !ham ? "-100%" : "0" }}
         >
           <ul>
-          <Link href="/" onClick={closeHam}><li>Home</li></Link>
-            <Link href="/men" onClick={closeHam}><li>Men</li></Link>
-            <Link href="/women" onClick={closeHam}><li>Women</li></Link>
-            <Link href="/kids" onClick={closeHam}><li>Kids</li></Link>
-            <Link href="/accessories" onClick={closeHam}><li>Accessories</li></Link>
-            <Link href="/track-order" onClick={closeHam}><li>Orders</li></Link>
+          <li><Link href="/" onClick={closeHam}>Home</Link></li>
+            <li><Link href="/men" onClick={closeHam}>Men</Link></li>
+            <li><Link href="/women" onClick={closeHam}>Women</Link></li>
+            <li><Link href="/kids" onClick={closeHam}>Kids</Link></li>
+            <li><Link href="/accessories" onClick={closeHam}>Accessories</Link></li>
+            <li><Link href="/track-order" onClick={closeHam}>Orders</Link></li>
           </ul>
           <div className={styles.socialInfo}>
             <div className={styles.socialIcons}>
-            <a href='https://www.instagram.com/voguemine_fashion/' ><CiInstagram className={styles.socialIcon}/></a>
-<a href='https://www.facebook.com/vogueminefashion' ><CiFacebook className={styles.socialIcon}/></a>
-<a href='https://wa.me/+919899202079?text=Hello there!' ><PiWhatsappLogoLight className={styles.socialIcon}/></a>
+            <a href='https://www.instagram.com/voguemine_fashion/' target="_blank" rel="noopener noreferrer" aria-label="Instagram"><CiInstagram className={styles.socialIcon}/></a>
+<a href='https://www.facebook.com/vogueminefashion' target="_blank" rel="noopener noreferrer" aria-label="Facebook"><CiFacebook className={styles.socialIcon}/></a>
+<a href='https://wa.me/+919899202079?text=Hello there!' target="_blank" rel="noopener noreferrer" aria-label="Whatsapp"><PiWhatsappLogoLight className={styles.socialIcon}/></a>
             </div>
             <p>© 2024, Voguemine</p>
           </div>
