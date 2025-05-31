@@ -340,7 +340,7 @@
     align-items: center;
 }
 .collections .collectionPrdts .allPrdts .collectionPrdt .prdtInfo .prdtPrices p span:nth-child(2) {
-    font-size: 14px;
+    font-size: 11px;
     margin-left: 5px;
     text-decoration: line-through;
     color: rgb(192, 192, 192);
