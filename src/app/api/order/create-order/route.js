@@ -293,7 +293,7 @@ export async function POST(req,res){
         mobile: phone,
         address
       });
-      user1 = await UserModel1.create({
+      user1 = await UserModel2.create({
         _id:user?._id,
         email,
         firstname,
