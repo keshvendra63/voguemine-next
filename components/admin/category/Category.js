@@ -67,7 +67,7 @@ const Category = ({category}) => {
             <div className={styles.addprdt} style={{ display: prdtOpens ? "flex" : "none" }}>
                 <IoMdClose className={styles.close} onClick={closeCollection} />
                 <div className={styles.addprdtbody}>
-                    <SingleCollection getCollectionId={collectionId} />
+                    <SingleCollection getCollectionId={collectionId} category={category}/>
                 </div>
             </div>
             <div className={styles.categoryHead}>
