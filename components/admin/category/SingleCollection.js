@@ -6,8 +6,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CldUploadWidget } from 'next-cloudinary';
 import toast from 'react-hot-toast';
 
-const SingleCollection = ({getCollectionId}) => {
-const {category,setPrdtOpens}=useContext(GlobalContext)
+const SingleCollection = ({getCollectionId, category}) => {
+const {setPrdtOpens}=useContext(GlobalContext)
   const [title,setTitle]=useState("")
   const [category1,setCategory1]=useState("")
   const [handle,setHandle]=useState("")
