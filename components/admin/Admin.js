@@ -348,7 +348,7 @@ useEffect(()=>{
     <Orders income={todayDataState[0]?.totalIncome}/>
     :currentPage==="watchOrders"?
     <WatchOrders income={todayDataState[0]?.totalIncome}/>
-    :currentPage===("men" || "women" || "kids" || "accessories")?
+    :(currentPage==="men" || currentPage==="women" || currentPage==="kids" || currentPage==="accessories")?
     <Category category={currentPage}/>
     :currentPage==="abandoned"?
     <Abandoned/>
