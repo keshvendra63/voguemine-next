@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /404
+Disallow: /checkout
+Disallow: /search
+Disallow: /collections/undefined
+Disallow: /home
+Disallow: /products/undefined
+Disallow: /voguemine-admin
+Disallow: /order-track
+Sitemap: https://voguemine.com/api/sitemap.xml
