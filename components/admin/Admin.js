@@ -21,6 +21,7 @@ import Blogs from './blogs/Blogs';
 import WatchProducts from './watchProducts/Products';
 import WatchOrders from './watchOrders/Orders';
 import WatchBanners from './watchBanners/Banners';
+import Users from './users/Users';
 const Admin = () => {
     const {setCategory,setPrdtOpens}=useContext(GlobalContext)
 const [ham,setHam]=useState(false)
@@ -328,6 +329,7 @@ useEffect(()=>{
                         <li onClick={(e)=>menuToggle("coupon")}>Coupons</li>
                         <li onClick={(e)=>menuToggle("blogs")}>Blogs</li>
                         <li onClick={(e)=>menuToggle("banners")}>Banners</li>
+                        <li onClick={(e)=>menuToggle("users")}>Users</li>
                         <li onClick={(e)=>menuToggle("watchOrders")}>Watch Orders</li>
                         <li onClick={(e)=>menuToggle("watchproducts")}>Watch Products</li>
                         <li onClick={(e)=>menuToggle("watchbanners")}>Watch Banners</li>
@@ -360,6 +362,8 @@ useEffect(()=>{
     <Blogs/>
     :currentPage==="coupon"?
     <Coupons/>
+    :currentPage==="users"?
+    <Users/>
     :currentPage==="home"?
     <Home/>
     :

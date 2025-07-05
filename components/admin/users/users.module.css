@@ -1,0 +1,79 @@
+/* users.css */
+.usersContainer {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.usersContainer .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usersContainer button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.usersContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.usersContainer th {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.usersContainer td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.usersContainer th {
+  background: #f4f4f4;
+}
+
+.usersContainer .popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.usersContainer .popupContent {
+  background: white;
+  padding: 20px;
+  min-width: 300px;
+  max-width: 400px;
+  margin: 100px auto;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  word-wrap: break-word;
+}
+
+.usersContainer .popupContent input{
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.usersContainer .popupActions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
