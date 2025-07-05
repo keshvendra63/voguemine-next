@@ -243,15 +243,12 @@ const createHistory=async(data)=>{
         })
         if(response.ok){
           toast.success("Delivery Details Sended")
-      createHistory({orderId:orderState?._id,name:user?.firstname,time:(new Date()),message:`Order Mark as Delivered by ${user?.firstname}`})
-
+          createHistory({orderId:orderState?._id,name:user?.firstname,time:(new Date()),message:`Order Mark as Delivered by ${user?.firstname}`})
         }
       }
       catch (err) {
         console.log(err)
       }
-
-
   }
 }
   const sendArriving=async()=>{
@@ -263,7 +260,8 @@ const createHistory=async(data)=>{
           body:JSON.stringify({name:`${orderState?.shippingInfo?.firstname}`,ordernumber:`${orderState?.orderNumber}`,email:`${orderState?.shippingInfo?.email}`,orderId:orderState?._id, phone:orderState?.shippingInfo?.phone,arriving:true})
         })
         if(response.ok){
-          toast.success("Delivery Details Sended")
+          toast.success("Notification Sended")
+          createHistory({orderId:orderState?._id,name:user?.firstname,time:(new Date()),message:`Order Mark as Arriving Today ${user?.firstname}`})
         }
       }
       catch (err) {

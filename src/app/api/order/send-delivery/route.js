@@ -11,7 +11,9 @@ export async function PUT(req){
         await connectDb()
         await connectDb2()
       // Await the sendEmail function
-      await sendEmail({
+
+      if(arriving){
+        await sendEmail({
         to: email,
         subject: "Order Delivered: Your Order is Delivered!",
         text: "Order Delivered: Your Order is Delivered!",
@@ -54,7 +56,10 @@ export async function PUT(req){
           </html>
         `
       });
-      sendVariableMessage({
+      
+      }
+      else{
+        sendVariableMessage({
               from: process.env.WHATSAPP_NUMBER,
               to: `91${phone}`,
               journeyId: process.env.WHATSAPP_JOURNEY_ID,
@@ -64,13 +69,15 @@ export async function PUT(req){
                       "1": ordernumber,
               }
             });
-  
-      // Update the order status
-      const updatedOrder = await OrderModel1.findByIdAndUpdate(orderId, { orderStatus: 'Delivered' }, { new: true });
-      const updatedOrder1 = await OrderModel2.findByIdAndUpdate(orderId, { orderStatus: 'Delivered' }, { new: true });
-
-      return Response.json({ message: 'Delivery email sent successfully', updatedOrder });
+      }
       
+      
+      // Update the order status
+      
+      const updatedOrder = await OrderModel1.findByIdAndUpdate(orderId, { orderStatus: arriving?'Arriving':'Delivered' }, { new: true });
+      const updatedOrder1 = await OrderModel2.findByIdAndUpdate(orderId, { orderStatus: arriving?'Arriving':'Delivered' }, { new: true });
+
+      return Response.json({ message: 'Notification sent successfully', updatedOrder });
     } catch (error) {
       console.error('Failed to send message:', error);
       return Response.json({status:500,error:error.message});
