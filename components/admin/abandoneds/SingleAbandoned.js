@@ -288,12 +288,12 @@ const deleteAbandoned=()=>{
               <p>{item?.product?.title}</p>
               <p><span>color:</span>{item?.color}</p>
               <p><span>size:</span>{item?.size}</p>
-              <p><span>sku:</span>{item?.product?.sku}</p>
+              <p><span>sku:</span>{item?.sku}</p>
             </div>
           
     <p className={styles.price}>&#8377;{item?.price}</p>
     <p className={styles.qty}>{item?.quantity}</p>
-    <p className={styles.total}>&#8377;{(item?.product?.price)*(item?.quantity)}</p>
+    <p className={styles.total}>&#8377;{(item?.price)*(item?.quantity)}</p>
     </div>
           </div>
             )
