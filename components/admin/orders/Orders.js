@@ -319,7 +319,43 @@ const exportToExcel = () => {
         <p onClick={fetchSearch}><IoIosSearch /></p>
 
       </div>
-      <div className={styles.productTable}>
+      <div className={styles.scrollWrapper}>
+      <div className={styles.prdtTable}>
+        <ul>
+          <li>IMAGE</li>
+          <li>NUMBER</li>
+          <li>CUSTOMER</li>
+          <li>STATUS</li>
+          <li>AMOUNT</li>
+          <li>DATE</li>
+          <li>ACTIONS</li>
+        </ul>
+        {
+          orderState?.slice()?.reverse()?.map((item, index) => {
+            return <div className={styles.prdtOrders} key={index}>
+            <Image onClick={(e)=>openOrder(item?._id)} src={modifyCloudinaryUrl(item?.orderItems[0]?.product?.images && item?.orderItems[0]?.product?.images[0]?.url)} alt={item?.orderNumber} width={250} height={200} style={{height:"100%",cursor:"pointer"}} />
+          <p className={styles.number}><span>#{item?.orderNumber}</span><span style={{ display: "flex", width: '10px', height: '10px', backgroundColor: 'green', borderRadius: '50%', marginLeft: '7px' }}></span></p>
+          <div className={styles.customerInfo}>
+              <p className={styles.name}>{item?.shippingInfo?.firstname} {item?.shippingInfo?.lastname}</p>
+              <p className={styles.address}>{item?.shippingInfo?.city}</p>
+              <p className={styles.address}>{item?.shippingInfo?.state}</p>
+              <p className={styles.phone}>+91 {item?.shippingInfo?.phone}</p>
+          </div>
+          <p className={styles.status}><span style={{color:item?.orderType === "COD" ? "yellow" : item?.orderType === "Cancelled" ? "red" : "green"}}>{item?.orderType}</span><span>{item?.orderStatus}</span></p>
+          <p className={styles.amount}><span>&#8377;{item?.finalAmount}</span><span>{item?.orderItems?.length} Items</span></p>
+          <p className={styles.time}>{new Date(item?.createdAt).toLocaleString('en-GB', { hour12: true })}</p>
+            <div className={styles.marks}>
+                <p className={`${styles.ok} ${styles.oks}`} onClick={(e) => confirmOrder(item)}><abbr title='Confirm Order'><IoCheckmarkDoneCircle className={styles.ico1} /></abbr></p>
+                <p className={`${styles.ok1} ${styles.oks}`} onClick={(e) => cancelOrder(item)}><abbr title="Cancel Order"><AiFillCloseCircle className={styles.ico2} /></abbr></p>
+              </div>
+        </div>
+          })
+        }
+        
+
+      </div>
+      </div>
+      {/* <div className={styles.productTable}>
         {
           orderState?.slice()?.reverse()?.map((item, index) => {
             return <div className={styles.product} key={index}>
@@ -352,7 +388,7 @@ const exportToExcel = () => {
 
 
 
-      </div>
+      </div> */}
 
 
 

@@ -1,3 +1,170 @@
+.scrollWrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+.prdtTable {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  min-width: 1050px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.prdtTable ul {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 2.5fr 1.5fr 1.2fr 1.5fr 1fr;
+  background-color: #f9fafb;
+  padding: 16px;
+  font-weight: 600;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+  list-style: none;
+}
+
+.prdtOrders {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 2.5fr 1.5fr 1.2fr 1.5fr 1fr;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.prdtOrders:hover {
+  background-color: #f3f4f6;
+}
+
+.prdtOrders img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.customerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.address {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.phone {
+  color: #3b82f6;
+  font-size: 13px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.status span:first-child {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  width: fit-content;
+}
+
+.status span:last-child {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.amount {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.amount span:last-child {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.time {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.marks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative !important;
+}
+
+.oks {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.oks:hover {
+  transform: scale(1.1);
+}
+
+.ok .ico1 {
+  font-size: 22px;
+  color: #10b981; /* green */
+}
+
+.ok1 .ico2 {
+  font-size: 22px;
+  color: #ef4444; /* red */
+}
+
+/* Badge Colors */
+.status span:contains("Cancelled") {
+  background-color: #fecaca;
+  color: #b91c1c;
+}
+
+.status span:contains("Prepaid") {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status span:contains("COD") {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+
+
+
+
+
+
+
+
+
+/* new css */
 .orders{
     padding:0 10px;
 }
