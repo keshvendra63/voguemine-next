@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import styles from './users.module.css';
 import toast from 'react-hot-toast';
+
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState('all');
@@ -15,8 +16,10 @@ const Users = () => {
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
     const [verified, setVerified] = useState(false);
-    const [days,setDays] = useState(30);
-
+    
+    // Changed from days to date range
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     const fetchUsers = async () => {
         const res = await fetch('/api/user/get-users');
@@ -30,6 +33,14 @@ const Users = () => {
         if (user) {
             setCurrentUser(user);
         }
+        
+        // Set default date range (last 30 days)
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        
+        setEndDate(today.toISOString().split('T')[0]);
+        setStartDate(thirtyDaysAgo.toISOString().split('T')[0]);
     }, []);
 
     const handleDelete = async (id) => {
@@ -90,8 +101,6 @@ const Users = () => {
     };
 
     const sendOtp = async () => {
-
-        // Prepare the request options for sending OTP
         try {
             const res = await fetch(`/api/twilio/send-otp?phone=9719250693`, {
                 method: 'POST',
@@ -102,7 +111,6 @@ const Users = () => {
             if (data.success) {
                 toast.success("OTP sent successfully");
                 setOtpSent(true);
-                // Start the countdown timer
             } else {
                 toast.error("Failed to send OTP");
             }
@@ -113,8 +121,6 @@ const Users = () => {
     };
 
     const verifyOtp = async () => {
-        const code = otp; // The OTP entered by the user
-        // Prepare the request options for verifying OTP
         try {
             const res = await fetch(`/api/twilio/verify-otp?phone=9719250693&code=${otp}`, {
                 method: 'POST',
@@ -126,49 +132,60 @@ const Users = () => {
                 setVerified(true);
                 toast.success("VERIFIED");
             } else {
-                const errorData = await response.json();
-                toast.error(errorData.message || "Error verifying OTP");
+                toast.error("Error verifying OTP");
                 setVerified(false);
             }
         } catch (error) {
             toast.error("Error verifying OTP");
-            setVerified
+            setVerified(false);
         }
     };
-    const exportData = async () => {
-    try {
-        const res = await fetch(`/api/user/export-data?days=${days}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        });
 
-        if (!res.ok) {
-            const errorData = await res.json();
-            throw new Error(errorData.error || 'Export failed');
+    const exportData = async (dataType) => {
+        // Validate date range
+        if (!startDate || !endDate) {
+            toast.error("Please select both start and end dates");
+            return;
+        }
+        
+        if (new Date(startDate) > new Date(endDate)) {
+            toast.error("Start date cannot be later than end date");
+            return;
         }
 
-        // Get the blob and create download
-        const blob = await res.blob();
-        const downloadUrl = URL.createObjectURL(blob);
-        
-        // Create and click download link
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = `orders-${days}-days.xlsx`;
-        document.body.appendChild(link);
-        link.click();
-        
-        // Cleanup
-        document.body.removeChild(link);
-        URL.revokeObjectURL(downloadUrl);
-        
-        toast.success("Excel file downloaded successfully!");
+        try {
+            const res = await fetch(`/api/user/export-data?startDate=${startDate}&endDate=${endDate}&data=${dataType}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-    } catch (error) {
-        console.error('Export error:', error);
-        toast.error(error.message || "Failed to export data");
-    }     
-}  
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Export failed');
+            }
+
+            // Get the blob and create download
+            const blob = await res.blob();
+            const downloadUrl = URL.createObjectURL(blob);
+            
+            // Create and click download link
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `orders-${startDate}-to-${endDate}-${dataType}.xlsx`;
+            document.body.appendChild(link);
+            link.click();
+            
+            // Cleanup
+            document.body.removeChild(link);
+            URL.revokeObjectURL(downloadUrl);
+            
+            toast.success("Excel file downloaded successfully!");
+
+        } catch (error) {
+            console.error('Export error:', error);
+            toast.error(error.message || "Failed to export data");
+        }     
+    };
 
     const filteredUsers =
         filter === 'admin' ? users.filter((u) => u.role === 'admin') : users;
@@ -183,8 +200,20 @@ const Users = () => {
                     </button>
                     <button className={styles.createButton} onClick={() => openPopup({}, false, true)}>+ Create User</button>
                     <div className={styles.export}>
-                        <input type="number" name="" id="" value={days} onChange={()=>setDays(e.target.value)}/>
-                        <button className={styles.createButton} onClick={exportData}>Export</button>
+                        <label>Start Date:</label>
+                        <input 
+                            type="date" 
+                            value={startDate} 
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                        <label>End Date:</label>
+                        <input 
+                            type="date" 
+                            value={endDate} 
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                        <button className={styles.createButton} onClick={() => exportData("voguemine")}>Export Voguemine</button>
+                        <button className={styles.createButton} onClick={() => exportData("shopify")}>Export Shopify</button>
                     </div>
                 </div>
             </div>
@@ -201,7 +230,7 @@ const Users = () => {
                 </thead>
                 <tbody>
                     {filteredUsers.map((user) => (
-                        <tr style={{display:user?.email==="keshvendra638701@gmail.com"?'none':'inline-masonry'}} key={user._id}>
+                        <tr style={{display:user?.email==="keshvendra638701@gmail.com"?'none':'table-row'}} key={user._id}>
                             <td>{user.firstname}</td>
                             <td>{user._id}</td>
                             <td>{user.mobile}</td>
