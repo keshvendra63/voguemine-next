@@ -1,155 +1,278 @@
-.footer{
-    background-color: #EEEEEE;
-    color: black;
-    
-    padding: 3rem 8vw 1rem 8vw;
-    z-index: 11;
-    /* position: relative */
-}
-.footer ul{
-    list-style: none;
+.footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 60px 8vw 40px 8vw;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.footer .topFooter{
+.footerContent {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    padding-bottom: 5rem;
-    grid-gap: 20px;
-    align-items: center;
-    border-bottom: 1px solid black;
-}
-.footer .topFooter .topLeft img{
-    width: 200px;
-}
-.footer .topFooter .topLeft ul{
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-}
-.footer .topFooter .topLeft ul li{
-    margin-right: 30px;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 1px;
-    font-weight: 500;
-}
-.footer .topFooter .topLeft ul li:hover{
-    scale: 0.9;
-}
-.footer .topFooter .topRight p{
-font-size: 14px;
-font-weight: 500;
-letter-spacing: 1px;
-margin-bottom: 20px;
-}
-.footer .topFooter .topRight div{
-    display: flex;
-    align-items: center;
-    border-radius: 2px;
-    border: 2px solid black;
-    height: 50px;
-}
-.footer .topFooter .topRight div input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: transparent;
-    padding: 0 10px;
-}
-.footer .topFooter .topRight div input::placeholder{
-    color: black;
-    letter-spacing: 1px;
-    font-size: 15px;
-}
-.footer .topFooter .topRight div button{
-    height: 100%;
-    padding: 12px 20px;
-    background-color: transparent;
-    border-left: 2px solid black !important;
-    border: none;
-    color: black;
-    font-weight: 500;
-    letter-spacing: 1px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.footer .topFooter .topRight div button:hover{
-    background-color: black;
-    color: white;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 40px;
 }
 
-.footer .bottomFooter{
-    padding-top: 20px;
+.newsletterSection {
+    max-width: 400px;
 }
-.footer .bottomFooter .bottomOne{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-}
-.footer .bottomFooter .bottomOne ul{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.footer .bottomFooter .bottomOne ul li{
-    margin-right: 30px;
+
+.newsletterSection h3 {
+    font-size: 18px;
+    font-weight: 600;
     letter-spacing: 1px;
-    font-weight: 500;
-    line-height: 2;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.newsletterForm {
+    margin-bottom: 25px;
+}
+
+.inputWrapper {
+    display: flex;
+    border: 2px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #2a2a2a;
+}
+
+.inputWrapper input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
     font-size: 14px;
-    cursor: pointer;
+    outline: none;
 }
-.footer .bottomFooter .bottomTwo{
+
+.inputWrapper input::placeholder {
+    color: #888;
+    font-size: 14px;
+}
+
+.inputWrapper button {
+    padding: 15px 25px;
+    border: none;
+    border-left: 2px solid #444;
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.inputWrapper button:hover {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.5;
+}
+
+.consent input[type="checkbox"] {
+    margin-top: 4px;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+.consent label {
+    flex: 1;
+}
+
+.consent a {
+    color: #888;
+    text-decoration: underline;
+}
+
+.consent a:hover {
+    color: #ffffff;
+}
+
+.socialSection h4 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 15px;
+}
+
+.socialIcons a {
+    color: #ffffff;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.socialIcons a:hover {
+    color: #888;
+    transform: scale(1.1);
+}
+
+.linksSection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+}
+
+.linkColumn h4 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    color: #ffffff;
+}
+
+.linkColumn ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.linkColumn ul li {
+    margin-bottom: 12px;
+}
+
+.linkColumn ul li a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.linkColumn ul li a:hover {
+    color: #ffffff;
+}
+
+.footerBottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    padding-top: 20px;
 }
-.footer .bottomFooter .bottomTwo p{
-    font-size: 14px;
-    letter-spacing: 1px;
-    word-spacing: 5px;
+
+.footerBottom p {
+    color: #666;
+    font-size: 12px;
+    letter-spacing: 0.5px;
 }
-.footer .bottomFooter .bottomTwo ul{
+
+.additionalLinks {
     display: flex;
-    align-items: center;
-}
-.footer .bottomFooter .bottomTwo ul li{
-    margin-left: 15px;
-    font-size: 25px;
-    cursor: pointer;
-}
-.footer a{
-    text-decoration: none;
+    gap: 15px;
 }
 
-@media screen and (max-width:950px) {
-    .footer .topFooter{
-        grid-template-columns:1fr;
+.additionalLinks a {
+    color: #666;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.additionalLinks a:hover {
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .footer {
+        padding: 60px 4vw 40px 4vw;
     }
-    .footer .topFooter .topRight{
-        margin-top: 3rem;
+    
+    .linksSection {
+        gap: 40px;
     }
-    .footer .bottomFooter .bottomOne{
+}
+
+@media screen and (max-width: 950px) {
+    .footerContent {
         grid-template-columns: 1fr;
+        gap: 50px;
     }
-    .footer{
-        padding: 3rem 2rem 1rem 2rem;
+    
+    .linksSection {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+    
+    .newsletterSection {
+        max-width: none;
     }
 }
 
-@media screen and (max-width:650px){
-    .footer{
-        padding: 3rem 1rem 1rem 1rem;
+@media screen and (max-width: 768px) {
+    .footer {
+        padding: 40px 4vw 30px 4vw;
     }
-    .footer .topFooter .topLeft ul{
+    
+    .footerContent {
+        gap: 40px;
+        padding-bottom: 30px;
+    }
+    
+    .linksSection {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footerBottom {
         flex-direction: column;
-        align-items: flex-start;
-        margin-top: 20px;
+        gap: 15px;
+        text-align: center;
     }
-    .footer .topFooter .topLeft ul li{
-        margin-bottom: 20px;
+    
+    .footerBottom p {
+        order: 2;
+    }
+    
+    .additionalLinks {
+        order: 1;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding: 30px 20px 20px 20px;
+    }
+    
+    .inputWrapper {
+        flex-direction: column;
+    }
+    
+    .inputWrapper button {
+        border-left: none;
+        border-top: 2px solid #444;
+    }
+    
+    .consent {
+        font-size: 11px;
+    }
+    
+    .socialIcons {
+        justify-content: center;
+    }
+    
+    .linkColumn h4 {
+        font-size: 16px;
+    }
+    
+    .linkColumn ul li a {
+        font-size: 13px;
     }
 }
