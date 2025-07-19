@@ -262,6 +262,29 @@ const Products = () => {
       if (data.status === 200) {
         createHistory({ name: user?.firstname, title: item?.title, sku: item?.sku, productchange: "Delete the Product", time: new Date() })
         toast.success("Product Deleted Successfully")
+        const getProducts = async () => {
+              try {
+                const response = await fetch(`/api/products?page=${page}&state=${state}&limit=100`)
+                const data = await response.json()
+                if (response.ok) {
+                  setCachedProducts(data);
+                  setproductState(data.products)
+                  setproductState1(data)
+                }
+                else {
+                  console.log("Unable to fetch orders")
+
+
+                }
+              }
+              catch (err) {
+                console.log(err)
+
+
+              }
+            }
+
+            getProducts()
 
       }
       else {
@@ -296,7 +319,7 @@ const Products = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              title: `Copy ${index + 1} of - ${item?.title}`,
+              title: item?.title,
               tags: item?.tags,
               state: "draft",
               handle: `${item?.handle}-copy-${index + 1}`,
@@ -305,17 +328,17 @@ const Products = () => {
               price1: item?.price1,
               category: item?.category,
               brand: item?.brand,
-              sku: `${item?.sku}-copy-${index + 1}`,
+              sku: item?.sku,
               images: item?.images,
               collectionName: item?.collectionName,
               collectionHandle: item?.collectionHandle,
               variants: item?.variants,
-              metaDesc: `${item?.metaDesc}-${index + 1}`,
-              metaTitle: `${item?.metaTitle}-${index + 1}`,
-              metaDesc1: `${item?.metaDesc1}-${index + 1}`,
-              metaTitle1: `${item?.metaTitle1}-${index + 1}`,
-              metaDesc4: `${item?.metaDesc4}-${index + 1}`,
-              metaTitle4: `${item?.metaTitle4}-${index + 1}`,
+              metaDesc: item?.metaDesc,
+              metaTitle: item?.metaTitle,
+              metaDesc1: item?.metaDesc1,
+              metaTitle1: item?.metaTitle1,
+              metaDesc4: item?.metaDesc4,
+              metaTitle4: item?.metaTitle4,
             }),
           });
 
