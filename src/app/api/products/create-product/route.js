@@ -2,17 +2,22 @@ import connectDb from "../../../../../config/connectDb";
 import connectDb2 from "../../../../../config/connectDb2";
 import authMiddleware from "../../../../../controller/authController";
 import {ProductModel1,ProductModel2} from "../../../../../models/productModel";
+import { WatchProductModel1, WatchProductModel2 } from "../../../../../models/watchProductModel";
 export async function POST(req){
   const {searchParams}=new URL(req.url)
   const token=searchParams.get("token")
     const body = await req.json();
+    const {isWatchProduct} = body; // Extract isWatchProduct from the request body
     try {
         await connectDb()
         await connectDb2()
         await authMiddleware(token)
       const newProduct = await ProductModel1.create(body);
       const newProduct1 = await ProductModel2.create({...body,_id:newProduct?._id});
-
+      if(isWatchProduct){
+        const newPrdt = await WatchProductModel1.create(body);
+        const newPrdt1 = await WatchProductModel2.create({...body,_id:newPrdt?._id});
+      }
 
       if(newProduct && newProduct1){
         return Response.json({

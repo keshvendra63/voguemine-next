@@ -54,6 +54,8 @@ const [metaDesc4,setmetaDesc4]=useState("")
 const [metaTitle4,setmetaTitle4]=useState("")
 const [sold,setsold]=useState("")
   const [user,setUser]=useState("")
+const [isWatchProduct, setIsWatchProduct] = useState(false);
+
   useEffect(()=>{
     const user=JSON.parse(localStorage.getItem("user")) || ""
 setUser(user)
@@ -286,7 +288,8 @@ setUser(user)
       metaDesc1:metaDesc1||"",
       metaTitle1:metaTitle1||"",
       metaDesc4:metaDesc4||"",
-      metaTitle4:metaTitle4||""
+      metaTitle4:metaTitle4||"",
+      isWatchProduct:isWatchProduct || false
     }
   }
   const createHistory=async(value)=>{
@@ -733,6 +736,18 @@ const handleUploadSuccess = (result) => {
                 id="">
                 <option value="false">False</option>
                 <option value="true">True</option>
+              </select>
+            </div>
+            <div className={styles.status}>
+              <p>Create on Watch Web</p>
+              <select
+                name="isWatchProduct"
+                onChange={(e)=>setIsWatchProduct(e.target.value)}
+                value={formik.values.isWatchProduct}
+                className={styles.formControl}
+                id="">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
               </select>
             </div>
             <div className={styles.status}>

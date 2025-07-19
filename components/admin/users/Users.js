@@ -15,6 +15,8 @@ const Users = () => {
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
     const [verified, setVerified] = useState(false);
+    const [days,setDays] = useState(30);
+
 
     const fetchUsers = async () => {
         const res = await fetch('/api/user/get-users');
@@ -133,6 +135,40 @@ const Users = () => {
             setVerified
         }
     };
+    const exportData = async () => {
+    try {
+        const res = await fetch(`/api/user/export-data?days=${days}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || 'Export failed');
+        }
+
+        // Get the blob and create download
+        const blob = await res.blob();
+        const downloadUrl = URL.createObjectURL(blob);
+        
+        // Create and click download link
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `orders-${days}-days.xlsx`;
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        document.body.removeChild(link);
+        URL.revokeObjectURL(downloadUrl);
+        
+        toast.success("Excel file downloaded successfully!");
+
+    } catch (error) {
+        console.error('Export error:', error);
+        toast.error(error.message || "Failed to export data");
+    }     
+}  
 
     const filteredUsers =
         filter === 'admin' ? users.filter((u) => u.role === 'admin') : users;
@@ -146,6 +182,10 @@ const Users = () => {
                         {filter === 'admin' ? 'Show All Users' : 'Show Admins'}
                     </button>
                     <button className={styles.createButton} onClick={() => openPopup({}, false, true)}>+ Create User</button>
+                    <div className={styles.export}>
+                        <input type="number" name="" id="" value={days} onChange={()=>setDays(e.target.value)}/>
+                        <button className={styles.createButton} onClick={exportData}>Export</button>
+                    </div>
                 </div>
             </div>
 
