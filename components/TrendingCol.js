@@ -19,6 +19,7 @@ const TrendingCol = ({collections,prdts,color,collection}) => {
             return <Link href={`/collections/${item?.handle}`} key={index} >
             <div className={styles.collection}>
               <Image src={modifyCloudinaryUrl(item?.images[0]?.url)} alt={item?.title} width={550} height={250} placeholder='blur' blurDataURL="data:image/jpeg;base64,..."/>
+              <p>{item?.title}</p>
           </div>
             </Link>
           })

@@ -385,6 +385,9 @@
 }
 
 @media screen and (max-width:750px) {
+    .collections .collectionProducts {
+        grid-template-columns: 1fr;
+    }
     .collections {
         margin: 95px 1rem;
     }
@@ -412,11 +415,6 @@
         overflow-y: auto;
     }
 
-    .collections .collectionProducts {
-        grid-template-columns: 1fr;
-        grid-gap: 0;
-    }
-
     .collections .collectionPrdts .allPrdts .collectionPrdt {
         display: grid;
         grid-template-columns: 1fr 1.5fr;
@@ -426,7 +424,6 @@
     }
 
     .collections .collectionPrdts .allPrdts {
-        grid-template-columns: 1fr;
         grid-gap: 10px;
     }
 
@@ -461,4 +458,13 @@
         font-size: 16px;
 
     }
+}
+
+
+@media screen and (max-width:550px) {
+    .collections .collectionPrdts .allPrdts {
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
+    }
+    
 }

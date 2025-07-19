@@ -26,7 +26,7 @@ blurDataURL="data:image/jpeg;base64,..."
                       <div className={styles.info}>
                         <p className={styles.productName}>{item?.title}</p>
                         <p className={styles.productPrice}><span>Rs. {item?.price}</span><span>Rs. {parseInt(item?.price*2.5)}</span></p>
-                        <button style={{backgroundColor:color}}>SHOP NOW</button>
+                        <button >SHOP NOW</button>
                       </div>
                     </div>
                       </Link>

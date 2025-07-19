@@ -88,9 +88,9 @@ a {
 }
 
  .collectionPrdt {
-    border: 1px solid black;
-    padding: 5px;
-    border-radius: 3px;
+    border: 1px solid rgb(194, 194, 194);
+    padding: 1rem;
+    border-radius: 10px;
     background-color: white;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
@@ -107,7 +107,7 @@ a {
     font-weight: 500;
     font-size: 13px;
     padding: 5px 8px;
-    border-radius: 3px 0 0 0;
+    border-radius: 10px 0 0 0;
 }
 
  .collectionPrdt .isSale {
@@ -131,10 +131,16 @@ a {
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    border-radius: 10px;
 }
 
  .collectionPrdt .prdtInfo {
     margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
  .collectionPrdt .prdtInfo .prdtName {
@@ -164,6 +170,8 @@ a {
     align-items: center;
     flex-wrap: wrap;
     margin: 15px 0;
+    justify-content: center;
+    min-height: 55px;
 }
 
  .collectionPrdt .prdtInfo ul li {
@@ -184,14 +192,15 @@ a {
 }
 
  .collectionPrdt .prdtInfo .prdtPrices {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     margin-top: 10px;
     align-items: center;
     grid-template-columns: 1fr 1fr;
 }
 
  .collectionPrdt .prdtInfo .prdtPrices button {
-    padding: 8px 0;
+    padding: 8px 15px;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -202,6 +211,7 @@ a {
     border: 1px solid black;
     color: white;
     border-radius: 5px;
+    margin-top: 10px;
 
 }
 
@@ -224,6 +234,14 @@ a {
  .collectionPrdt .soldBtn{
     background-color: grey;
     border: 1px solid grey;
+}
+
+@media screen and (max-width: 650px) {
+     .collectionPrdt {
+    padding: 0.5rem;
+  
+}
+  
 }
 
 @media (prefers-color-scheme: dark) {

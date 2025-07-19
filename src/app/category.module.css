@@ -37,8 +37,8 @@
     display: grid;
     grid-template-columns: 1fr;
 margin-bottom: 35px;
-padding: 5px;
-border-radius: 5px;
+border-radius: 10px;
+    padding: 1rem;
 background-color: white;
 text-align: center;
 transition: all 0.3s ease-in-out;
@@ -52,6 +52,7 @@ box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     width: 100%;
     aspect-ratio: 1/1;
     margin-right: 10px;
+    border-radius: 10px;
 }
 .category .categoryList .cate .info{
     padding: 1rem;
@@ -80,7 +81,8 @@ box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     background-color: black;
     color: white;
     border: none;
-    padding: 8px 20px;
+    padding: 12px 20px;
+    border-radius: 10px;
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;

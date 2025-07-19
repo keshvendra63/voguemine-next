@@ -188,7 +188,8 @@ height={270}
   <li
     key={index}
     style={{
-      display:variant.quantity === 0 ? "none" : "block",
+      opacity:variant.quantity === 0 ? "0.3" : "1",
+      textDecoration:variant.quantity === 0 ? "line-through" : "none",
       textDecorationThickness: variant.quantity === 0 ? '1px' : 'auto',
       pointerEvents: variant.quantity === 0 ? 'none' : 'auto', // Disable pointer events if quantity is 0
       color:cartSize.trim()===(variant?.size).trim()?"black":"black",border:cartSize.trim()===(variant?.size).trim()?"1px solid black":"1px solid rgb(202, 202, 202)"
