@@ -120,7 +120,11 @@ var productSchema = new mongoose.Schema(
     isSale:{
       type:Boolean,
       default:false,
-    }
+    },
+    isWatchProduct:{
+      type:Boolean,
+      default:false,
+    },
     
   },
   {

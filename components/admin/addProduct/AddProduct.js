@@ -53,9 +53,8 @@ const [metaTitle1,setmetaTitle1]=useState("")
 const [metaDesc4,setmetaDesc4]=useState("")
 const [metaTitle4,setmetaTitle4]=useState("")
 const [sold,setsold]=useState("")
-  const [user,setUser]=useState("")
 const [isWatchProduct, setIsWatchProduct] = useState(false);
-
+  const [user,setUser]=useState("")
   useEffect(()=>{
     const user=JSON.parse(localStorage.getItem("user")) || ""
 setUser(user)
@@ -207,6 +206,7 @@ setUser(user)
     setproductRatings(product?.ratings || [])
     setproductToatlRatings(product?.totalrating || 0)
     updateEditorState(product?.description);
+    setIsWatchProduct(product?.isWatchProduct || false)
     img.push(product?.images)
     
           } else {
@@ -248,6 +248,7 @@ setUser(user)
   setproductImages([])
   setproductToatlRatings(0)
   setIsFeatured("false")
+  setIsWatchProduct(false)
     }
   }, [getProductId]);
 
@@ -506,6 +507,7 @@ const deletedProduct=async()=>{
             metaTitle1:`${metaTitle1}-1`,
             metaDesc4:`${metaDesc4}-1`,
             metaTitle4:`${metaTitle4}-1`,
+            isWatchProduct:isWatchProduct,
           }),
       })
         if(response.ok){
@@ -860,7 +862,7 @@ const handleUploadSuccess = (result) => {
                   value={formik.values.metaDesc} />
               </div>
             </div>
-            <div className={styles.metaDetails}>
+            {/* <div className={styles.metaDetails}>
               <p>Rampvalk Information</p>
             <div className={styles.title}>
                 <p>Meta Title</p>
@@ -899,7 +901,7 @@ const handleUploadSuccess = (result) => {
                   value={formik.values.metaDesc4} />
               </div>
              
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="submit">
