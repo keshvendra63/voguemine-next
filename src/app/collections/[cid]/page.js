@@ -12,11 +12,11 @@ export async function generateMetadata({ params }) {
     if (data.success) {
       return {
         title: data?.collection?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
-        description: data?.collection?.metaDesc || "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+        description: data?.collection?.metaDesc || "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
         keywords: [data?.collection?.title, data?.collection?.category],
         openGraph: {
           title: data?.collection?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
-          description: data?.collection?.metaDesc || "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+          description: data?.collection?.metaDesc || "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
           url: `https://voguemine.com/collections/${cid}`,
           images: data?.collection?.images[0]?.url || [],
         },
@@ -33,21 +33,18 @@ export async function generateMetadata({ params }) {
           shortcut: "https://voguemine.com/favicon.ico",
         },
         other: {
-          // Add custom meta tags here
           "title": data?.collection?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle"
         },
       };
     }
   } catch (error) {
     console.error("Error fetching metadata:", error.message);
-    
-
   }
 
   return {
     title: "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
     description:
-      "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+      "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
     keywords: ["Men's Loafers", "Premium Shoes", "Voguemine"],
     robots: {
       index: true,
@@ -61,20 +58,17 @@ export async function generateMetadata({ params }) {
 
 // Page component
 const Page = async ({ params, searchParams }) => {
-  const { cid } =await params;
-  const {page,sort,color,brand,size}=await searchParams
-  // const page = searchParams?.page || 1;
-  // const sort = searchParams?.sort || "";
-  // const color = searchParams?.color || "";
-  // const brand = searchParams?.brand || "";
-  // const size = searchParams?.size || "";
+  const { cid } = await params;
+  const { page, sort, color, brand, size } = await searchParams;
 
   let prdtData = null;
+  let filterData = null;
   let noPrdt = false;
 
   try {
+    // Build product URL
     const productUrl = new URL(`${process.env.API_PORT}products`);
-    productUrl.searchParams.append("page", page);
+    productUrl.searchParams.append("page", page || 1);
     productUrl.searchParams.append("collectionHandle", cid);
     productUrl.searchParams.append("state", "active");
     if (size) productUrl.searchParams.append("size", size);
@@ -82,22 +76,42 @@ const Page = async ({ params, searchParams }) => {
     if (color) productUrl.searchParams.append("color", color);
     if (brand) productUrl.searchParams.append("brand", brand);
 
-    const productResponse = await fetch(productUrl);
-    const productData = await productResponse.json();
+    // Build filter URL
+    const filterUrl = `${process.env.API_PORT}filter?collectionHandle=${cid}`;
 
+    // Fetch both APIs concurrently using Promise.all
+    const [productResponse, filterResponse] = await Promise.all([
+      fetch(productUrl),
+      fetch(filterUrl)
+    ]);
+
+    // Parse both responses concurrently
+    const [productData, filterDataResponse] = await Promise.all([
+      productResponse.json(),
+      filterResponse.json()
+    ]);
+
+    // Process product data
     if (productData.success) {
       prdtData = productData;
     } else {
       console.log("Error fetching products");
-      
-    noPrdt = true;
-
+      noPrdt = true;
     }
+
+    // Process filter data
+    if (filterDataResponse.success) {
+      filterData = filterDataResponse;
+    } else {
+      console.log("Error fetching filter data");
+      // Don't set noPrdt = true for filter failure, products can still work
+    }
+
   } catch (error) {
     console.log("Error fetching data:", error.message);
-    
-
+    noPrdt = true;
   }
+
   return (
     <>
       {noPrdt ? (
@@ -129,7 +143,7 @@ const Page = async ({ params, searchParams }) => {
           </Link>
         </div>
       ) : (
-        <Products data={prdtData} />
+        <Products data={prdtData} initialFilterData={filterData} />
       )}
     </>
   );

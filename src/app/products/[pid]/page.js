@@ -11,11 +11,11 @@ export async function generateMetadata({ params }) {
     if (data.success) {
       return {
         title: data?.product[0]?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
-        description: data?.product[0]?.metaDesc || "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+        description: data?.product[0]?.metaDesc || "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
         keywords: ["Voguemine",data?.product[0]?.title,data?.product[0]?.category,data?.product[0]?.brand,data?.product[0]?.collectionName],
         openGraph: {
           title: data?.product[0]?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
-          description: data?.product[0]?.metaDesc || "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+          description: data?.product[0]?.metaDesc || "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
           url: `https://voguemine.com/products/${pid}`,
           images: data?.product[0]?.images[0]?.url || [],
         },
@@ -27,12 +27,11 @@ export async function generateMetadata({ params }) {
           follow: true,
         },
         icons: {
-          icon: "https://voguemine.com/favicon-32x32.png", // Default favicon
-          apple: "https://voguemine.com/apple-touch-icon.png", // Apple Touch Icon
-          shortcut: "https://voguemine.com/favicon.ico", // Shortcut Icon
+          icon: "https://voguemine.com/favicon-32x32.png",
+          apple: "https://voguemine.com/apple-touch-icon.png",
+          shortcut: "https://voguemine.com/favicon.ico",
         },
         other: {
-          // Add custom meta tags here
           "title": data?.product[0]?.metaTitle || "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle"
         },
       };
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }) {
   // Fallback metadata
   return {
     title: "Vogue Mine | Online Shopping for Women, Men, Kids Lifestyle",
-    description: "Explore the stylish collection of men’s fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
+    description: "Explore the stylish collection of men's fashion at Voguemine. From trendy outfits to classic essentials, find premium-quality clothing and accessories tailored for the modern man. Shop now!",
     keywords: ["Men's Loafers", "Premium Shoes", "Voguemine"],
     robots: {
       index: true,
@@ -63,30 +62,29 @@ const page = async ({ params }) => {
   let noPrdt = false;
 
   try {
-    const response = await fetch(
+    // Fetch single product first to get collectionHandle
+    const productResponse = await fetch(
       `${process.env.API_PORT}products/single-product?productHandle=${pid}`
     );
-    const data = await response.json();
-    if (data.success && data.product[0]) {
-      product = data.product[0];
-    } else {
-      
-
-      noPrdt = true;
-    }
-  } catch (error) {
-    console.error("Error fetching product:", error.message);
+    const productData = await productResponse.json();
     
-
-    noPrdt = true;
-  }
-try {
-    const response = await fetch(
-      `${process.env.API_PORT}products/single-page-products?collectionHandle=${product?.collectionHandle}`
-    );
-    const data = await response.json();
-    if (data.success && data.products) {
-      products = data?.products;
+    if (productData.success && productData.product[0]) {
+      product = productData.product[0];
+      
+      // Now fetch related products using the collectionHandle
+      try {
+        const relatedProductsResponse = await fetch(
+          `${process.env.API_PORT}products/single-page-products?collectionHandle=${product.collectionHandle}`
+        );
+        const relatedProductsData = await relatedProductsResponse.json();
+        
+        if (relatedProductsData.success && relatedProductsData.products) {
+          products = relatedProductsData.products;
+        }
+      } catch (error) {
+        console.error("Error fetching related products:", error.message);
+        // Don't set noPrdt = true here, we still have the main product
+      }
     } else {
       noPrdt = true;
     }
@@ -94,6 +92,7 @@ try {
     console.error("Error fetching product:", error.message);
     noPrdt = true;
   }
+
   return (
     <>
       {noPrdt ? (
@@ -125,7 +124,7 @@ try {
           </Link>
         </div>
       ) : (
-        <SingleProduct product={product} products={products}/>
+        <SingleProduct product={product} products={products} />
       )}
     </>
   );
