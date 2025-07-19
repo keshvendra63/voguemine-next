@@ -78,7 +78,6 @@
   gap: 10px;
 }
 
-
 .usersContainer .export {
   display: flex;
   align-items: center;
@@ -90,4 +89,11 @@
 .usersContainer .export input{
   width:100px;
   height: 25px;
+}
+.usersContainer .filterToggle{
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap-reverse;
 }
