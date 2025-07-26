@@ -3,7 +3,6 @@
   padding: 20px;
   background: #f8fafc;
   min-height: 100vh;
-  overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -301,7 +300,7 @@
 .ordersWidget {
   background: white;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
 }
@@ -322,7 +321,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
 .table th {
@@ -474,7 +473,7 @@
   
   .table th,
   .table td {
-    padding: 0.75rem 0.5rem;
+    padding: 0.75rem 5px;
   }
 }
 
