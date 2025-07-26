@@ -447,6 +447,7 @@ display: none;
     cursor: pointer;
     background-color: #1156eb;
     color: white;
+    font-size: 15px;
 
 }
 .orders .down div input{
