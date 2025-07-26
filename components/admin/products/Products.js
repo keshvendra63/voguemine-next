@@ -296,7 +296,7 @@ const Products = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              title: `Copy ${index + 1} of - ${item?.title}`,
+              title: item?.title,
               tags: item?.tags,
               state: "draft",
               handle: `${item?.handle}-copy-${index + 1}`,
@@ -310,12 +310,13 @@ const Products = () => {
               collectionName: item?.collectionName,
               collectionHandle: item?.collectionHandle,
               variants: item?.variants,
-              metaDesc: `${item?.metaDesc}-${index + 1}`,
-              metaTitle: `${item?.metaTitle}-${index + 1}`,
-              metaDesc1: `${item?.metaDesc1}-${index + 1}`,
-              metaTitle1: `${item?.metaTitle1}-${index + 1}`,
-              metaDesc4: `${item?.metaDesc4}-${index + 1}`,
-              metaTitle4: `${item?.metaTitle4}-${index + 1}`,
+              metaDesc: item?.metaDesc,
+              metaTitle: item?.metaTitle,
+              metaDesc1: item?.metaDesc1,
+              metaTitle1: item?.metaTitle1,
+              metaDesc4: item?.metaDesc4,
+              metaTitle4: item?.metaTitle4,
+              isWatchProduct: item?.isWatchProduct || false
             }),
           });
 
