@@ -23,7 +23,30 @@ const Products = ({ data, initialFilterData }) => {
   const [isBrandOpen, setIsBrandOpen] = useState(false);
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isSizeOpen, setIsSizeOpen] = useState(false);
-  const colors = ["white", "black", "red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "grey", "cream", "wine", "sky blue"];
+  const colors = [
+    { name: "Beige", code: "#E3D4AD" },
+    { name: "Black", code: "#000000" },
+    { name: "Blue", code: "#00BCE3" },
+    { name: "Brown", code: "#623412" },
+    { name: "Cream", code: "#FEFBEA" },
+    { name: "Gold", code: "#E0A526" },
+    { name: "Green", code: "#009A17" },
+    { name: "Grey", code: "#ABAEB0" },
+    { name: "Maroon", code: "#862633" },
+    { name: "Neon", code: "#08FF08" },
+    { name: "Orange", code: "#ED8B00" },
+    { name: "Peach", code: "#FFCBA4" },
+    { name: "Pink", code: "#ffc1cc" },
+    { name: "Purple", code: "#AC4FC6" },
+    { name: "Red", code: "#E10600" },
+    { name: "Silver", code: "#bec3c6" },
+    { name: "White", code: "#ffffff" },
+    { name: "Wine", code: "#9B2242" },
+    { name: "Yellow", code: "#FFE900" },
+    { name: "Multi", code: "linear-gradient(45deg, red, yellow, blue)" }, // or leave empty and use text
+
+  ];
+
   const [progress, setProgress] = useState(0);
 
   const page = parseInt(searchParams.get("page") || "1");
@@ -135,7 +158,7 @@ const Products = ({ data, initialFilterData }) => {
             </select>
           </div>
           <p className={styles.sortName}>Filter By</p>
-          
+
           {/* Brand Filter */}
           <div className={styles.chooseBrand}>
             <div>
@@ -196,14 +219,15 @@ const Products = ({ data, initialFilterData }) => {
             </div>
             <ul style={{ overflow: 'hidden', height: isColorOpen ? "100%" : "0" }}>
               {colors?.map((item, index) => (
+                <abbr title={item.name}>
                 <li
                   key={index}
-                  onClick={() => toggleColor(item)}
+                  onClick={() => toggleColor(item.name)}
                   style={{
                     width: "45px",
                     height: "45px",
                     borderRadius: "50%",
-                    border: color === item ? "1px solid black" : "1px solid rgba(224, 224, 224, 0.78)",
+                    border: color === item.name ? "1px solid black" : "1px solid rgba(224, 224, 224, 0.78)",
                     padding: '2px',
                     display: "flex",
                     justifyContent: 'center',
@@ -211,17 +235,21 @@ const Products = ({ data, initialFilterData }) => {
                     cursor: "pointer"
                   }}
                 >
-                  <li style={{
-                    backgroundColor: item === "cream" ? "#fff1ca" : item === "wine" ? "#80013f" : item === "sky blue" ? "#6fe6fc" : item,
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "50%",
-                    padding: 0,
-                    border: "none"
-                  }}></li>
+                  <li
+                    style={{
+                      background: item.name === "Multi" ? item.code : item.code,
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                      padding: 0,
+                      border: item.name === "White" ? "1px solid #ccc" : "none",
+                    }}
+                  ></li>
                 </li>
+                </abbr>
               ))}
             </ul>
+
           </div>
         </div>
 
