@@ -13,6 +13,8 @@ import toast from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
 import EditOrder from './EditOrder';
 import CreateOrder from './CreateOrder';
+import { IoMdDownload } from "react-icons/io";
+
 const Orders = (props) => {
   const [progress, setProgress] = useState(0); // Progress state for LoadingBar
   const [user,setUser] =useState({})
@@ -309,7 +311,7 @@ const exportToExcel = () => {
             value={numOrders}
             onChange={e => setNumOrders(e.target.value)}
           />
-          <button onClick={exportToExcel}>Export</button>
+          <button onClick={exportToExcel}><IoMdDownload/></button>
 </div>
         </div>
 
