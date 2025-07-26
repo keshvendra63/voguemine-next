@@ -59,7 +59,7 @@ export async function PUT(req){
       
       }
       else{
-        sendVariableMessage({
+        await sendVariableMessage({
               from: process.env.WHATSAPP_NUMBER,
               to: `91${phone}`,
               journeyId: process.env.WHATSAPP_JOURNEY_ID,

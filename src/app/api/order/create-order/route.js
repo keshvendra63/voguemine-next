@@ -355,9 +355,9 @@ export async function POST(req,res){
     await processOrder(orderItems);
 
     // Schedule a message after 3 hours
-     setTimeout(() => {
+     setTimeout(async () => {
        msgAfter3hour(shippingInfo.firstname, order.orderNumber, shippingInfo.email);
-       sendVariableMessage({
+       await sendVariableMessage({
         from: process.env.WHATSAPP_NUMBER,
         to: `91${shippingInfo.phone}`,
         journeyId: process.env.WHATSAPP_JOURNEY_ID,

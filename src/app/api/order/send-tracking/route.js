@@ -75,7 +75,7 @@ export async function PUT(req){
         new: true,
       });
       if(updatedOrder){
-        sendVariableMessage({
+        await sendVariableMessage({
         from: process.env.WHATSAPP_NUMBER,
         to: `91${phone}`,
         journeyId: process.env.WHATSAPP_JOURNEY_ID,
