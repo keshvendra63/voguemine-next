@@ -12,6 +12,7 @@
 }
 .admin .bell{
     position: relative;
+    color: #1156eb;
 }
 .admin .bell span{
     position: absolute;
@@ -19,8 +20,8 @@
     right: -4px;
     width: 17px;
     height: 17px;
-    background-color: black;
-    color: white;
+    background-color: rgb(255, 205, 205);
+    color: #eb1111;
     border-radius: 50%;
     font-weight: 500;
     display: flex;
@@ -88,7 +89,8 @@
     justify-content: space-between;
     align-items: center;
     height: 45px;
-    padding: 0 2rem;
+    padding: 0 10px;
+    gap: 10px;
     border-bottom: 1px solid rgb(215, 215, 215);
 }
 .admin .adminBody .overlay{
@@ -117,11 +119,15 @@
     width: 260px;
 }
 .admin .adminBody .adminLeft .adminMenu ul li{
-margin-bottom: 3vh;
+margin-bottom: 2vh;
 font-size: 18px;
-font-weight: 600;
+padding: 8px;
+font-weight: 500;
 cursor: pointer;
-color: black;
+color: #1156eb;
+letter-spacing: 1px;
+border-radius: 5px;
+background-color: #e6eeff;
 }
 .admin .adminBody .adminLeft .adminMenu ul li:hover{
     color: black;
@@ -136,25 +142,39 @@ color: black;
 .admin .adminBody .adminLeft .adminMenu ul li ul li{
     font-size: 14px;
     margin-bottom: 15px;
+    width: 70%;
+    background-color: white;
 }
 .admin .adminBody .adminLeft .adminMenu ul li ul li:hover{
     color: blue;
 }
+.admin .adminBody .adminLeft .logout{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
 .admin .adminBody .adminLeft button{
     border: none;
-    padding: 5px 10px;
-    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 13px;
     color: white;
-    background-color: black;
+    background-color: #1156eb;
     cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 500;
 }
 .admin .adminBody .adminLeft .search{
-    width: 40vw;
+    width: 41%;
     display: flex;
     align-items: center;
     height: 35px;
-    border: 1px solid black;
+    border: 1px solid rgb(18, 62, 255);
+    border-radius: 10px;
     position: relative;
+    overflow: hidden;
 }
 .admin .adminBody .adminLeft .search input{
     width: 100%;
@@ -172,7 +192,7 @@ color: black;
     margin-left: 5px;
     border: none;
     cursor: pointer;
-    background-color: black;
+    background-color: #1156eb;
     color: white;
     font-size: 20px;
     display: flex;

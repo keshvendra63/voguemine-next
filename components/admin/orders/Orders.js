@@ -296,13 +296,13 @@ const exportToExcel = () => {
   </div>
   </div>
       <div className={styles.head}>
-        <p className={styles.heading}>Orders(&#8377;<span>{Math.floor(props?.income)}</span>)</p>
+        <p className={styles.heading}><span>Orders</span><span>&#8377;{Math.floor(props?.income)}</span></p>
         <div className={`${styles.searchs} ${styles.search1}`}>
           <input type="search" name="" id="" placeholder='Search For Orders' onChange={(e) => setSearchValue(e.target.value)} />
           <p onClick={fetchSearch}>       <IoIosSearch />
           </p>        </div>
         <div className={styles.down}>
-          <button className={styles.btn} onClick={addOrder}>Create Order</button>
+          <button className={styles.btn} onClick={addOrder}>&#43; Order</button>
           <div>
 <input
             type="number"
@@ -333,7 +333,9 @@ const exportToExcel = () => {
         {
           orderState?.slice()?.reverse()?.map((item, index) => {
             return <div className={styles.prdtOrders} key={index}>
-            <Image onClick={(e)=>openOrder(item?._id)} src={modifyCloudinaryUrl(item?.orderItems[0]?.product?.images && item?.orderItems[0]?.product?.images[0]?.url)} alt={item?.orderNumber} width={250} height={200} style={{height:"100%",cursor:"pointer"}} />
+            <div onClick={(e)=>openOrder(item?._id)} className={styles.orderImg}>
+              <Image  src={modifyCloudinaryUrl(item?.orderItems[0]?.product?.images && item?.orderItems[0]?.product?.images[0]?.url)} alt={item?.orderNumber} width={250} height={200}/>
+            </div>
           <p className={styles.number}><span>#{item?.orderNumber}</span><span style={{ display: "flex", width: '10px', height: '10px', backgroundColor: 'green', borderRadius: '50%', marginLeft: '7px' }}></span></p>
           <div className={styles.customerInfo}>
               <p className={styles.name}>{item?.shippingInfo?.firstname} {item?.shippingInfo?.lastname}</p>
@@ -341,7 +343,7 @@ const exportToExcel = () => {
               <p className={styles.address}>{item?.shippingInfo?.state}</p>
               <p className={styles.phone}>+91 {item?.shippingInfo?.phone}</p>
           </div>
-          <p className={styles.status}><span style={{color:item?.orderType === "COD" ? "yellow" : item?.orderType === "Cancelled" ? "red" : "green"}}>{item?.orderType}</span><span>{item?.orderStatus}</span></p>
+          <p className={styles.status}><span className={`${styles.state} ${item?.orderType === "COD" ? styles.cod : item?.orderType === "Cancelled" ? styles.cancel : styles.paid}`}>{item?.orderType}</span><span>{item?.orderStatus}</span></p>
           <p className={styles.amount}><span>&#8377;{item?.finalAmount}</span><span>{item?.orderItems?.length} Items</span></p>
           <p className={styles.time}>{new Date(item?.createdAt).toLocaleString('en-GB', { hour12: true })}</p>
             <div className={styles.marks}>
@@ -394,14 +396,14 @@ const exportToExcel = () => {
 
 
       <div className={styles.paginate}>
-        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgb(190, 190, 190)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
+        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgba(219, 224, 255, 1)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
           Prev
         </button>
         <p>{page}</p>
         <button
           onClick={nextPage}
           disabled={orderState?.length < 50 ? true : false}
-          style={{ backgroundColor: orderState?.length < 50 ? 'rgb(190, 190, 190)' : '', cursor: orderState?.length < 50 ? 'context-menu' : '' }}
+          style={{ backgroundColor: orderState?.length < 50 ? 'rgb(219, 224, 255), 1' : '', cursor: orderState?.length < 50 ? 'context-menu' : '' }}
         >
           Next
         </button>

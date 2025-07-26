@@ -1,6 +1,7 @@
 .scrollWrapper {
   overflow-x: auto;
   width: 100%;
+  min-height: 80vh;
 }
 .prdtTable {
   width: 100%;
@@ -17,7 +18,8 @@
 
 .prdtTable ul {
   display: grid;
-  grid-template-columns: 1.2fr 1.2fr 2.5fr 1.5fr 1.2fr 1.5fr 1fr;
+  grid-template-columns: 0.7fr 1fr 2fr 1.5fr 1.2fr 1.5fr 1fr;
+  grid-gap:10px;
   background-color: #f9fafb;
   padding: 16px;
   font-weight: 600;
@@ -28,7 +30,8 @@
 
 .prdtOrders {
   display: grid;
-  grid-template-columns: 1.2fr 1.2fr 2.5fr 1.5fr 1.2fr 1.5fr 1fr;
+  grid-template-columns: 0.7fr 1fr 2fr 1.5fr 1.2fr 1.5fr 1fr;
+  grid-gap:10px;
   align-items: center;
   padding: 16px;
   border-bottom: 1px solid #e5e7eb;
@@ -39,12 +42,20 @@
 .prdtOrders:hover {
   background-color: #f3f4f6;
 }
+.prdtOrders .orderImg {
+    cursor: pointer;
+    width: 100%;
+    max-width: 80px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+
+}
 
 .prdtOrders img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1/1;
 }
 
 .number {
@@ -140,17 +151,17 @@
 }
 
 /* Badge Colors */
-.status span:contains("Cancelled") {
+.status span.cancel {
   background-color: #fecaca;
   color: #b91c1c;
 }
 
-.status span:contains("Prepaid") {
+.status span.paid{
   background-color: #d1fae5;
   color: #065f46;
 }
 
-.status span:contains("COD") {
+.status span.cod {
   background-color: #fef3c7;
   color: #92400e;
 }
@@ -274,15 +285,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid gray;
-    padding: 5px 0;
+    border-bottom: 1px solid rgb(194, 194, 194);
+    padding: 10px 0;
 }
 .orders .head .heading{
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 5px;
-    color: black;
+    color: rgb(44, 44, 44);
+    display: flex;
+    align-items: center;
+}
+.orders .head .heading span:nth-child(2){
+    margin-left: 5px;
+    font-size: 13px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #dcefff;
+    color: #1156eb;
 }
 .singleAban button{
     background-color: black;
@@ -367,70 +388,70 @@
     border-radius: 5px;
 }
 .orders .searchs{
-    border: 1px solid gray;
+    border: 1px solid rgb(18, 62, 255);
     z-index: 0;
+    border-radius: 10px;
 }
 .orders .searchs p{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 5px;
+    padding: 0 10px;
     cursor: pointer;
+    background-color: #1156eb;
     color: white;
+    height: 35px;
+    font-size: 25px;
+    border-radius: 0 8px 8px 0;
 }
 .orders .search1{
-width: 50%;
+width: 40%;
 display: flex;
 align-items: center;
-background-color: black;
 z-index: 0;
 
 
 }
 .orders .search2{
     margin-top: 10px;
-    width: 97%;
+    width: 100%;
     display: flex;
 align-items: center;
-background-color: black;
 display: none;
 
 
 }
 .orders .searchs input{
-    background-color: rgb(229, 229, 229);
+    background-color: white;
     color: black;
     z-index: 0;
     width: 100%;
+    border-radius: 9px 0 0 9px;
+    border: none;
+    padding: 10px 8px;
 }
 
-.orders .searchs input{
-    padding: 8px;
-    width: 100%;
-    background-color: white;
-    border: none;
-}
 .orders .down{
     display: flex;
     align-items: center;
 }
 .orders .down div{
     margin-left: 10px;
-    border: 1px solid grey;
+    border: 1px solid #1156eb;
+    border-radius: 5px;
 }
-.orders .down div button{
-    border-radius: 0;
-    padding:5px;
+.orders .down button{
+    border-radius: 5px;
+    padding:8px 10px;
     border: none;
     cursor: pointer;
-    background-color: black;
+    background-color: #1156eb;
     color: white;
-    border: none;
 
 }
 .orders .down div input{
     width: 50px;
-    padding: 0;
+    padding-left: 5px;
     border: none;
     outline: none;
     border: none;
@@ -552,13 +573,14 @@ color: green;
     margin: 30px 0;
 }
 .orders .paginate button{
-    width: 70px;
+    border-radius: 5px;
+    padding:8px 10px;
     border: none;
-    background-color: black;
-    color: white;
-    padding: 5px 0;
-    font-size: 16px;
     cursor: pointer;
+    background-color: #1156eb;
+    color: white;
+    width: 70px;
+    font-size: 16px;
 }
 .orders .paginate p{
     display: flex;
@@ -567,7 +589,7 @@ color: green;
     margin: 0 15px;
     width: 30px;
     height: 30px;
-    border: 1px solid rgb(171, 171, 171);
+    border: 1px solid rgb(214, 227, 255);
     border-radius: 50%;
 
 }
@@ -1343,7 +1365,7 @@ color: green;
 }
 @media screen and (max-width:650px) {
 .orders .head{
-    flex-direction: column;
+    /* flex-direction: column; */
 }
     .orders .productTable{
         padding: 5px 0;

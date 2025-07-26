@@ -308,9 +308,11 @@ useEffect(()=>{
                            
                         </div>
                     </div>
+                    <div className={styles.logout}>
 <p className={styles.bell}><FaBell/><span>{todayDataState && todayDataState[0]?.totalCount}</span></p>
 
                     <button onClick={logoutClick}>Logout</button>
+                    </div>
 
                 <div className={styles.adminMenu} style={{left:ham?0:"-100%"}}>
                     <ul>

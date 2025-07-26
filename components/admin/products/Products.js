@@ -262,29 +262,6 @@ const Products = () => {
       if (data.status === 200) {
         createHistory({ name: user?.firstname, title: item?.title, sku: item?.sku, productchange: "Delete the Product", time: new Date() })
         toast.success("Product Deleted Successfully")
-        const getProducts = async () => {
-              try {
-                const response = await fetch(`/api/products?page=${page}&state=${state}&limit=100`)
-                const data = await response.json()
-                if (response.ok) {
-                  setCachedProducts(data);
-                  setproductState(data.products)
-                  setproductState1(data)
-                }
-                else {
-                  console.log("Unable to fetch orders")
-
-
-                }
-              }
-              catch (err) {
-                console.log(err)
-
-
-              }
-            }
-
-            getProducts()
 
       }
       else {
@@ -319,7 +296,7 @@ const Products = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              title: item?.title,
+              title: `Copy ${index + 1} of - ${item?.title}`,
               tags: item?.tags,
               state: "draft",
               handle: `${item?.handle}-copy-${index + 1}`,
@@ -328,17 +305,17 @@ const Products = () => {
               price1: item?.price1,
               category: item?.category,
               brand: item?.brand,
-              sku: item?.sku,
+              sku: `${item?.sku}-copy-${index + 1}`,
               images: item?.images,
               collectionName: item?.collectionName,
               collectionHandle: item?.collectionHandle,
               variants: item?.variants,
-              metaDesc: item?.metaDesc,
-              metaTitle: item?.metaTitle,
-              metaDesc1: item?.metaDesc1,
-              metaTitle1: item?.metaTitle1,
-              metaDesc4: item?.metaDesc4,
-              metaTitle4: item?.metaTitle4,
+              metaDesc: `${item?.metaDesc}-${index + 1}`,
+              metaTitle: `${item?.metaTitle}-${index + 1}`,
+              metaDesc1: `${item?.metaDesc1}-${index + 1}`,
+              metaTitle1: `${item?.metaTitle1}-${index + 1}`,
+              metaDesc4: `${item?.metaDesc4}-${index + 1}`,
+              metaTitle4: `${item?.metaTitle4}-${index + 1}`,
             }),
           });
 
@@ -421,20 +398,35 @@ const Products = () => {
       </div>
       <div className={styles.head}>
         <p className={styles.heading}>Products</p>
-        <button className={styles.btn} onClick={addProduct}>Add Product</button>
-      </div>
-      <div className={styles.filter}>
-        <button onClick={() => updateURL({ page, state: 'draft' })}>Draft</button>
-        <button onClick={() => updateURL({ page, state: 'active' })}>Active</button>
-        <button onClick={() => updateURL({ page, state: 'inactive' })}>Inactive</button>
-        <button onClick={clearFilter}>Clear Filter</button>
-        <select name="" id="" value={cvalue} onChange={(e) => fetchcl(e)}>
-          {
-            collectionState && collectionState?.map((item) => {
-              return <option value={item?.handle} key={item?._id}>{item?.title}</option>
-            })
-          }
-        </select>
+        <div className={styles.filter}>
+          <button className={styles.btn} onClick={addProduct}>&#43; Product</button>
+          <select
+            name="state"
+            value={state || ""}
+            onChange={(e) => {
+              const selectedValue = e.target.value;
+              if (selectedValue === "clear") {
+                clearFilter();
+              } else {
+                updateURL({ page, state: selectedValue });
+              }
+            }}
+          >
+            <option value="" disabled hidden>Select State</option>
+            <option value="draft">Draft</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="clear">Clear Filter</option>
+          </select>
+
+          <select name="" id="" value={cvalue} onChange={(e) => fetchcl(e)}>
+            {
+              collectionState && collectionState?.map((item) => {
+                return <option value={item?.handle} key={item?._id}>{item?.title}</option>
+              })
+            }
+          </select>
+        </div>
       </div>
       <div className={styles.productTable}>
         {(cachedProducts || productState1)?.products?.map((item, index) => {
@@ -447,14 +439,11 @@ const Products = () => {
                 <div className={styles.prdtDelete}>
                   <p onClick={() => deleteProduct(item)}><abbr title='Delete'><CiTrash /></abbr></p>
                   <p onClick={() => duplicateProduct(item)}><abbr title='Duplicate'><IoDuplicateOutline /></abbr></p>
+                  <abbr title={item?.state}><p className={styles.state} style={{ backgroundColor: item?.state === 'active' ? '#28ae2e' : '#ff3f3f' }}></p></abbr>
                 </div>
               </div>
               <p className={styles.title} onClick={(e) => openPrdt(item?._id)}>{item?.title}</p>
               <p className={styles.sku} onClick={(e) => openPrdt(item?._id)}>{item?.sku}</p>
-              <p className={styles.sku} style={{ color: "black", marginTop: '5px' }} onClick={(e) => openPrdt(item?._id)}>{item?.isSale ? "In Sale" : "Not Sale"}</p>
-              <p className={styles.state} onClick={(e) => openPrdt(item?._id)} style={{ color: item?.state === 'active' ? '#28ae2e' : '#ff3f3f' }}>
-                {item?.state}
-              </p>
               <p
                 className={styles.inventory}
                 onClick={(e) => openPrdt(item?._id)}
@@ -471,14 +460,14 @@ const Products = () => {
         })}
       </div>
       <div className={styles.paginate}>
-        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgb(190, 190, 190)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
+        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgba(219, 224, 255, 1)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
           Prev
         </button>
         <p>{page}</p>
         <button
           onClick={nextPage}
           disabled={productState?.length < 100 ? true : false}
-          style={{ backgroundColor: productState?.length < 100 ? 'rgb(190, 190, 190)' : '', cursor: productState?.length < 100 ? 'context-menu' : '' }}
+          style={{ backgroundColor: productState?.length < 100 ? 'rgba(219, 224, 255, 1)' : '', cursor: productState?.length < 100 ? 'context-menu' : '' }}
         >
           Next
         </button>

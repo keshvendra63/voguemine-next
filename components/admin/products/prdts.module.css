@@ -45,34 +45,38 @@
     letter-spacing: 1px;
     margin-bottom: 5px;
 }
+.products .head .heading{
+    font-size: 16px;
+    color: rgb(61, 61, 61);
+}
 .products .head button{
-    background-color: black;
+    background-color: #1156eb;
     color: white;
-    left: 1px;
-    font-size: 17px;
+    font-size: 12px;
     font-weight: 500;
-    padding: 6px 15px;
+    padding: 8px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
+    letter-spacing: 1px;
+}
+.products .filter{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.products .filter button{
-    margin-top: 10px;
-    border: none;
-    background-color: black;
-    color: white;
-    padding: 3px 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-right: 10px;
-    
-}
 .products .filter select{
-    padding: 3px 5px;
-    width: 150px;
-    border: 1px solid black;
-background-color: black;
-color: white;
+    padding: 7px 2px;
+    width: 100px;
+    border: 1px solid #1156eb;
+background-color: white;
+border-radius: 5px;
+color: #1156eb;
+font-size: 11px;
+}
+.products .filter select::-webkit-scrollbar{
+    display: none;
 }
 
 .products .productTable{
@@ -81,10 +85,11 @@ color: white;
     margin-top: 10px;
     padding: 5px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     grid-gap: 10px;
     height: auto;
     overflow-y: scroll;
+    min-height: 80vh;
 
 }
 .products .productTable::-webkit-scrollbar{
@@ -92,10 +97,12 @@ color: white;
 }
 .products .productTable .product{
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid rgb(190, 190, 190);
     padding: 3px;
     z-index: 1;
     position: relative;
+    border-radius: 5px;
+    text-align: center;
 }
 .products .productTable .product:hover{
     box-shadow: 0 4px 8px 0 rgba(121, 121, 121, 0.2), 0 6px 20px 0 rgba(105, 105, 105, 0.19);
@@ -144,32 +151,31 @@ cursor: pointer;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 2.4em; 
+    height: 2.8em; 
     color: black;
-    font-size: 12px;
+    font-size: 11px;
 }
 .products .productTable .product .sku{
-    font-size: 11px;
+    font-size: 10px;
     font-weight: bold;
-    color: rgb(23, 49, 197);
+    color: #1156eb;
     overflow: hidden;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
 .products .productTable .product .inventory{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
+    margin-bottom: 5px;
 }
 .products .productTable .product .state{
-    font-size: 15px;
-    margin: 5px 0;
-    color: white;
-    letter-spacing: 1px;
-    width: 100px;
-    text-transform: uppercase;
-    font-weight: 600;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
 }
 .products .productTable .product .category{
-    font-size: 15px;
+    font-size: 12px;
     color: rgb(0, 0, 0);
     padding: 3px 0;
 }
@@ -180,14 +186,14 @@ cursor: pointer;
     margin: 30px 0;
 }
 .products .paginate button{
-    width: 70px;
-    border: none;
-    background-color: black;
-    color: white;
     border-radius: 5px;
-    padding: 5px 0;
-    font-size: 16px;
+    padding:8px 10px;
+    border: none;
     cursor: pointer;
+    background-color: #1156eb;
+    color: white;
+    width: 70px;
+    font-size: 16px;
 }
 .products .paginate p{
     display: flex;
@@ -196,7 +202,7 @@ cursor: pointer;
     margin: 0 15px;
     width: 30px;
     height: 30px;
-    border: 1px solid rgb(171, 171, 171);
+    border: 1px solid rgb(214, 227, 255);
     border-radius: 50%;
 
 }
@@ -204,7 +210,7 @@ cursor: pointer;
 @media screen and (max-width:1450px) {
     .products .productTable{
         padding: 5px 0;
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         grid-gap: 15px;
 
     
@@ -213,14 +219,14 @@ cursor: pointer;
 @media screen and (max-width:1250px) {
     .products .productTable{
         padding: 5px 0;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     
     }
 }
 @media screen and (max-width:950px) {
     .products .productTable{
         padding: 5px 0;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 10px;
 
     

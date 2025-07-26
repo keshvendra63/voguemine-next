@@ -172,54 +172,84 @@ const openAban=(val)=>{
         <p className={styles.heading}>Abandoneds</p>
         <p></p>
       </div>
-      <div className={styles.productTable}>
-            {
-              orderState?.slice()?.reverse()?.map((item, index)=>{
-                return <div className={styles.product} >
-                  <p className={`${styles.state} ${item?.isPartial===true?styles.paid:styles.cod}`}>{item?.isPartial===true?"Done":"NA"}</p>
-                  <div className={styles.delete}>
-                  <p onClick={()=>openAban(item?._id)}><LuView/></p>
-                    <p onClick={(e)=>deleteAban(item)}><abbr title='Delete'><MdDeleteForever/></abbr></p>
-                  </div>
-                  <div className={styles.productImg}>
-                    <Image src={modifyCloudinaryUrl(item?.orderItems[0]?.product?.images && item?.orderItems[0]?.product?.images[0]?.url)} alt={item?.orderNumber} width={250} height={200} style={{height:"100%"}} />
-                    <div className={styles.detail}>
-            <p className={styles.number}><span>Order No.</span> #{item?.orderNumber}</p>
-            <p style={{display:'flex',alignItems:'center'}}>{item?.tag} {
-              item?.orderCalled==="Called"? <span style={{display:"flex",width:'10px',height:'10px',backgroundColor:'green',borderRadius:'50%',marginLeft:'7px'}}></span> : item?.orderCalled==="notpicked"? <span style={{display:"flex",width:'10px',height:'10px',backgroundColor:'red',borderRadius:'50%',marginLeft:'7px'}}></span>:""
-            }</p>
-                  <p className={styles.time}><span>Date/Time:</span> {new Date(item?.createdAt).toLocaleString('en-GB', { hour12: true })}
+<div className={styles.scrollWrapper}>
+  <div className={styles.prdtTable}>
+    <ul>
+      <li>IMAGE</li>
+      <li>NUMBER</li>
+      <li>CALLED</li>
+      <li>STATUS</li>
+      <li>AMOUNT</li>
+      <li>DATE</li>
+      <li>ACTIONS</li>
+    </ul>
 
-</p>
-                  <p className={styles.amount}><span>Amount/Item:</span> &#8377;{item?.finalAmount} / {item?.orderItems?.length} Items</p>
-                  
+    {
+      orderState?.slice()?.reverse()?.map((item, index) => {
+        return (
+          <div className={styles.prdtOrders} key={index}>
+            <div onClick={() => openAban(item?._id)} className={styles.orderImg}>
+              <Image 
+                src={modifyCloudinaryUrl(item?.orderItems[0]?.product?.images?.[0]?.url)} 
+                alt={item?.orderNumber} 
+                width={250} 
+                height={200} 
+              />
             </div>
-                  </div>
-                  <p className={styles.name}><span>Name:</span>{item?.shippingInfo?.firstname} {item?.shippingInfo?.lastname}</p>
-                  <p className={styles.address}><span>Address:</span>{item?.shippingInfo?.city},{item?.shippingInfo?.state}</p>
-                  <p className={styles.phone}><span>Phone:</span>+91 {item?.shippingInfo?.phone}</p>
-                 
-        
-                </div>
-              })
-            }
 
+            <p className={styles.number}>
+              <span>#{item?.orderNumber}</span>
+            </p>
 
+            <div className={styles.customerInfo}>
+              <p className={styles.name}>{item?.shippingInfo?.firstname} {item?.shippingInfo?.lastname}</p>
+              <p className={styles.address}>{item?.shippingInfo?.city}</p>
+              <p className={styles.address}>{item?.shippingInfo?.state}</p>
+              <p className={styles.phone}>+91 {item?.shippingInfo?.phone}</p>
+            </div>
 
-              </div>
-      
-      
-     
+            <p className={styles.status}>
+              <span style={{ display: 'flex', alignItems: 'center' }}>
+                {item?.orderCalled === "Called" ? (
+                  <span style={{ width: '10px', height: '16px', backgroundColor: 'green', borderRadius: '50%', marginLeft: '7px' }}></span>
+                ) : item?.orderCalled === "notpicked" ? (
+                  <span style={{ width: '10px', height: '16px', backgroundColor: 'red', borderRadius: '50%', marginLeft: '7px' }}></span>
+                ) : null}
+              </span>
+            </p>
 
+            <p className={styles.amount}>
+              <span>&#8377;{item?.finalAmount}</span>
+              <span>{item?.orderItems?.length} Items</span>
+            </p>
+
+            <p className={styles.time}>
+              {new Date(item?.createdAt).toLocaleString('en-GB', { hour12: true })}
+            </p>
+
+            <div className={styles.marks}>
+              <p className={`${styles.ok} ${styles.oks}`} onClick={() => openAban(item?._id)}>
+                <abbr title='View'><LuView className={styles.ico1} /></abbr>
+              </p>
+              <p className={`${styles.ok1} ${styles.oks}`} onClick={() => deleteAban(item)}>
+                <abbr title='Delete'><MdDeleteForever className={styles.ico2} /></abbr>
+              </p>
+            </div>
+          </div>
+        )
+      })
+    }
+  </div>
+</div>
               <div className={styles.paginate}>
-        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgb(190, 190, 190)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
+        <button onClick={prevPage} disabled={page === 1 ? true : false} style={{ backgroundColor: page === 1 ? 'rgba(219, 224, 255, 1)' : '', cursor: page === 1 ? 'context-menu' : '' }}>
           Prev
         </button>
         <p>{page}</p>
         <button
           onClick={nextPage}
           disabled={orderState?.length < 50 ? true : false}
-          style={{ backgroundColor: orderState?.length < 50 ? 'rgb(190, 190, 190)' : '', cursor: orderState?.length < 50 ? 'context-menu' : '' }}
+          style={{ backgroundColor: orderState?.length < 50 ? 'rgba(219, 224, 255, 1)' : '', cursor: orderState?.length < 50 ? 'context-menu' : '' }}
         >
           Next
         </button>

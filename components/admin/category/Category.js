@@ -72,7 +72,7 @@ const Category = ({category}) => {
             </div>
             <div className={styles.categoryHead}>
                 <p>{category}</p>
-                <button onClick={newCollection}>Create Collection</button>
+                <button onClick={newCollection}>&#43; Collection</button>
             </div>
             <div className={styles.categoryBody}>
                 {
