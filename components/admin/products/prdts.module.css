@@ -153,10 +153,10 @@ cursor: pointer;
     text-overflow: ellipsis;
     height: 2.8em; 
     color: black;
-    font-size: 11px;
+    font-size: 12px;
 }
 .products .productTable .product .sku{
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bold;
     color: #1156eb;
     overflow: hidden;
