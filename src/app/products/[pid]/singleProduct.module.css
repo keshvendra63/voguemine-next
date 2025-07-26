@@ -7,17 +7,19 @@
 }
 
 .singleProduct .right h1{
-font-weight: 500;
-margin-bottom: 8px;
+font-weight: 700;
+margin-bottom: 20px;
 letter-spacing: 1px;
+line-height: 1.4;
 }
 .singleProduct .right .productBrand{
     color: var(--heading-color);
-    margin-bottom: 15px;
-    font-weight: 500;
+    margin-bottom: 12px;
+    font-weight: 600;
     letter-spacing: 1px;
     word-spacing: 5px;
     cursor: pointer;
+    text-transform: uppercase;
 }
 .singleProduct .right .stars{
     list-style: none;
@@ -27,40 +29,51 @@ letter-spacing: 1px;
 }
 .singleProduct .right .stars li{
     margin-right: 5px;
-    font-size: 23px;
-    color: gold;
+    font-size: 13px;
+    color: rgb(255, 176, 29);
+}
+.singleProduct .right .stars li:last-child {
+  color: black;
+  font-size: 15px;
+  margin-left: 10px;
 }
 .singleProduct .right .prices{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .singleProduct .right .prices p:nth-child(1){
     color: var(--heading-color);
-    font-weight: 600;
-    font-size: 30px;
+    font-weight: 700;
+    font-size: 37px;
     margin-right: 20px;
 }
 .singleProduct .right .prices p:nth-child(2){
     text-decoration: line-through;
     color: gray;
-    font-weight: 500;
-}
-.singleProduct .right .prices p:nth-child(3){
-    color: rgb(255, 76, 76);
-    font-weight: 500;
-    margin-left: 1rem;
     font-weight: 600;
 }
+.singleProduct .right .prices p:nth-child(3){
+    font-weight: 500;
+    margin-left: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    background-color: rgb(203, 255, 203);
+    color: green;
+}
 .singleProduct .right .color{
-font-weight: 600;
+font-weight: 700;
 letter-spacing: 1px;
-word-spacing: 10px;
+word-spacing: 2px;
 font-size: 14px;
 margin-bottom: 20px;
 }
 .singleProduct .right .sizeOptions{
-    margin-bottom: 30px;
+    margin-bottom: 30px !important;
+}
+.singleProduct .right .sizeOptions p{
+  margin-bottom: 8px;
 }
 .singleProduct .right .sizeOptions ul{
     display: flex;
@@ -69,18 +82,17 @@ margin-bottom: 20px;
     gap: 10px;
 }
 .singleProduct .right .sizeOptions ul li{
-    padding: 5px;
+    padding: 13px 7px;
     font-weight: 500;
     letter-spacing: 1px;
-    border-radius: 2px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-.singleProduct .right .sizeOptions .addToCartDiv{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 10px;
+.singleProduct .right .addToCartDiv{
     margin: 30px 0;
+    width: 100%;
 }
-.singleProduct .right .sizeOptions select{
+.singleProduct .right select{
     outline: none;
     padding: 10px;
     font-weight: 700;
@@ -95,16 +107,34 @@ margin-bottom: 20px;
     font-weight: 600;
     color: black;
 }
-.singleProduct .right .sizeOptions button{
+.singleProduct .right .addToCartDiv button{
     background-color: var(--heading-color);
     border: none;
     color: var(--opposite-color);
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 18px;
     transition: all 0.3s;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
 }
-.singleProduct .right .sizeOptions button:hover{
+.singleProduct .right .addToCartDiv button:hover{
+    letter-spacing: 2px;
+}
+.singleProduct .right .qtyWrapper button{
+    background-color: var(--heading-color);
+    border: none;
+    color: var(--opposite-color);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+}
+.singleProduct .right .qtyWrapper button:hover{
     letter-spacing: 2px;
 }
 .qtyWrapper {
@@ -252,7 +282,8 @@ margin-bottom: 20px;
     justify-content: center;
     align-items: center;
     position: relative;
-    border: 1px solid grey;
+    border: 2px solid rgb(216, 216, 216);
+    border-radius: 10px;
   }
   
   .carouselContainer {
@@ -261,6 +292,8 @@ margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 12px;
+    border-radius: 10px;
+
   }
   
   .mediaSlide {
@@ -271,6 +304,8 @@ margin-bottom: 20px;
     animation: fadeIn 0.4s ease-in-out;
     width: 100%;
     aspect-ratio: 1/1;
+    border-radius: 10px;
+
 
   }
   
@@ -281,6 +316,8 @@ margin-bottom: 20px;
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: transform 0.5s ease-in-out;
+    border-radius: 10px;
+
   }
   
   .navButton1 {
@@ -393,6 +430,9 @@ margin-bottom: 20px;
         padding: 95px 1rem;
 
     }
+    .singleProduct h1{
+      font-size: 28px;
+    }
           .relatedProducts{
 
         margin: 3rem 5px;
@@ -401,4 +441,15 @@ margin-bottom: 20px;
     grid-template-columns: 1fr;
     grid-gap:5px;
   }
+.singleProduct .right .prices p:nth-child(1){
+    font-size: 30px;
+    margin-right: 10px;
+}
+.singleProduct .right .prices p:nth-child(2){
+    font-size: 12px;
+}
+.singleProduct .right .prices p:nth-child(3){
+    margin-left: 10px;
+    font-size: 11px;
+}
 }

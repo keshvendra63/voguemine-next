@@ -321,7 +321,6 @@ const SingleProduct = ({ product, products }) => {
 
         </div>
         <div className={styles.right}>
-          <h1>{product?.title}</h1>
           <p className={styles.productBrand}>{product?.collectionName}</p>
           <ul className={styles.stars}>
             <li><IoIosStar /></li>
@@ -329,7 +328,9 @@ const SingleProduct = ({ product, products }) => {
             <li><IoIosStar /></li>
             <li><IoIosStar /></li>
             <li><IoIosStar /></li>
+            <li>5 Star</li>
           </ul>
+          <h1>{product?.title}</h1>         
           <div className={styles.prices}>
             <p>Rs. {product?.price}</p>
             <p>Rs. {originalPrice}</p>
@@ -337,13 +338,8 @@ const SingleProduct = ({ product, products }) => {
           </div>
 
           <p className={styles.color}>Color: {product?.variants[0]?.color}</p>
-          {
-            existingCart ?
-              <p style={{ marginBottom: '15px', fontWeight: 500, letterSpacing: "1px", color: "red" }}>Already In Cart</p>
-              : ""
-          }
           <div className={styles.sizeOptions}>
-            <p className={styles.color}>Size :</p>
+            <p className={styles.color}>Size</p>
             <ul>
               {product?.variants
                 .map((variant, index) => (
@@ -353,7 +349,7 @@ const SingleProduct = ({ product, products }) => {
                       display: variant.quantity === 0 ? "none" : "block",
                       textDecorationThickness: variant.quantity === 0 ? '1px' : 'auto',
                       pointerEvents: variant.quantity === 0 ? 'none' : 'auto', // Disable pointer events if quantity is 0
-                      color: size.trim() === (variant?.size).trim() ? "var(--heading-color)" : "var(--heading-color)", border: size.trim() === (variant?.size).trim() ? "1px solid var(--heading-color)" : "1px solid rgb(211, 211, 211)"
+                      color: size.trim() === (variant?.size).trim() ? "var(--opposite-color)" : "var(--heading-color)", border: size.trim() === (variant?.size).trim() ? "2px solid var(--heading-color)" : "2px solid rgb(211, 211, 211)", backgroundColor: size.trim() === (variant?.size).trim() ? "var(--heading-color)" : "var(--opposite-color)"
                     }}
                     onClick={(e) => setSize((variant?.size).trim())}
                   >
@@ -361,25 +357,9 @@ const SingleProduct = ({ product, products }) => {
                   </li>
                 ))}
             </ul>
-            {/* <FormControl>
-      <FormLabel>Size</FormLabel>
-      <RadioGroup
-        defaultValue="female"
-        name="controlled-radio-buttons-group"
-        value={size}
-        onChange={(e)=>setSize((e.target.value).trim())}
-        sx={{ my: 1 }}
-      >
-         {
-                            product?.variants?.map((item,index)=>{
-                            return <Radio key={index} value={item?.size} label={item?.size} disabled={item?.quantity>0?false:true}/>
-                            })
-                          }
-                          
-      </RadioGroup>
-    </FormControl> */}
-            <div className={styles.addToCartDiv}>
-              <div className={styles.qtyWrapper}>
+             
+          </div>
+           <div className={styles.qtyWrapper}>
                 <button
                   className={styles.qtyBtn}
                   onClick={decreaseQuantity}
@@ -395,6 +375,10 @@ const SingleProduct = ({ product, products }) => {
                 </button>
               </div>
 
+
+
+            <div className={styles.addToCartDiv}>
+
               {
                 existingCart ?
                   <button onClick={handleRemoveFromCart}>Remove From Cart</button>
@@ -402,17 +386,7 @@ const SingleProduct = ({ product, products }) => {
                   <button onClick={handleAddToCart}>Add to Cart</button>
 
               }
-
-
-              {/* {
-  existingCart && existQty >= (pquantity || 0) ? (
-    <button onClick={handleRemoveFromCart}>Remove From Cart</button>
-  ) : (
-    <button onClick={handleAddToCart}>Add to Cart</button>
-  )
-} */}
             </div>
-          </div>
           <div className={styles.offers}>
             <p><span><CiRuler /></span> <span>Size Chart</span></p>
           </div>
