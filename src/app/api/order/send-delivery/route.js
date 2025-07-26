@@ -12,7 +12,7 @@ export async function PUT(req){
         await connectDb2()
       // Await the sendEmail function
 
-      if(arriving){
+      if(!arriving){
         await sendEmail({
         to: email,
         subject: "Order Delivered: Your Order is Delivered!",
@@ -58,7 +58,6 @@ export async function PUT(req){
       });
       
       }
-      else{
         await sendVariableMessage({
               from: process.env.WHATSAPP_NUMBER,
               to: `91${phone}`,
@@ -69,7 +68,6 @@ export async function PUT(req){
                       "1": ordernumber,
               }
             });
-      }
       
       
       // Update the order status
